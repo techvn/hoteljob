@@ -25,6 +25,7 @@
     <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
     <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
     <![endif]-->
+    <script src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
 </head>
 <body>
 <!--Start Header-->

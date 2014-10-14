@@ -17,7 +17,6 @@ return array(
             'class' => 'application.components.WebApplicationEndBehavior',
         ),
     ),
-    'sourceLanguage' => 'vi',
 
     // autoloading model and component classes
     'import' => array(

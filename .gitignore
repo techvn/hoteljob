@@ -1,2 +1,2 @@
 # Ignore some files from magento source code.
-/protected/runtime/*
+protected/runtime/*

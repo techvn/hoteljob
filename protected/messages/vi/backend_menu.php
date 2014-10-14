@@ -51,5 +51,9 @@ return array(
     'Advertisement Manage' => 'Quản lý quảng cáo',
     'List Adv' => 'Danh sách',
     'Add Adv' => "Thêm mới",
-    'Curriculum Private' => "Thông tin ứng viên riêng tư"
+    'Curriculum Private' => "Thông tin ứng viên riêng tư",
+    'Member' => 'Thành viên',
+    'Create' => 'Tạo mới',
+    'List' => 'Danh sách',
+    'Edit' => 'Cập nhật'
 );

@@ -7,5 +7,8 @@
  */
 return array(
     'HotelJob' => 'HotelJob',
-    'System manager' => 'Quản trị hệ thống'
+    'Home' => 'Trang chủ',
+    'Welcome' => 'Xin chào',
+    'Profile' => 'Trang cá nhân',
+    'Logout' => 'Thoát'
 );

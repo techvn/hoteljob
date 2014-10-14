@@ -100,7 +100,10 @@
             </div>
             <div id="ajax-content">
                 <!-- Main content here -->
-                <?php echo $content; ?>
+                <div class="row">
+                    <?php echo $content; ?>
+                </div>
+
             </div>
         </div>
         <!--End Content-->

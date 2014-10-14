@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DevOOPS</title>
+    <title>CPanel - Hotel Job</title>
     <meta name="description" content="description">
-    <meta name="author" content="DevOOPS">
+    <meta name="keywords" content="Hotel job">
+    <meta name="author" content="techvn2012">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/plugins/bootstrap/bootstrap.css"
           rel="stylesheet">
     <link href="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.css"
           rel="stylesheet">
-    <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>-->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
     <link href="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/plugins/fancybox/jquery.fancybox.css"
           rel="stylesheet">
     <link href="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/plugins/fullcalendar/fullcalendar.css"
@@ -71,80 +72,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4 col-sm-8 top-panel-right">
-                        <ul class="nav navbar-nav pull-right panel-menu">
-                            <li class="hidden-xs">
-                                <a href="index.html" class="modal-link">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="badge">7</span>
-                                </a>
-                            </li>
-                            <li class="hidden-xs">
-                                <a class="ajax-link" href="ajax/calendar.html">
-                                    <i class="fa fa-calendar"></i>
-                                    <span class="badge">7</span>
-                                </a>
-                            </li>
-                            <li class="hidden-xs">
-                                <a href="ajax/page_messages.html" class="ajax-link">
-                                    <i class="fa fa-envelope"></i>
-                                    <span class="badge">7</span>
-                                </a>
-                            </li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
-                                    <div class="avatar">
-                                        <img
-                                            src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/img/avatar.jpg"
-                                            class="img-rounded" alt="avatar"/>
-                                    </div>
-                                    <i class="fa fa-angle-down pull-right"></i>
-
-                                    <div class="user-mini pull-right">
-                                        <span class="welcome">Welcome,</span>
-                                        <span>Jane Devoops</span>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user"></i>
-                                            <span class="hidden-sm text">Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="ajax/page_messages.html" class="ajax-link">
-                                            <i class="fa fa-envelope"></i>
-                                            <span class="hidden-sm text">Messages</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="ajax/gallery_simple.html" class="ajax-link">
-                                            <i class="fa fa-picture-o"></i>
-                                            <span class="hidden-sm text">Albums</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="ajax/calendar.html" class="ajax-link">
-                                            <i class="fa fa-tasks"></i>
-                                            <span class="hidden-sm text">Tasks</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-cog"></i>
-                                            <span class="hidden-sm text">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo Yii::app()->request->baseUrl ?>/backend.php?r=site/logout">
-                                            <i class="fa fa-power-off"></i>
-                                            <span class="hidden-sm text">Logout</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <?php $this->widget('application.widgets.backend.Navigator') ?>
                     </div>
                 </div>
             </div>
@@ -157,27 +85,11 @@
 <div id="main" class="container-fluid">
     <div class="row">
         <div id="sidebar-left" class="col-xs-2 col-sm-2">
-            <ul class="nav main-menu">
-                <li>
-                    <a href="ajax/dashboard.html" class="active ajax-link">
-                        <i class="fa fa-dashboard"></i>
-                        <span class="hidden-xs"><?php echo Yii::t('backend_menu', 'System manager') ?></span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fa fa-bar-chart-o"></i>
-                        <span class="hidden-xs">Charts</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="ajax-link" href="ajax/charts_xcharts.html">xCharts</a></li>
-                        <li><a class="ajax-link" href="ajax/charts_flot.html">Flot Charts</a></li>
-                        <li><a class="ajax-link" href="ajax/charts_google.html">Google Charts</a></li>
-                        <li><a class="ajax-link" href="ajax/charts_morris.html">Morris Charts</a></li>
-                        <li><a class="ajax-link" href="ajax/charts_coindesk.html">CoinDesk realtime</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <?php
+            $this->widget('application.widgets.backend.Menu', array(
+                'list' => array()
+            ));
+            ?>
         </div>
 
         <!--Start Content-->
@@ -196,7 +108,7 @@
     </div>
 </div>
 <!--End Container-->
-
+</body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!--<script src="http://code.jquery.com/jquery.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
@@ -212,5 +124,4 @@
 <script type="text/javascript">
     var base_url = '<?php echo Yii::app()->request->baseUrl; ?>';
 </script>
-</body>
 </html>

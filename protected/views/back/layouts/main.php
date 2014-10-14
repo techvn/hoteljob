@@ -26,7 +26,9 @@
     <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
     <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
     <![endif]-->
-    <script src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
 </head>
 <body>
 <!--Start Header-->
@@ -100,9 +102,7 @@
             </div>
             <div id="ajax-content">
                 <!-- Main content here -->
-                <div class="row">
-                    <?php echo $content; ?>
-                </div>
+                <?php echo $content; ?>
 
             </div>
         </div>
@@ -114,16 +114,16 @@
 </body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!--<script src="http://code.jquery.com/jquery.js"></script>-->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!--<script src="<?php /*echo Yii::app()->request->baseUrl; */?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
+<script src="<?php /*echo Yii::app()->request->baseUrl;*/ ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>-->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/bootstrap/bootstrap.min.js"></script>
-<script
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript"
     src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/tinymce.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/jquery.tinymce.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/jquery.tinymce.min.js"></script>
 <!-- All functions for this theme + document.ready processing -->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/devoops.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/devoops.js"></script>
 <script type="text/javascript">
     var base_url = '<?php echo Yii::app()->request->baseUrl; ?>';
 </script>

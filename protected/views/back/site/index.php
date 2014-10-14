@@ -14,14 +14,16 @@ $this->pageTitle = Yii::app()->name;
     }
 </style>
 
-<?php
-$this->widget('application.widgets.backend.CBreadcrumbs', array(
-    'links' => array(
-        Yii::t('backend_menu', 'Dashboard') => array('site/index'),
-        //'Edit' // Action Edit, list, view ...
-    ),
-));
-?>
+<div class="row">
+    <?php
+    $this->widget('application.widgets.backend.CBreadcrumbs', array(
+        'links' => array(
+            Yii::t('backend_menu', 'Dashboard') => array('site/index'),
+            //'Edit' // Action Edit, list, view ...
+        ),
+    ));
+    ?>
 
-<div style="width: 100%; height: 200px;"></div>
+    <div style="width: 100%; height: 200px;"></div>
+</div>
 

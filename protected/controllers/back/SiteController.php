@@ -28,7 +28,7 @@ class SiteController extends BackEndController
     public function actionIndex()
     {
         $model = new LoginForm();
-        if(count($_POST) > 0) {
+        if (count($_POST) > 0) {
             $photos = CUploadedFile::getInstancesByName('LoginForm[photos]');
             if (isset($photos) && count($photos) > 0) {
                 // go through each uploaded image
@@ -41,6 +41,13 @@ class SiteController extends BackEndController
             $file = CUploadedFile::getInstance($model, 'image');
             var_dump($file);
         }
+
+        if (Yii::app()->request->isAjaxRequest) {
+            return $this->renderPartial('index', array(
+                'model' => $model
+            ));
+        }
+
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
         $this->render('index', array(

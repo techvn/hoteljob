@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 14, 2014 at 12:21 AM
+-- Generation Time: Oct 14, 2014 at 10:12 AM
 -- Server version: 5.5.34
 -- PHP Version: 5.3.27
 
@@ -525,51 +525,6 @@ CREATE TABLE IF NOT EXISTS `tbl_security_ques` (
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tbl_jobs`
---
-ALTER TABLE `tbl_jobs`
-  ADD CONSTRAINT `fk_tbl_jobs_tbl_job_level1` FOREIGN KEY (`job_level_id`) REFERENCES `tbl_job_level` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_jobs_tbl_job_major1` FOREIGN KEY (`job_major_id`) REFERENCES `tbl_job_major` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_jobs_tbl_job_time1` FOREIGN KEY (`job_time_id`) REFERENCES `tbl_job_time` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_jobs_tbl_locations1` FOREIGN KEY (`language`) REFERENCES `tbl_locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tbl_jobs_apply`
---
-ALTER TABLE `tbl_jobs_apply`
-  ADD CONSTRAINT `fk_tbl_jobs_apply_tbl_jobs1` FOREIGN KEY (`jobs_id`) REFERENCES `tbl_jobs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_jobs_apply_tbl_members1` FOREIGN KEY (`members_id`) REFERENCES `tbl_members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tbl_jobs_comment`
---
-ALTER TABLE `tbl_jobs_comment`
-  ADD CONSTRAINT `fk_tbl_jobs_comment_tbl_jobs1` FOREIGN KEY (`jobs_id`) REFERENCES `tbl_jobs` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_jobs_comment_tbl_members1` FOREIGN KEY (`members_id`) REFERENCES `tbl_members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tbl_members_log`
---
-ALTER TABLE `tbl_members_log`
-  ADD CONSTRAINT `fk_tbl_members_log_tbl_members1` FOREIGN KEY (`members_id`) REFERENCES `tbl_members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tbl_news`
---
-ALTER TABLE `tbl_news`
-  ADD CONSTRAINT `fk_tbl_news_tbl_news_category1` FOREIGN KEY (`news_category_id`) REFERENCES `tbl_news_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `tbl_news_category`
---
-ALTER TABLE `tbl_news_category`
-  ADD CONSTRAINT `fk_tbl_news_category_tbl_members1` FOREIGN KEY (`members_id`) REFERENCES `tbl_members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

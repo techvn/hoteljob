@@ -46,11 +46,12 @@ class BaseMembers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('know_me_id, nationality', 'required'),
+			array('uname, pwd', 'required'),
 			array('gender, status, members_group_id, security_ques_id, recieve_mail, province_id, district_id, know_me_id, married, nationality', 'numerical', 'integerOnly'=>true),
 			array('uname, pwd, gullname', 'length', 'max'=>45),
 			array('address', 'length', 'max'=>255),
-			array('phone, mobile, email', 'length', 'max'=>15),
+			array('phone, mobile', 'length', 'max'=>15),
+			array('email', 'length', 'max'=>30),
 			array('security_ans', 'length', 'max'=>100),
 			array('avatar', 'length', 'max'=>225),
 			array('birth, created_time, updated_time', 'safe'),

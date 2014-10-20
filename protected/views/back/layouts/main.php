@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
     <meta charset="utf-8">
     <title>CPanel - Hotel Job</title>
     <meta name="description" content="description">
@@ -26,9 +29,6 @@
     <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
     <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
 </head>
 <body>
 <!--Start Header-->

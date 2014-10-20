@@ -2360,3 +2360,6 @@ td.beauty-hover {
     display: none;
   }
 }
+
+/* Custom */
+.errorMessage { color: #d15e5e; }

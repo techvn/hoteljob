@@ -10,6 +10,12 @@ return CMap::mergeArray(
     array(
         // Put back-end settings there.
         'sourceLanguage' => '00',
-        'language' => 'vi'
+        'language' => 'vi',
+        'components' => array(
+            // ...
+            'user' => array(
+                'class' => 'WebUser',
+            )
+        )
     )
 );

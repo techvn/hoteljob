@@ -10,8 +10,14 @@ class LoginForm extends CFormModel
     public $username;
     public $password;
     public $rememberMe;
+    public $userType;
 
     private $_identity;
+
+    public function __construct($arg = 'Front')
+    { // default it is set to Front
+        $this->userType = $arg;
+    }
 
     /**
      * Declares the validation rules.
@@ -49,6 +55,7 @@ class LoginForm extends CFormModel
     {
         if (!$this->hasErrors()) {
             $this->_identity = new UserIdentity($this->username, $this->password);
+            $this->_identity->userType = $this->userType;
             if (!$this->_identity->authenticate())
                 $this->addError('password', Yii::t('Login_translator', 'Incorrect username or password.'));
         }

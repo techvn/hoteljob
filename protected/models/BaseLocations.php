@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $code
  * @property integer $parent_id
+ * @property integer $pos
  */
 class BaseLocations extends CActiveRecord
 {
@@ -27,11 +28,12 @@ class BaseLocations extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parent_id', 'numerical', 'integerOnly'=>true),
+			array('pos', 'required'),
+			array('parent_id, pos', 'numerical', 'integerOnly'=>true),
 			array('name, code', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, code, parent_id', 'safe', 'on'=>'search'),
+			array('id, name, code, parent_id, pos', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +58,7 @@ class BaseLocations extends CActiveRecord
 			'name' => 'Name',
 			'code' => 'Code',
 			'parent_id' => 'Parent',
+			'pos' => 'Pos',
 		);
 	}
 
@@ -81,6 +84,7 @@ class BaseLocations extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('parent_id',$this->parent_id);
+		$criteria->compare('pos',$this->pos);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

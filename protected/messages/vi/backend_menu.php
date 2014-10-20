@@ -55,5 +55,6 @@ return array(
     'Member' => 'Thành viên',
     'Create' => 'Tạo mới',
     'List' => 'Danh sách',
-    'Edit' => 'Cập nhật'
+    'Edit' => 'Cập nhật',
+    'Update Member' => 'Cập nhật thành viên'
 );

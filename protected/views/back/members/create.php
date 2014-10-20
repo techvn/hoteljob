@@ -1,3 +1,13 @@
+<?php
+$_knowMe = array();
+foreach($knowMe as $v) {
+    $_knowMe[$v->id] = (Yii::app()->language == 'vi' ? $v->title : $v->title_en);
+}
+$_memberGroup = array();
+foreach($memberGroup as $v) {
+    $_memberGroup[$v->id] = $v->name;
+}
+?>
 <style type="text/css">
     .preloader {
         display: none;
@@ -37,5 +47,13 @@
 
     <h1><?php echo Yii::t('backend_menu', 'Add Member') ?></h1>
 
-    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+    <?php $this->renderPartial('_form',
+        array(
+            'model' => $model,
+            'memberGroup' => $_memberGroup,
+            'knowMe' => $_knowMe,
+            'locations' => $locations,
+            'securityQues' => $securityQues
+        )
+    ); ?>
 </div>

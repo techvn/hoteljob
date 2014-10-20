@@ -5,7 +5,14 @@
  * Date: 10/14/14
  * Time: 9:10 AM
  */
-class Members extends BaseMembers {
+class Members extends BaseMembers
+{
+
+    const UserNameMin = 5;
+    const UserNameMax = 45;
+    const PasswordMin = 8;
+    const PasswordMax = 45;
+
     public function attributeLabels()
     {
         return array(
@@ -33,5 +40,29 @@ class Members extends BaseMembers {
             'avatar' => Yii::t('member_attribute', 'Avatar'),
             'nationality' => Yii::t('member_attribute', 'Nationality')
         );
+    }
+
+    /**
+     * Add new rule
+     * @return array
+     */
+    public function rules()
+    {
+        return array_merge(parent::rules(), array(
+            array(
+                'avatar', 'file',
+                'allowEmpty'=>true,
+                'types' => 'jpg, gif, png',
+                'maxSize'=> 1024 * 1024, // 1M
+                'tooLarge'=> Yii::t('application', 'File has to be smaller than {num}MB', array('{num}' => 1))
+            ),
+            array('avatar', 'ext.validators.fileUploadErrorValidator'),
+            array('avatar', 'unsafe')
+        ));
+    }
+
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
     }
 }

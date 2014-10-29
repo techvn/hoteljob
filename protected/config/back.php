@@ -16,6 +16,9 @@ return CMap::mergeArray(
             'user' => array(
                 'class' => 'WebUser',
             )
+        ),
+        'modules' => array(
+            'elfinder'
         )
     )
 );

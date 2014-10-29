@@ -38,7 +38,7 @@
     <div class="form-group">
         <?php echo $form->labelEx($model, 'thumb', array('class' => 'col-sm-2 label-form')); ?>
         <div class="col-sm-4">
-            <?php echo $form->textField($model, 'thumb', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->textField($model, 'thumb', array('size' => 60, 'maxlength' => 255, 'class' => 'form-control')); ?>
             <?php echo $form->error($model, 'thumb'); ?>
         </div
     </div>
@@ -55,27 +55,10 @@
 
     <div class="form-group">
         <?php echo $form->labelEx($model, 'content', array('class' => 'col-sm-2 label-form')); ?>
-        <?php
-        $this->widget('ext.ckeditor.CKEditorWidget', array(
-            "model" => $model, # Data-Model
-            "attribute" => 'content', # Attribute in the Data-Model
-            "defaultValue" => "Test Text", # Optional
-
-            # Additional Parameter (Check http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html)
-            "config" => array(
-                "height" => "400px",
-                "width" => "100%",
-                "toolbar" => "Basic",
-            ),
-
-            #Optional address settings if you did not copy ckeditor on application root
-            "ckEditor" => Yii::getPathOfAlias('webroot') . "/assets/js/ckeditor/ckeditor.php",
-            # Path to ckeditor.php
-            "ckBasePath" => Yii::app()->baseUrl . "/ckeditor/",
-            # Realtive Path to the Editor (from Web-Root)
-        ));
-        ?>
-        <?php echo $form->error($model, 'content'); ?>
+        <div class="col-sm-10">
+            <?php echo $form->textArea($model, 'content'); ?>
+            <?php echo $form->error($model, 'content'); ?>
+        </div>
     </div>
 
     <div class="row">
@@ -157,3 +140,18 @@
     <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<script type="text/javascript" src="<?php echo Yii::app()->baseUrl . '/assets/js/ckeditor/ckeditor.js' ?>"></script>
+<script type="text/javascript"
+        src="<?php echo Yii::app()->baseUrl . '/assets/js/ckeditor/plugins/ckfinder/ckfinder.js' ?>"></script>
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    var editor = CKEDITOR.replace('News_content');
+    CKFinder.setupCKEditor(editor,
+        {
+            basePath: '<?php echo Yii::app()->baseUrl ?>/assets/js/ckeditor/plugins/ckfinder/',
+            baseUrl: "<?php echo Yii::app()->baseUrl ?>/uploads/",
+            baseDir: "<?php echo Yii::getPathOfAlias('webroot') ?>/uploads/"
+        }
+    );
+</script>

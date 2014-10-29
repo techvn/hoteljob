@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2014 at 09:52 AM
+-- Generation Time: Oct 29, 2014 at 12:36 AM
 -- Server version: 5.5.34
 -- PHP Version: 5.3.27
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `hoteljob`
 --
-CREATE DATABASE IF NOT EXISTS `hoteljob` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `hoteljob`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `hoteljob`;
 -- Table structure for table `tbl_company_scope`
 --
 
-DROP TABLE IF EXISTS `tbl_company_scope`;
 CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
   `id` int(11) NOT NULL,
   `from` int(11) DEFAULT NULL,
@@ -42,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
 -- Table structure for table `tbl_currency`
 --
 
-DROP TABLE IF EXISTS `tbl_currency`;
 CREATE TABLE IF NOT EXISTS `tbl_currency` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
@@ -55,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `tbl_currency` (
 -- Table structure for table `tbl_curriculum_private`
 --
 
-DROP TABLE IF EXISTS `tbl_curriculum_private`;
 CREATE TABLE IF NOT EXISTS `tbl_curriculum_private` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `field` varchar(45) DEFAULT NULL COMMENT 'Field tuong ung trong db duoc hien thi',
@@ -70,7 +65,6 @@ CREATE TABLE IF NOT EXISTS `tbl_curriculum_private` (
 -- Table structure for table `tbl_curriculum_vitae`
 --
 
-DROP TABLE IF EXISTS `tbl_curriculum_vitae`;
 CREATE TABLE IF NOT EXISTS `tbl_curriculum_vitae` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
@@ -103,7 +97,6 @@ CREATE TABLE IF NOT EXISTS `tbl_curriculum_vitae` (
 -- Table structure for table `tbl_faqs_answer`
 --
 
-DROP TABLE IF EXISTS `tbl_faqs_answer`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `answer` varchar(500) DEFAULT NULL,
@@ -123,7 +116,6 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_answer` (
 -- Table structure for table `tbl_faqs_category`
 --
 
-DROP TABLE IF EXISTS `tbl_faqs_category`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_category` (
   `id` int(11) NOT NULL,
   `title` varchar(100) DEFAULT NULL,
@@ -141,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_category` (
 -- Table structure for table `tbl_faqs_question`
 --
 
-DROP TABLE IF EXISTS `tbl_faqs_question`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(100) DEFAULT NULL,
@@ -165,7 +156,6 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
 -- Table structure for table `tbl_jobs`
 --
 
-DROP TABLE IF EXISTS `tbl_jobs`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
@@ -198,7 +188,6 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs` (
 -- Table structure for table `tbl_jobs_apply`
 --
 
-DROP TABLE IF EXISTS `tbl_jobs_apply`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
@@ -220,7 +209,6 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
 -- Table structure for table `tbl_jobs_comment`
 --
 
-DROP TABLE IF EXISTS `tbl_jobs_comment`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
@@ -240,7 +228,6 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_comment` (
 -- Table structure for table `tbl_jobs_location`
 --
 
-DROP TABLE IF EXISTS `tbl_jobs_location`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `jobs_id` int(11) NOT NULL,
@@ -256,7 +243,6 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_location` (
 -- Table structure for table `tbl_job_level`
 --
 
-DROP TABLE IF EXISTS `tbl_job_level`;
 CREATE TABLE IF NOT EXISTS `tbl_job_level` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
@@ -271,7 +257,6 @@ CREATE TABLE IF NOT EXISTS `tbl_job_level` (
 -- Table structure for table `tbl_job_major`
 --
 
-DROP TABLE IF EXISTS `tbl_job_major`;
 CREATE TABLE IF NOT EXISTS `tbl_job_major` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
@@ -288,7 +273,6 @@ CREATE TABLE IF NOT EXISTS `tbl_job_major` (
 -- Table structure for table `tbl_job_salary`
 --
 
-DROP TABLE IF EXISTS `tbl_job_salary`;
 CREATE TABLE IF NOT EXISTS `tbl_job_salary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from` int(11) DEFAULT NULL,
@@ -302,7 +286,6 @@ CREATE TABLE IF NOT EXISTS `tbl_job_salary` (
 -- Table structure for table `tbl_job_time`
 --
 
-DROP TABLE IF EXISTS `tbl_job_time`;
 CREATE TABLE IF NOT EXISTS `tbl_job_time` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
@@ -318,7 +301,6 @@ CREATE TABLE IF NOT EXISTS `tbl_job_time` (
 -- Table structure for table `tbl_job_type`
 --
 
-DROP TABLE IF EXISTS `tbl_job_type`;
 CREATE TABLE IF NOT EXISTS `tbl_job_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
@@ -334,7 +316,6 @@ CREATE TABLE IF NOT EXISTS `tbl_job_type` (
 -- Table structure for table `tbl_know_me`
 --
 
-DROP TABLE IF EXISTS `tbl_know_me`;
 CREATE TABLE IF NOT EXISTS `tbl_know_me` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(225) DEFAULT NULL,
@@ -358,7 +339,6 @@ INSERT INTO `tbl_know_me` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 -- Table structure for table `tbl_locations`
 --
 
-DROP TABLE IF EXISTS `tbl_locations`;
 CREATE TABLE IF NOT EXISTS `tbl_locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -387,7 +367,6 @@ INSERT INTO `tbl_locations` (`id`, `name`, `code`, `parent_id`, `pos`) VALUES
 -- Table structure for table `tbl_members`
 --
 
-DROP TABLE IF EXISTS `tbl_members`;
 CREATE TABLE IF NOT EXISTS `tbl_members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(45) NOT NULL,
@@ -426,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
 --
 
 INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `updated_time`, `status`, `gullname`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `know_me_id`, `married`, `avatar`, `nationality`) VALUES
-(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-10-17 00:00:00', NULL, 1, 'Nguyễn Thanh Bình', 0, 0, '', 1, 3, 5, 0, 1, '4524726.png', 1);
+(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-10-28 00:00:00', NULL, 1, 'Nguyễn Thanh Bình', 0, 0, '', 1, 3, 5, 0, 1, '4524726.png', 1);
 
 -- --------------------------------------------------------
 
@@ -434,14 +413,13 @@ INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `
 -- Table structure for table `tbl_members_group`
 --
 
-DROP TABLE IF EXISTS `tbl_members_group`;
 CREATE TABLE IF NOT EXISTS `tbl_members_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL COMMENT 'Name tieng viet',
+  `name` varchar(45) NOT NULL COMMENT 'Name tieng viet',
   `alias` varchar(45) DEFAULT NULL,
   `en_name` varchar(45) DEFAULT NULL COMMENT 'Name tieng anh',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tbl_members_group`
@@ -449,8 +427,9 @@ CREATE TABLE IF NOT EXISTS `tbl_members_group` (
 
 INSERT INTO `tbl_members_group` (`id`, `name`, `alias`, `en_name`) VALUES
 (1, 'Administrator', NULL, 'Administrator'),
-(2, 'Quản trị nội dung', NULL, 'Quản trị nội dung'),
-(3, 'Quản trị đăng tin việc làm', NULL, 'Quản trị đăng tin việc làm');
+(2, 'Quản trị nội dung', '', 'System Manager'),
+(3, 'Quản trị đăng tin việc làm', '', 'Content System'),
+(5, 'Quản lý thành viên', '', 'Member Manager');
 
 -- --------------------------------------------------------
 
@@ -458,7 +437,6 @@ INSERT INTO `tbl_members_group` (`id`, `name`, `alias`, `en_name`) VALUES
 -- Table structure for table `tbl_members_log`
 --
 
-DROP TABLE IF EXISTS `tbl_members_log`;
 CREATE TABLE IF NOT EXISTS `tbl_members_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `action_name` varchar(100) DEFAULT NULL,
@@ -476,10 +454,9 @@ CREATE TABLE IF NOT EXISTS `tbl_members_log` (
 -- Table structure for table `tbl_news`
 --
 
-DROP TABLE IF EXISTS `tbl_news`;
 CREATE TABLE IF NOT EXISTS `tbl_news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
   `brief` varchar(255) DEFAULT NULL,
   `thumb` varchar(255) DEFAULT NULL,
   `organize_id` int(11) DEFAULT NULL COMMENT 'ID nhà tuyển dụng',
@@ -489,14 +466,13 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
   `public_time` datetime DEFAULT NULL,
   `unpublic_time` datetime DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
-  `counter` int(11) DEFAULT NULL,
+  `viewed` int(11) DEFAULT NULL COMMENT 'Số lượng viewed',
   `file` varchar(100) DEFAULT NULL COMMENT 'Link file tài liệu nếu có',
-  `title_en` varchar(100) DEFAULT NULL,
-  `brief_en` varchar(225) DEFAULT NULL,
+  `title_en` varchar(100) DEFAULT NULL COMMENT 'Tiêu đề tiếng anh',
+  `brief_en` varchar(225) DEFAULT NULL COMMENT 'Miêu tả bằng tiếng anh',
   `content_en` text,
-  `tag_en` varchar(225) DEFAULT NULL,
-  `tag_non_sign` varchar(225) DEFAULT NULL,
-  `news_category_id` int(11) DEFAULT NULL,
+  `tag_en` varchar(225) DEFAULT NULL COMMENT 'Từ khóa tiếng anh',
+  `news_category_id` int(11) NOT NULL COMMENT 'ID danh mục tin',
   PRIMARY KEY (`id`),
   KEY `fk_tbl_news_tbl_news_category1_idx` (`news_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -507,10 +483,9 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
 -- Table structure for table `tbl_news_category`
 --
 
-DROP TABLE IF EXISTS `tbl_news_category`;
 CREATE TABLE IF NOT EXISTS `tbl_news_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
   `name_en` varchar(45) DEFAULT NULL,
   `parent_id` varchar(45) DEFAULT NULL,
   `status` int(11) DEFAULT '1' COMMENT '1: Publich',
@@ -518,7 +493,15 @@ CREATE TABLE IF NOT EXISTS `tbl_news_category` (
   `members_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tbl_news_category_tbl_members1_idx` (`members_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_news_category`
+--
+
+INSERT INTO `tbl_news_category` (`id`, `name`, `name_en`, `parent_id`, `status`, `type`, `members_id`) VALUES
+(1, 'Tin tức công ty', 'Company news', NULL, 1, 1, 1),
+(2, 'Chia sẻ nhân ái', '', '1', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -526,7 +509,6 @@ CREATE TABLE IF NOT EXISTS `tbl_news_category` (
 -- Table structure for table `tbl_organize_data`
 --
 
-DROP TABLE IF EXISTS `tbl_organize_data`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `website` varchar(255) DEFAULT NULL,
@@ -552,7 +534,6 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
 -- Table structure for table `tbl_organize_library`
 --
 
-DROP TABLE IF EXISTS `tbl_organize_library`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `img_link` varchar(255) DEFAULT NULL,
@@ -570,7 +551,6 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
 -- Table structure for table `tbl_privilege`
 --
 
-DROP TABLE IF EXISTS `tbl_privilege`;
 CREATE TABLE IF NOT EXISTS `tbl_privilege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -586,7 +566,6 @@ CREATE TABLE IF NOT EXISTS `tbl_privilege` (
 -- Table structure for table `tbl_security_ques`
 --
 
-DROP TABLE IF EXISTS `tbl_security_ques`;
 CREATE TABLE IF NOT EXISTS `tbl_security_ques` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ques` char(225) DEFAULT NULL,

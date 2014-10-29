@@ -29,8 +29,11 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
             <div class="avatar">
+                <?php
+                $avatar = Yii::app()->request->baseUrl . (Yii::app()->user->getState('avatar') ? Yii::app()->params['avatarDir'] . Yii::app()->user->getState('avatar') : '/uploads/avatar.jpg');
+                ?>
                 <img
-                    src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/img/avatar.jpg"
+                    src="<?php echo  $avatar; //Yii::app()->request->baseUrl ?>"
                     class="img-rounded" alt="avatar"/>
             </div>
             <i class="fa fa-angle-down pull-right"></i>
@@ -42,7 +45,8 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-                <a href="#">
+                <?php $profileUrl = Yii::app()->createUrl('members/update', array('id' => Yii::app()->user->userId)); ?>
+                <a href="<?php echo $profileUrl ?>">
                     <i class="fa fa-user"></i>
                     <span class="hidden-sm text"><?php echo Yii::t('dashboard_translator', 'Profile') ?></span>
                 </a>

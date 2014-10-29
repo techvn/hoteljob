@@ -249,7 +249,9 @@ if(!isset($update)) {
                 <span>
                 <i class="fa fa-clock-o"></i>
                 </span>
-            Submit
+            <?php
+            echo Yii::t('application', $model->isNewRecord ? 'Create' : 'Save');
+            ?>
         </button>
     </div>
     <div class="col-sm-2"></div>

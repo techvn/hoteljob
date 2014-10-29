@@ -37,7 +37,8 @@ class MembersGroupController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				//'users'=>array('admin'),
+                'roles' => array('admin') // Call Yii::app()->user->checkAccess()
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -71,7 +72,7 @@ class MembersGroupController extends Controller
 		{
 			$model->attributes=$_POST['MembersGroup'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -95,7 +96,7 @@ class MembersGroupController extends Controller
 		{
 			$model->attributes=$_POST['MembersGroup'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(

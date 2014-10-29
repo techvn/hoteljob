@@ -2363,3 +2363,9 @@ td.beauty-hover {
 
 /* Custom */
 .errorMessage { color: #d15e5e; }
+.form-group {
+    clear: both;
+}
+label .required, .errorSummary { color: #d15e5e; float: right; }
+/* Hidden all view button in grid view */
+.button-column .view { display: none; }

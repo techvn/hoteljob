@@ -128,8 +128,8 @@ class MembersController extends Controller
                 if ($model->save()) {
                     // Upload avatar
                     $uploadedFile->saveAs(Yii::getPathOfAlias('webroot') . Yii::app()->params['avatarDir'] . $uploadedFile);
-                    //$this->redirect(array('view', 'id' => $model->id));
                     $this->redirect(array('admin'));
+                    //$this->redirect(array('view', 'id' => $model->id));
                 }
             }
 
@@ -160,7 +160,7 @@ class MembersController extends Controller
 
         // Change data view
         $model->birth = date('d/m/Y', strtotime($model->birth));
-        $model->pwd = '';
+        //$model->pwd = '';
 
         $locations = Locations::model()->findAll(
             array(
@@ -232,11 +232,16 @@ class MembersController extends Controller
                     // Upload avatar
                     if (!empty($uploadedFile))
                         $uploadedFile->saveAs(Yii::getPathOfAlias('webroot') . Yii::app()->params['avatarDir'] . $uploadedFile);
+
+                    Yii::app()->user->setState('avatar', $model->avatar);
                     // Redirect page
                     $this->redirect(array('admin'));
                 }
             }
         }
+
+        // Empty password field
+        $model->pwd = '';
 
         $this->render('update', array(
             'model' => $model,
@@ -267,6 +272,7 @@ class MembersController extends Controller
      */
     public function actionIndex()
     {
+        $this->redirect(array('admin'));
         // Load location
         $locations = Locations::model()->findAll();
         // Load group

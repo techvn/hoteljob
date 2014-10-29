@@ -15,4 +15,9 @@ class MembersGroup extends BaseMembersGroup {
             'en_name' => Yii::t('membersGroup', 'En Name'),
         );
     }
+
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 }

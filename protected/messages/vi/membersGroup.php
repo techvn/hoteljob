@@ -12,5 +12,5 @@ return array(
     'Create MembersGroup' => 'Tạo mới nhóm',
     'List MembersGroup' => 'Danh sách nhóm',
     'Members Groups' => 'Nhóm thành viên',
-    'Manage Members Groups' => 'Quản lý nhóm thành viên'
+    'Manage Members Groups' => 'Quản lý nhóm thành viên',
 );

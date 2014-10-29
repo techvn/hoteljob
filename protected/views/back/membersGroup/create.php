@@ -1,18 +1,38 @@
-<?php
-/* @var $this MembersGroupController */
-/* @var $model MembersGroup */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Members Groups'=>array('index'),
-	'Create',
-);
+    #ajax-content {
+        display: block;
+    }
+</style>
 
-$this->menu=array(
-	array('label'=>'List MembersGroup', 'url'=>array('index')),
-	array('label'=>'Manage MembersGroup', 'url'=>array('admin')),
-);
-?>
+<div class="row">
+    <?php
+    /* @var $this MembersGroupController */
+    /* @var $model MembersGroup */
 
-<h1>Create MembersGroup</h1>
+    $this->breadcrumbs = array(
+        Yii::t('membersGroup', 'Members Groups') => array('admin'),
+        Yii::t('membersGroup', 'Create'),
+    );
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+    $this->widget('application.widgets.backend.CBreadcrumbs',
+        array(
+            'links' => $this->breadcrumbs
+        )
+    );
+    $this->menu = array(
+        array('label' => Yii::t('membersGroup', 'List MembersGroup'), 'url' => array('admin')),
+    );
+    ?>
+
+</div>
+<div class="well">
+    <h1><?php echo Yii::t('membersGroup', 'Create MembersGroup') ?></h1>
+
+    <div>
+        <?php $this->renderPartial('_form', array('model' => $model)); ?>
+    </div>
+</div>

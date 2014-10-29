@@ -22,8 +22,7 @@ foreach($memberGroup as $v) {
 /* @var $model Members */
 
 $this->breadcrumbs = array(
-    Yii::t('backend_menu', 'Member') => array('index'),
-    $model->uname => array('view', 'id' => $model->id),
+    Yii::t('backend_menu', 'Member') => array('admin'),
     Yii::t('application', 'Update'),
 );
 

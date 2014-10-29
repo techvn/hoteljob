@@ -71,6 +71,7 @@ class UserIdentity extends CUserIdentity
 
                 // Add user data to session
                 $this->setState('data', $member);
+                $this->setState('avatar', $member->avatar);
             }
             return !$this->errorCode;
         }

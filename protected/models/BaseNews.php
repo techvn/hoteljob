@@ -15,13 +15,12 @@
  * @property string $public_time
  * @property string $unpublic_time
  * @property string $tag
- * @property integer $counter
+ * @property integer $viewed
  * @property string $file
  * @property string $title_en
  * @property string $brief_en
  * @property string $content_en
  * @property string $tag_en
- * @property string $tag_non_sign
  * @property integer $news_category_id
  */
 class BaseNews extends CActiveRecord
@@ -42,14 +41,15 @@ class BaseNews extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('organize_id, status, counter, news_category_id', 'numerical', 'integerOnly'=>true),
+			array('title, news_category_id', 'required'),
+			array('organize_id, status, viewed, news_category_id', 'numerical', 'integerOnly'=>true),
 			array('title, file, title_en', 'length', 'max'=>100),
 			array('brief, thumb, tag', 'length', 'max'=>255),
-			array('brief_en, tag_en, tag_non_sign', 'length', 'max'=>225),
+			array('brief_en, tag_en', 'length', 'max'=>225),
 			array('content, created_time, public_time, unpublic_time, content_en', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, brief, thumb, organize_id, content, status, created_time, public_time, unpublic_time, tag, counter, file, title_en, brief_en, content_en, tag_en, tag_non_sign, news_category_id', 'safe', 'on'=>'search'),
+			array('id, title, brief, thumb, organize_id, content, status, created_time, public_time, unpublic_time, tag, viewed, file, title_en, brief_en, content_en, tag_en, news_category_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,13 +81,12 @@ class BaseNews extends CActiveRecord
 			'public_time' => 'Public Time',
 			'unpublic_time' => 'Unpublic Time',
 			'tag' => 'Tag',
-			'counter' => 'Counter',
+			'viewed' => 'Viewed',
 			'file' => 'File',
 			'title_en' => 'Title En',
 			'brief_en' => 'Brief En',
 			'content_en' => 'Content En',
 			'tag_en' => 'Tag En',
-			'tag_non_sign' => 'Tag Non Sign',
 			'news_category_id' => 'News Category',
 		);
 	}
@@ -121,13 +120,12 @@ class BaseNews extends CActiveRecord
 		$criteria->compare('public_time',$this->public_time,true);
 		$criteria->compare('unpublic_time',$this->unpublic_time,true);
 		$criteria->compare('tag',$this->tag,true);
-		$criteria->compare('counter',$this->counter);
+		$criteria->compare('viewed',$this->viewed);
 		$criteria->compare('file',$this->file,true);
 		$criteria->compare('title_en',$this->title_en,true);
 		$criteria->compare('brief_en',$this->brief_en,true);
 		$criteria->compare('content_en',$this->content_en,true);
 		$criteria->compare('tag_en',$this->tag_en,true);
-		$criteria->compare('tag_non_sign',$this->tag_non_sign,true);
 		$criteria->compare('news_category_id',$this->news_category_id);
 
 		return new CActiveDataProvider($this, array(

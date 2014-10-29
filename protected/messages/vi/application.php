@@ -23,9 +23,11 @@ return array(
     'Create' => 'Thêm mới',
     'Save' => 'Lưu',
     'Cancel' => 'Hủy',
-    'Approved' => 'Duyệt',
+    'Approved' => 'Đã duyệt',
     'Pending' => 'Chờ duyệt',
-    'Deny' => 'Từ chối',
+    'Denied' => 'Từ chối',
+    'Deleted' => 'Đã xóa',
+    'Manage' => 'Quản lý',
     'All' => 'Tất cả',
     'Select nationality' => 'Chọn quốc gia',
     'Question' => 'Câu hỏi',
@@ -33,5 +35,11 @@ return array(
     'Question English' => 'Câu hỏi bằng tiếng Anh',
     'Position' => 'Vị trí',
     'Something wrong on the page, please review it before data is committed' => 'Dữ liệu chưa hợp lệ, hãy kiểm tra trước khi dữ liệu được lưu',
-    'File has to be smaller than {num}MB' => 'Dung lượng file upload phải nhỏ hơn {num}MB'
+    'File has to be smaller than {num}MB' => 'Dung lượng file upload phải nhỏ hơn {num}MB',
+    'Title' => 'Tiêu đề',
+    'Content' => 'Nội dung',
+    'Status' => 'Trạng thái',
+    'Created Time' => 'Ngày tạo',
+    'Tag' => 'Từ khóa',
+    ''
 );

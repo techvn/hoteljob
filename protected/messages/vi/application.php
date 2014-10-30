@@ -31,7 +31,6 @@ return array(
     'All' => 'Tất cả',
     'Select nationality' => 'Chọn quốc gia',
     'Question' => 'Câu hỏi',
-    'Status' => 'Trạng thái',
     'Question English' => 'Câu hỏi bằng tiếng Anh',
     'Position' => 'Vị trí',
     'Something wrong on the page, please review it before data is committed' => 'Dữ liệu chưa hợp lệ, hãy kiểm tra trước khi dữ liệu được lưu',
@@ -41,5 +40,8 @@ return array(
     'Status' => 'Trạng thái',
     'Created Time' => 'Ngày tạo',
     'Tag' => 'Từ khóa',
-    ''
+    'Brief' => 'Miêu tả ngắn',
+    'Position' => 'Vị trí',
+    'Viewed' => 'Số lượng xem',
+    'Created Time' => 'Thời gian tạo'
 );

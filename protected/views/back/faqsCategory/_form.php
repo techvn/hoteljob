@@ -72,10 +72,12 @@ foreach ($faqsCategory as $c) {
             <?php echo $form->error($model, 'parent_id'); ?>
         </div>
         <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
-        <?php echo $form->dropDownList($model, 'status', array(
-            1 => Yii::t('application', 'Published'), 0 => Yii::t('application', 'UnPublished')
-        ), array('options' => array($model->status => array('selected' => true)))); ?>
-        <?php echo $form->error($model, 'status'); ?>
+        <div class="col-sm-4">
+            <?php echo $form->dropDownList($model, 'status', array(
+                1 => Yii::t('application', 'Published'), 0 => Yii::t('application', 'UnPublished')
+            ), array('class'=>'form-control'), array('options' => array($model->status => array('selected' => true)))); ?>
+            <?php echo $form->error($model, 'status'); ?>
+        </div>
     </div>
 
 

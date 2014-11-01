@@ -2366,6 +2366,6 @@ td.beauty-hover {
 .form-group {
     clear: both;
 }
-label .required, .errorSummary { color: #d15e5e; float: right; }
+label .required, .errorSummary { color: #d15e5e; }
 /* Hidden all view button in grid view */
 .button-column .view { display: none; }

@@ -14,4 +14,15 @@ return array(
     'Job Majors' => 'Danh sách',
     'Update Job Major' => 'Cập nhật loại hình công việc',
     'Manage JobMajor' => 'Quản lý công việc',
+    'Manage Currencies' => 'Quản lý tiền tệ',
+    'Create Currency' => 'Thêm mới loại tiền',
+    'List Currencies' => 'Danh sách tiền tệ',
+    'Manage Currency' => 'Quản lý tiền tệ',
+    'Update Currency' => 'Cập nhật tiền tệ',
+    'Template Salaries' => 'Mẫu mức lương',
+    'Create Template Salary' => 'Thêm mới mẫu mức lương',
+    'Update Template Salary' => 'Cập nhật mẫu mức lương',
+    'List Template Salaries' => 'Danh sách mẫu mức lương',
+    'Manage Template Salaries' => 'Quản lý mẫu lương',
+    'Currency Type' => 'Loại tiền'
 );

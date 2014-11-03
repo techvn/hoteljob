@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2014 at 01:14 PM
+-- Generation Time: Nov 03, 2014 at 10:52 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -30,10 +30,10 @@ USE `hoteljob`;
 
 DROP TABLE IF EXISTS `tbl_company_scope`;
 CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
-  `id` int(11) NOT NULL,
-  `from` int(11) DEFAULT NULL,
+`id` int(11) NOT NULL,
+  `from` int(11) NOT NULL,
   `to` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Qui mo cong ty duoc dinh nghia truoc';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Qui mo cong ty duoc dinh nghia truoc' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -44,8 +44,18 @@ CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
 DROP TABLE IF EXISTS `tbl_currency`;
 CREATE TABLE IF NOT EXISTS `tbl_currency` (
 `id` int(11) NOT NULL,
-  `title` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `title` varchar(45) NOT NULL,
+  `symbol` char(5) NOT NULL,
+  `status` int(11) DEFAULT '0'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_currency`
+--
+
+INSERT INTO `tbl_currency` (`id`, `title`, `symbol`, `status`) VALUES
+(1, 'Dollar US', '$', 1),
+(2, 'Việt Nam Đồng', 'Vnđ', 0);
 
 -- --------------------------------------------------------
 
@@ -56,8 +66,9 @@ CREATE TABLE IF NOT EXISTS `tbl_currency` (
 DROP TABLE IF EXISTS `tbl_curriculum_private`;
 CREATE TABLE IF NOT EXISTS `tbl_curriculum_private` (
 `id` int(11) NOT NULL,
-  `field` varchar(45) DEFAULT NULL COMMENT 'Field tuong ung trong db duoc hien thi',
+  `field` varchar(45) NOT NULL COMMENT 'Field tuong ung trong db duoc hien thi',
   `alias` varchar(100) DEFAULT NULL,
+  `alias_en` char(100) DEFAULT NULL,
   `published` int(11) DEFAULT NULL COMMENT '0-> Un-published, 1->Published'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Danh sach rieng tu không hien thi ' AUTO_INCREMENT=1 ;
 
@@ -241,12 +252,20 @@ CREATE TABLE IF NOT EXISTS `tbl_job_level` (
 DROP TABLE IF EXISTS `tbl_job_major`;
 CREATE TABLE IF NOT EXISTS `tbl_job_major` (
 `id` int(11) NOT NULL,
-  `title` varchar(100) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
   `title_en` varchar(100) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL COMMENT 'Parent id',
   `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL COMMENT '0->Ẩn, 1->Hiển thị'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Lĩnh vực công việc chính' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Lĩnh vực công việc chính' AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_job_major`
+--
+
+INSERT INTO `tbl_job_major` (`id`, `title`, `title_en`, `pid`, `pos`, `status`) VALUES
+(1, 'test', 'test', NULL, 1, 1),
+(2, 'child test', '', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -257,9 +276,20 @@ CREATE TABLE IF NOT EXISTS `tbl_job_major` (
 DROP TABLE IF EXISTS `tbl_job_salary`;
 CREATE TABLE IF NOT EXISTS `tbl_job_salary` (
 `id` int(11) NOT NULL,
-  `from` int(11) DEFAULT NULL,
-  `to` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `from` int(11) NOT NULL,
+  `to` int(11) DEFAULT NULL,
+  `type` int(11) NOT NULL COMMENT 'ID tiền tệ',
+  `status` int(11) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template salary' AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_job_salary`
+--
+
+INSERT INTO `tbl_job_salary` (`id`, `from`, `to`, `type`, `status`) VALUES
+(1, 500, 800, 1, 1),
+(2, 800, 1200, 1, 1),
+(3, 8000000, 12000000, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -274,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `tbl_job_time` (
   `title_en` varchar(45) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Template time for job' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -300,11 +330,11 @@ CREATE TABLE IF NOT EXISTS `tbl_job_type` (
 DROP TABLE IF EXISTS `tbl_know_me`;
 CREATE TABLE IF NOT EXISTS `tbl_know_me` (
 `id` int(11) NOT NULL,
-  `title` varchar(225) DEFAULT NULL,
+  `title` varchar(225) NOT NULL,
   `title_en` varchar(225) DEFAULT NULL,
-  `pos` int(11) NOT NULL,
+  `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Template answer for question: How do you know me?' AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tbl_know_me`
@@ -323,10 +353,10 @@ INSERT INTO `tbl_know_me` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 DROP TABLE IF EXISTS `tbl_locations`;
 CREATE TABLE IF NOT EXISTS `tbl_locations` (
 `id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
   `code` varchar(45) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `pos` int(11) NOT NULL
+  `pos` int(11) DEFAULT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
@@ -448,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
   `content_en` text,
   `tag_en` varchar(225) DEFAULT NULL COMMENT 'Từ khóa tiếng anh',
   `news_category_id` int(11) NOT NULL COMMENT 'ID danh mục tin'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='News of system or organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -496,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
   `logo` varchar(100) DEFAULT NULL,
   `company_scope_id` int(11) NOT NULL,
   `members_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='More infomation of member if they are organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -512,7 +542,7 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
   `created_time` datetime DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Link meta data of organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -537,11 +567,11 @@ CREATE TABLE IF NOT EXISTS `tbl_privilege` (
 DROP TABLE IF EXISTS `tbl_security_ques`;
 CREATE TABLE IF NOT EXISTS `tbl_security_ques` (
 `id` int(11) NOT NULL,
-  `ques` char(225) DEFAULT NULL,
-  `ques_en` char(255) NOT NULL,
-  `pos` int(11) NOT NULL,
+  `ques` char(225) NOT NULL,
+  `ques_en` char(255) DEFAULT NULL,
+  `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template for security question' AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tbl_security_ques`
@@ -559,7 +589,7 @@ INSERT INTO `tbl_security_ques` (`id`, `ques`, `ques_en`, `pos`, `status`) VALUE
 -- Indexes for table `tbl_company_scope`
 --
 ALTER TABLE `tbl_company_scope`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `tbl_currency`
@@ -722,10 +752,15 @@ ALTER TABLE `tbl_security_ques`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_company_scope`
+--
+ALTER TABLE `tbl_company_scope`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `tbl_currency`
 --
 ALTER TABLE `tbl_currency`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_curriculum_private`
 --
@@ -780,12 +815,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tbl_job_major`
 --
 ALTER TABLE `tbl_job_major`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_job_salary`
 --
 ALTER TABLE `tbl_job_salary`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_job_time`
 --

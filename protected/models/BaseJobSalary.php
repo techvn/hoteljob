@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $from
  * @property integer $to
+ * @property integer $type
  * @property integer $status
  */
 class BaseJobSalary extends CActiveRecord
@@ -37,11 +38,11 @@ class BaseJobSalary extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('from, status', 'required'),
-			array('from, to, status', 'numerical', 'integerOnly'=>true),
+			array('from, type, status', 'required'),
+			array('from, to, type, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, from, to, status', 'safe', 'on'=>'search'),
+			array('id, from, to, type, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class BaseJobSalary extends CActiveRecord
 			'id' => 'ID',
 			'from' => 'From',
 			'to' => 'To',
+			'type' => 'Type',
 			'status' => 'Status',
 		);
 	}
@@ -83,6 +85,7 @@ class BaseJobSalary extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('from',$this->from);
 		$criteria->compare('to',$this->to);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(

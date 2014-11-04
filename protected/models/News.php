@@ -43,4 +43,22 @@ class News extends BaseNews {
     {
         return parent::model($className);
     }
+    /**
+     * Add new rule
+     * @return array
+     */
+    public function rules()
+    {
+        return array_merge(parent::rules(), array(
+            array(
+                'thumb', 'file',
+                'allowEmpty'=>true,
+                'types' => 'jpg, gif, png',
+                'maxSize'=> 1024 * 1024 * 2, // 2M
+                'tooLarge'=> Yii::t('application', 'File has to be smaller than {num}MB', array('{num}' => 2))
+            ),
+            array('avatar', 'ext.validators.fileUploadErrorValidator'),
+            array('avatar', 'unsafe')
+        ));
+    }
 }

@@ -41,6 +41,7 @@ return array(
     'Status' => 'Trạng thái',
     'Created Time' => 'Ngày tạo',
     'Tag' => 'Từ khóa',
+    'Tags' => 'Từ khóa',
     'Brief' => 'Miêu tả ngắn',
     'Position' => 'Vị trí',
     'Viewed' => 'Số lượng xem',
@@ -50,5 +51,20 @@ return array(
     'To' => 'Tới', 'to' => 'tới',
     'Alias' => 'Bí danh',
     'Alias English' => 'Bí danh - tiếng Anh',
-    'Field' => 'Trường dữ liệu'
+    'Field' => 'Trường dữ liệu',
+    'Email' => 'Hòm thư',
+    'Fitness' => 'Miêu tả năng lực',
+    'Cv Link' => 'Hồ sơ đính kèm',
+    'Require Level' => 'Yêu cầu cấp bậc',
+    'Salary From' => 'Lương từ',
+    'Salary To' => 'Lương tới',
+    'Work Time' => 'Thời gian làm việc',
+    'Workers' => 'Số lượng tuyển',
+    'Job Major' => 'Ngành nghề chính',
+    'Job Type' => 'Lĩnh vực',
+    'Language' => 'Ngôn ngữ',
+    'Description' => 'Miêu tả',
+    'Public Time' => 'Thời gian hiển thị',
+    'Places' => 'Nơi làm việc'
+
 );

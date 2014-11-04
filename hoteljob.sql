@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2014 at 10:52 AM
+-- Generation Time: Nov 04, 2014 at 10:32 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -161,24 +161,25 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
 DROP TABLE IF EXISTS `tbl_jobs`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs` (
 `id` int(11) NOT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `tile_en` varchar(45) DEFAULT NULL,
-  `code` varchar(45) DEFAULT NULL,
-  `job_level_id` int(11) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `title_en` varchar(45) DEFAULT NULL,
+  `code` varchar(45) NOT NULL,
+  `job_level_id` int(11) DEFAULT NULL,
   `salary_from` double DEFAULT NULL,
   `salary_to` double DEFAULT NULL,
   `job_time_id` int(11) NOT NULL,
-  `require` int(11) DEFAULT NULL COMMENT 'So luong tuyen',
+  `require` int(11) NOT NULL COMMENT 'So luong tuyen',
   `job_major_id` int(11) NOT NULL,
+  `job_type_id` int(11) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL COMMENT 'Thoi gian het han dang tuyen',
   `published` int(11) DEFAULT '1' COMMENT 'An, hien cong viec khi ung vien tim kiem phu hop cv',
   `description` text,
   `description_en` text,
-  `language` int(11) NOT NULL,
+  `language` int(11) DEFAULT NULL COMMENT 'CV language require',
   `tags` varchar(100) DEFAULT NULL,
-  `status` int(11) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `status` int(11) DEFAULT '1' COMMENT 'Pending, Approved, Denied, Deleted'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List jobs of organizations' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -192,12 +193,13 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
   `members_id` int(11) NOT NULL,
   `jobs_id` int(11) NOT NULL,
   `applied_time` datetime DEFAULT NULL,
-  `title` varchar(100) DEFAULT NULL,
-  `candidate_name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `title` varchar(100) NOT NULL COMMENT 'Tiêu đề gửi tới nhà ứng dụng',
+  `candidate_name` varchar(45) DEFAULT NULL COMMENT 'Name of candidate (ứng viên)',
+  `email` varchar(45) NOT NULL,
   `brief` varchar(500) DEFAULT NULL,
-  `fitness` int(11) DEFAULT NULL COMMENT 'Năng lực bản thân'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `fitness` int(11) DEFAULT NULL COMMENT 'Năng lực bản thân',
+  `cv_link` char(255) DEFAULT NULL COMMENT 'Description about candidate in this file'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Curriculum of member for job that they attend' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -238,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_location` (
 DROP TABLE IF EXISTS `tbl_job_level`;
 CREATE TABLE IF NOT EXISTS `tbl_job_level` (
 `id` int(11) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
   `title_en` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

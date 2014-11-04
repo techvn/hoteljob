@@ -1,20 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "tbl_job_level".
+ * This is the model class for table "tbl_jobs_apply".
  *
- * The followings are the available columns in table 'tbl_job_level':
+ * The followings are the available columns in table 'tbl_jobs_apply':
  * @property integer $id
+ * @property integer $members_id
+ * @property integer $jobs_id
+ * @property string $applied_time
  * @property string $title
- * @property string $title_en
- * @property integer $status
+ * @property string $candidate_name
+ * @property string $email
+ * @property string $brief
+ * @property integer $fitness
+ * @property string $cv_link
  */
-class BaseJobLevel extends CActiveRecord
+class BaseJobsApply extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BaseJobLevel the static model class
+	 * @return BaseJobsApply the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +32,7 @@ class BaseJobLevel extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_job_level';
+		return 'tbl_jobs_apply';
 	}
 
 	/**
@@ -37,12 +43,16 @@ class BaseJobLevel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
-			array('title, title_en', 'length', 'max'=>255),
+			array('members_id, jobs_id, title, email', 'required'),
+			array('members_id, jobs_id, fitness', 'numerical', 'integerOnly'=>true),
+			array('title', 'length', 'max'=>100),
+			array('candidate_name, email', 'length', 'max'=>45),
+			array('brief', 'length', 'max'=>500),
+			array('cv_link', 'length', 'max'=>255),
+			array('applied_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, title_en, status', 'safe', 'on'=>'search'),
+			array('id, members_id, jobs_id, applied_time, title, candidate_name, email, brief, fitness, cv_link', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,9 +74,15 @@ class BaseJobLevel extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'members_id' => 'Members',
+			'jobs_id' => 'Jobs',
+			'applied_time' => 'Applied Time',
 			'title' => 'Title',
-			'title_en' => 'Title En',
-			'status' => 'Status',
+			'candidate_name' => 'Candidate Name',
+			'email' => 'Email',
+			'brief' => 'Brief',
+			'fitness' => 'Fitness',
+			'cv_link' => 'Cv Link',
 		);
 	}
 
@@ -82,9 +98,15 @@ class BaseJobLevel extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('members_id',$this->members_id);
+		$criteria->compare('jobs_id',$this->jobs_id);
+		$criteria->compare('applied_time',$this->applied_time,true);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('title_en',$this->title_en,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('candidate_name',$this->candidate_name,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('brief',$this->brief,true);
+		$criteria->compare('fitness',$this->fitness);
+		$criteria->compare('cv_link',$this->cv_link,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

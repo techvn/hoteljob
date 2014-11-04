@@ -24,5 +24,22 @@ return array(
     'Update Template Salary' => 'Cập nhật mẫu mức lương',
     'List Template Salaries' => 'Danh sách mẫu mức lương',
     'Manage Template Salaries' => 'Quản lý mẫu lương',
-    'Currency Type' => 'Loại tiền'
+    'Currency Type' => 'Loại tiền',
+    // Job Apply
+    'Candidate' => 'Ứng viên',
+    'Job' => 'Công việc',
+    'Applied Time' => 'Thời gian ứng tuyển',
+    'Candidate Name' => 'Tên ứng viên',
+    'Manage Recruitment' => 'Quản lý danh sách ứng tuyển',
+    'List Recruitment' => 'Danh sách ứng tuyển',
+    'Create Recruitment' => 'Tạo mới hồ sơ ứng tuyển',
+    // Jobs detail
+    'Code' => 'Mã công việc',
+    'Created Time' => 'Thời gian tạo',
+    'End Time' => 'Thời gian hết hạn đăng tuyển',
+    'Description English' => 'Miêu tả (English)',
+    'Create Job' => 'Thêm mới công việc',
+    'Update Job' => 'Cập nhật công việc',
+    'Manage Jobs' => 'Quản lý công việc',
+    'Salary' => 'Mức lương'
 );

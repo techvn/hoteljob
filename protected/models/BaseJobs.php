@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'tbl_jobs':
  * @property integer $id
  * @property string $title
- * @property string $tile_en
+ * @property string $title_en
  * @property string $code
  * @property integer $job_level_id
  * @property double $salary_from
@@ -14,6 +14,7 @@
  * @property integer $job_time_id
  * @property integer $require
  * @property integer $job_major_id
+ * @property integer $job_type_id
  * @property string $created_time
  * @property string $end_time
  * @property integer $published
@@ -51,15 +52,15 @@ class BaseJobs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('job_level_id, job_time_id, job_major_id, language', 'required'),
-			array('job_level_id, job_time_id, require, job_major_id, published, language, status', 'numerical', 'integerOnly'=>true),
+			array('title, code, job_time_id, require, job_major_id', 'required'),
+			array('job_level_id, job_time_id, require, job_major_id, job_type_id, published, language, status', 'numerical', 'integerOnly'=>true),
 			array('salary_from, salary_to', 'numerical'),
-			array('title, tile_en, code', 'length', 'max'=>45),
+			array('title, title_en, code', 'length', 'max'=>45),
 			array('tags', 'length', 'max'=>100),
 			array('created_time, end_time, description, description_en', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, tile_en, code, job_level_id, salary_from, salary_to, job_time_id, require, job_major_id, created_time, end_time, published, description, description_en, language, tags, status', 'safe', 'on'=>'search'),
+			array('id, title, title_en, code, job_level_id, salary_from, salary_to, job_time_id, require, job_major_id, job_type_id, created_time, end_time, published, description, description_en, language, tags, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +83,7 @@ class BaseJobs extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
-			'tile_en' => 'Tile En',
+			'title_en' => 'Title En',
 			'code' => 'Code',
 			'job_level_id' => 'Job Level',
 			'salary_from' => 'Salary From',
@@ -90,6 +91,7 @@ class BaseJobs extends CActiveRecord
 			'job_time_id' => 'Job Time',
 			'require' => 'Require',
 			'job_major_id' => 'Job Major',
+			'job_type_id' => 'Job Type',
 			'created_time' => 'Created Time',
 			'end_time' => 'End Time',
 			'published' => 'Published',
@@ -114,7 +116,7 @@ class BaseJobs extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('tile_en',$this->tile_en,true);
+		$criteria->compare('title_en',$this->title_en,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('job_level_id',$this->job_level_id);
 		$criteria->compare('salary_from',$this->salary_from);
@@ -122,6 +124,7 @@ class BaseJobs extends CActiveRecord
 		$criteria->compare('job_time_id',$this->job_time_id);
 		$criteria->compare('require',$this->require);
 		$criteria->compare('job_major_id',$this->job_major_id);
+		$criteria->compare('job_type_id',$this->job_type_id);
 		$criteria->compare('created_time',$this->created_time,true);
 		$criteria->compare('end_time',$this->end_time,true);
 		$criteria->compare('published',$this->published);

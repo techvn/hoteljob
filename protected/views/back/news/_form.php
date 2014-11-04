@@ -4,12 +4,12 @@
 /* @var $form CActiveForm */
 
 $members_arr = array();
-foreach($members as $m) {
+foreach ($members as $m) {
     $members_arr[$m->id] = $m->uname;
 }
 $newsCategory_arr = array();
-foreach($newsCategory as $c) {
-    $newsCategory_arr[$c] = $c->name;
+foreach ($newsCategory as $c) {
+    $newsCategory_arr[$c->id] = $c->name;
 }
 
 ?>
@@ -23,7 +23,7 @@ foreach($newsCategory as $c) {
         // There is a call to performAjaxValidation() commented in generated controller code.
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation' => false,
-        'htmlOptions' => array('class'=>'form-horizontal')
+        'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data')
     )); ?>
 
     <p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -54,14 +54,6 @@ foreach($newsCategory as $c) {
             <?php echo $form->textArea($model, 'brief_en', array('size' => 60, 'maxlength' => 225)); ?>
             <?php echo $form->error($model, 'brief_en'); ?>
         </div>
-    </div>
-
-    <div class="form-group">
-        <?php echo $form->labelEx($model, 'thumb', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model, 'thumb', array('size' => 60, 'maxlength' => 255, 'class' => 'form-control')); ?>
-            <?php echo $form->error($model, 'thumb'); ?>
-        </div
     </div>
 
     <div class="form-group">
@@ -97,12 +89,18 @@ foreach($newsCategory as $c) {
                 array('1' => Yii::t('application', 'Published'), '0' => Yii::t('application', 'UnPublished')), array('class' => 'form-control')); ?>
             <?php echo $form->error($model, 'status'); ?>
         </div>
+        <?php echo $form->labelEx($model, 'thumb', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4 elm-relative">
+            <?php echo $form->fileField($model, 'thumb'); ?>
+            <?php echo $form->error($model, 'thumb'); ?>
+            <img src="<?php echo Yii::app()->baseUrl . '/uploads/avatar.jpg' ?>" class="thumb"/>
+        </div>
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'public_time', array('class' => 'col-sm-2 lable-form')); ?>
+        <?php echo $form->labelEx($model, 'public_time', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
-            <?php echo $form->textField($model, 'public_time'); ?>
+            <?php echo $form->textField($model, 'public_time', array('class' => 'form-control')); ?>
             <?php echo $form->error($model, 'public_time'); ?>
         </div>
     </div>
@@ -112,6 +110,14 @@ foreach($newsCategory as $c) {
         <div class="col-sm-4">
             <?php echo $form->textField($model, 'unpublic_time', array('class' => 'form-control')); ?>
             <?php echo $form->error($model, 'unpublic_time'); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->labelEx($model, 'news_category_id', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4">
+            <?php echo $form->dropDownList($model, 'news_category_id', $newsCategory_arr, array('class' => 'form-control'), array('options' => array($model->news_category_id => array('selected' => true)))); ?>
+            <?php echo $form->error($model, 'news_category_id'); ?>
         </div>
     </div>
 
@@ -129,15 +135,17 @@ foreach($newsCategory as $c) {
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'news_category_id', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-2"></div>
         <div class="col-sm-4">
-            <?php echo $form->textField($model, 'news_category_id'); ?>
-            <?php echo $form->error($model, 'news_category_id'); ?>
+            <button class="btn btn-primary btn-label-left" type="submit">
+                <span>
+                    <i class="fa fa-clock-o"></i>
+                </span>
+                <?php
+                echo Yii::t('application', $model->isNewRecord ? 'Create' : 'Save');
+                ?>
+            </button>
         </div>
-    </div>
-
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 
     <?php $this->endWidget(); ?>
@@ -146,7 +154,7 @@ foreach($newsCategory as $c) {
 <script type="text/javascript" src="<?php echo Yii::app()->baseUrl . '/assets/js/ckeditor/ckeditor.js' ?>"></script>
 <script type="text/javascript"
         src="<?php echo Yii::app()->baseUrl . '/assets/js/ckeditor/plugins/ckfinder/ckfinder.js' ?>"></script>
-<script>
+<script type="text/javascript">
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
     var editor = CKEDITOR.replace('News_content');
@@ -181,3 +189,7 @@ foreach($newsCategory as $c) {
     )
     ;
 </script>
+<style type="text/css">
+    .elm-relative { position: relative; }
+    img.thumb { height: 120px; position: absolute; }
+</style>

@@ -85,6 +85,18 @@ class JobsController extends Controller
 
         if (isset($_POST['Jobs'])) {
             $model->attributes = $_POST['Jobs'];
+            // Load more attribute
+            $model->setAttribute('created_time', new Date('Y-m-d'));
+            $req = Yii::app()->request;
+            $location = $req->getPost('ddl_location');
+
+            // Insert multi location of this job
+            $builder = Yii::app()->db->schema->commandBuilder;
+            $command = $builder->createMultipleInsertCommand(JobLocations::model()->tableSchema->rawName, array(
+                array('title' => 'title 1', 'text' => 'text 1'),
+            ));
+            $command -> execute();
+
             if ($model->save())
                 $this->redirect(array('admin'));
         }

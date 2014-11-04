@@ -33,5 +33,19 @@ return array(
     'Password not null' => 'Mật khẩu không được rỗng',
     'Password must greater than {min} character and lesser than {max}' => 'Mật khẩu phải lớn hơn {min} và nhỏ hơn {max} ký tự',
     'Name is only character and number' => 'Tên chỉ chứa các ký tự không dấu và số',
-    'Birthday invalid' => 'Ngày sinh không hợp lệ'
+    'Birthday invalid' => 'Ngày sinh không hợp lệ',
+    'Member fields' => 'Trường dữ liệu thành viên',
+    // Security question
+    'Question English' => 'Câu hỏi tiếng Anh',
+    'Manage Security Questions' => 'Câu hỏi bảo mật',
+    'Security Questions' => 'Câu hỏi bảo mật',
+    'List Securities Question' => 'Danh sách câu hỏi bảo mật',
+    'Create Security Question' => 'Tạo mới câu hỏi bảo mật',
+    'Update Security Question' => 'Cập nhật câu hỏi bảo mật',
+    // Know me
+    'Survey' => 'Bạn biết tới tôi',
+    'List Survey' => 'Danh sách câu hỏi khảo sát',
+    'Create Survey' => 'Thêm mới khảo sát',
+    'Update Survey' => 'Cập nhật khảo sát',
+    'Manage Survey' => 'Quản lý danh sách khảo sát'
 );

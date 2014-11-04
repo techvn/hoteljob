@@ -31,7 +31,7 @@ return array(
     'All' => 'Tất cả',
     'Select nationality' => 'Chọn quốc gia',
     'Question' => 'Câu hỏi',
-    'Question English' => 'Câu hỏi bằng tiếng Anh',
+    'Question English' => 'Câu hỏi bằng tiếng Anh', 'Question english' => 'Câu hỏi bằng tiếng Anh',
     'Position' => 'Vị trí',
     'Something wrong on the page, please review it before data is committed' => 'Dữ liệu chưa hợp lệ, hãy kiểm tra trước khi dữ liệu được lưu',
     'File has to be smaller than {num}MB' => 'Dung lượng file upload phải nhỏ hơn {num}MB',
@@ -44,5 +44,11 @@ return array(
     'Brief' => 'Miêu tả ngắn',
     'Position' => 'Vị trí',
     'Viewed' => 'Số lượng xem',
-    'Created Time' => 'Thời gian tạo'
+    'Created Time' => 'Thời gian tạo', 'Created time' => 'Thời gian tạo',
+    'Symbol' => 'Kí hiệu',
+    'From' => 'Từ', 'from' => 'từ',
+    'To' => 'Tới', 'to' => 'tới',
+    'Alias' => 'Bí danh',
+    'Alias English' => 'Bí danh - tiếng Anh',
+    'Field' => 'Trường dữ liệu'
 );

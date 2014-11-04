@@ -32,5 +32,5 @@
 <div class="well">
     <h1><?php echo Yii::t('news', 'Create News') ?></h1>
 
-    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+    <?php $this->renderPartial('_form', array('model' => $model, 'newsCategory' => $newsCategory, 'members' => $members)); ?>
 </div>

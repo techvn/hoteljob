@@ -14,4 +14,12 @@ return array(
     'Job Majors' => 'Danh sách',
     'Update Job Major' => 'Cập nhật loại hình công việc',
     'Manage JobMajor' => 'Quản lý công việc',
+    'Manage Jobs Major' => 'Quản lý công việc',
+    'List Job Types' => 'Danh sách lĩnh vực ngành nghề',
+    'Create Job Type' => 'Thêm mới lĩnh vực ngành nghề',
+    'Job Types' =>'Lĩnh vực ngành nghề',
+    'Manage Job Types' => 'Quản lý lĩnh vực',
+    'Manage Job Type' => 'Quản lý lĩnh vực, ngành nghề',
+    'Create Job Type' => 'Thêm lĩnh vực, ngành nghề',
+    'Update Job Type' => 'Cập nhật lĩnh vực, ngành nghề'
 );

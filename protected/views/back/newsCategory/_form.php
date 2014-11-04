@@ -33,6 +33,7 @@ foreach($categories as $c) {
         // There is a call to performAjaxValidation() commented in generated controller code.
         // See class documentation of CActiveForm for details on this.
         'enableAjaxValidation' => false,
+        'htmlOptions' => array('class'=>'form-horizontal')
     )); ?>
 
     <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>
@@ -40,7 +41,7 @@ foreach($categories as $c) {
     <?php echo $form->errorSummary($model); ?>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'name', array('class' => 'col-sm-2 label-control')); ?>
+        <?php echo $form->labelEx($model, 'name', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
             <?php echo $form->textField($model, 'name', array('size' => 45, 'maxlength' => 45, 'class' => 'form-control')); ?>
             <?php echo $form->error($model, 'name'); ?>
@@ -58,7 +59,7 @@ foreach($categories as $c) {
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'parent_id', array('class' => 'col-sm-2 label-form')); ?>
+        <?php echo $form->labelEx($model, 'parent_id', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
             <?php echo $form->dropDownList($model, 'parent_id',
                 $categories_arr,
@@ -68,7 +69,7 @@ foreach($categories as $c) {
     </div>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 label-control')); ?>
+        <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
             <?php echo $form->dropDownList($model, 'status',
                 array('1' => Yii::t('application', 'Published'), '0' => Yii::t('application', 'UnPublished')),
@@ -80,7 +81,7 @@ foreach($categories as $c) {
     <input type="hidden" name="NewsCategory[type]" value="1"/>
 
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'members_id', array('class' => 'col-sm-2 label-form')); ?>
+        <?php echo $form->labelEx($model, 'members_id', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
             <?php echo $form->dropDownList($model, 'members_id', $members_arr, array('selected' => $model->members_id)); ?>
             <?php echo $form->error($model, 'members_id'); ?>

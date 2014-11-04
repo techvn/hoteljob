@@ -66,6 +66,9 @@ class NewsController extends Controller
     public function actionCreate()
     {
         $model = new News;
+        // Load news categories
+        $newsCategory = NewsCategory::model()->findAll(array('index' => 'id'));
+        $members = Members::model()->findAll(array('order' => 'uname', 'index' => 'id'));
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -77,7 +80,7 @@ class NewsController extends Controller
         }
 
         $this->render('create', array(
-            'model' => $model,
+            'model' => $model, 'newsCategory' => $newsCategory, 'members' => $members
         ));
     }
 

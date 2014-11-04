@@ -22,7 +22,7 @@
     ));
 
     $this->menu = array(
-        array('label' => 'Manage Jobs Major', 'url' => array('admin')),
+        array('label' => Yii::t('jobs', 'Manage Jobs Major'), 'url' => array('admin')),
     );
     ?>
 </div>

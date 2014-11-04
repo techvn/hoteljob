@@ -19,6 +19,7 @@ foreach ($members as $m) {
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'faqs-answer-form',
         'enableAjaxValidation' => false,
+        'htmlOptions' => array('class'=>'form-horizontal')
     )); ?>
 
     <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>

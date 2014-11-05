@@ -12,6 +12,8 @@ class Members extends BaseMembers
     const UserNameMax = 45;
     const PasswordMin = 8;
     const PasswordMax = 45;
+    const PERMISSION_ADMINISTRATOR = 'ADMINISTRATOR';
+    const PERMISSION_MODERATE = 'MODERATE';
 
     public function attributeLabels()
     {
@@ -29,6 +31,7 @@ class Members extends BaseMembers
             'updated_time' => Yii::t('member_attribute', 'Updated Time'),
             'status' => Yii::t('member_attribute', 'Status'),
             'gullname' => Yii::t('member_attribute', 'Gull Name'),
+            'level' => Yii::t('member_attribute', 'Level'),
             'members_group_id' => Yii::t('member_attribute', 'Members Group'),
             'security_ques_id' => Yii::t('member_attribute', 'Security Ques'),
             'security_ans' => Yii::t('member_attribute', 'Security Ans'),

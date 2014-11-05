@@ -14,22 +14,33 @@
  * @property string $mobile
  * @property string $email
  * @property string $created_time
- * @property string $updated_time
- * @property integer $status
  * @property string $gullname
+ * @property string $level
  * @property integer $members_group_id
  * @property integer $security_ques_id
  * @property string $security_ans
  * @property integer $recieve_mail
  * @property integer $province_id
  * @property integer $district_id
- * @property integer $know_me_id
  * @property integer $married
  * @property string $avatar
  * @property integer $nationality
+ * @property integer $know_me_id
+ * @property string $updated_time
+ * @property integer $status
  */
 class BaseMembers extends CActiveRecord
 {
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return BaseMembers the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -47,17 +58,18 @@ class BaseMembers extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('uname, pwd', 'required'),
-			array('gender, status, members_group_id, security_ques_id, recieve_mail, province_id, district_id, know_me_id, married, nationality', 'numerical', 'integerOnly'=>true),
+			array('gender, members_group_id, security_ques_id, recieve_mail, province_id, district_id, married, nationality, know_me_id, status', 'numerical', 'integerOnly'=>true),
 			array('uname, pwd, gullname', 'length', 'max'=>45),
 			array('address', 'length', 'max'=>255),
 			array('phone, mobile', 'length', 'max'=>15),
 			array('email', 'length', 'max'=>30),
+			array('level', 'length', 'max'=>12),
 			array('security_ans', 'length', 'max'=>100),
 			array('avatar', 'length', 'max'=>225),
 			array('birth, created_time, updated_time', 'safe'),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, uname, pwd, gender, birth, address, phone, mobile, email, created_time, updated_time, status, gullname, members_group_id, security_ques_id, security_ans, recieve_mail, province_id, district_id, know_me_id, married, avatar, nationality', 'safe', 'on'=>'search'),
+			// Please remove those attributes that should not be searched.
+			array('id, uname, pwd, gender, birth, address, phone, mobile, email, created_time, gullname, level, members_group_id, security_ques_id, security_ans, recieve_mail, province_id, district_id, married, avatar, nationality, know_me_id, updated_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,37 +100,31 @@ class BaseMembers extends CActiveRecord
 			'mobile' => 'Mobile',
 			'email' => 'Email',
 			'created_time' => 'Created Time',
-			'updated_time' => 'Updated Time',
-			'status' => 'Status',
 			'gullname' => 'Gullname',
+			'level' => 'Level',
 			'members_group_id' => 'Members Group',
 			'security_ques_id' => 'Security Ques',
 			'security_ans' => 'Security Ans',
 			'recieve_mail' => 'Recieve Mail',
 			'province_id' => 'Province',
 			'district_id' => 'District',
-			'know_me_id' => 'Know Me',
 			'married' => 'Married',
 			'avatar' => 'Avatar',
 			'nationality' => 'Nationality',
+			'know_me_id' => 'Know Me',
+			'updated_time' => 'Updated Time',
+			'status' => 'Status',
 		);
 	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
@@ -132,33 +138,23 @@ class BaseMembers extends CActiveRecord
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('created_time',$this->created_time,true);
-		$criteria->compare('updated_time',$this->updated_time,true);
-		$criteria->compare('status',$this->status);
 		$criteria->compare('gullname',$this->gullname,true);
+		$criteria->compare('level',$this->level,true);
 		$criteria->compare('members_group_id',$this->members_group_id);
 		$criteria->compare('security_ques_id',$this->security_ques_id);
 		$criteria->compare('security_ans',$this->security_ans,true);
 		$criteria->compare('recieve_mail',$this->recieve_mail);
 		$criteria->compare('province_id',$this->province_id);
 		$criteria->compare('district_id',$this->district_id);
-		$criteria->compare('know_me_id',$this->know_me_id);
 		$criteria->compare('married',$this->married);
 		$criteria->compare('avatar',$this->avatar,true);
 		$criteria->compare('nationality',$this->nationality);
+		$criteria->compare('know_me_id',$this->know_me_id);
+		$criteria->compare('updated_time',$this->updated_time,true);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return BaseMembers the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 }

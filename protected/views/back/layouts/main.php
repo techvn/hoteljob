@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/js/helpers.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
     <meta charset="utf-8">

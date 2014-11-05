@@ -36,6 +36,7 @@
         'jobSalaries' => $jobSalaries,
         'currencies' => $currencies,
         'jobLevels' => $jobLevels,
-        'countries' => $countries
+        'countries' => $countries,
+        'jobLocations' => $jobLocations
     )); ?>
 </div>

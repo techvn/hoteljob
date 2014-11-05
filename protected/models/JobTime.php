@@ -2,14 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: binhnt1
- * Date: 11/4/14
- * Time: 2:30 PM
+ * Date: 11/5/14
+ * Time: 10:05 AM
  */
-class JobLevel extends BaseJobLevel {
+class JobTime extends BaseJobTime {
     /**
      * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return BaseJobLevel the static model class
+     * @return BaseJobTime the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -23,7 +24,7 @@ class JobLevel extends BaseJobLevel {
         return array(
             'id' => 'ID',
             'title' => Yii::t('application', 'Title'),
-            'title_en' => Yii::t('jobs', 'Title English'),
+            'title_en' => Yii::t('application', 'Title English'),
             'pos' => Yii::t('application', 'Position'),
             'status' => Yii::t('application', 'Status'),
         );

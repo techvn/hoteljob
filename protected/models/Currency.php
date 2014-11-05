@@ -23,6 +23,7 @@ class Currency extends BaseCurrency {
         return array(
             'id' => 'ID',
             'title' => Yii::t('application', 'Title'),
+            'language_code' => Yii::t('application', 'Language Code'),
             'symbol' => Yii::t('application', 'Symbol'),
             'status' => Yii::t('application', 'Status')
         );

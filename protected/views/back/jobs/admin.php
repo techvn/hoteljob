@@ -19,6 +19,10 @@
         width: 12%;
     }
 
+    #jobs-grid_c5 {
+        width: 10%;
+    }
+
     #jobs-grid_c4 {
         width: 12%;
     }
@@ -47,7 +51,7 @@
     }
     $jobLevels_arr = array();
     foreach ($jobLevels as $j) {
-        $jobTypes_arr[$j->id] = Yii::app()->language == 'vi' ? $j->title : $j->title_en;
+        $jobLevels_arr[$j->id] = Yii::app()->language == 'vi' ? $j->title : $j->title_en;
     }
 
     $this->breadcrumbs = array(
@@ -115,19 +119,44 @@
             array(
                 'name' => 'job_major_id',
                 'value' => function ($data) use ($jobMajors) {
-                        return isset($jobMajors[$data->job_major_id]) ? (Yii::app()->language == 'vi' ? $jobMajors[$data->job_major_id]->title : $jobLevels[$data->job_level_id]->title_en) : '';
+                        return isset($jobMajors[$data->job_major_id]) ? (Yii::app()->language == 'vi' ? $jobMajors[$data->job_major_id]->title : $jobMajors[$data->job_major_id]->title_en) : '';
                     },
-                'filter' => $jobLevels_arr
+                'filter' => $jobMajors_arr
             ),
             array(
                 'name' => 'job_type_id',
                 'value' => function ($data) use ($jobTypes) {
-                        return isset($jobTypes[$data->job_major_id]) ? (Yii::app()->language == 'vi' ? $jobTypes[$data->job_major_id]->title : $jobLevels[$data->job_level_id]->title_en) : '';
+                        return isset($jobTypes[$data->job_type_id]) ? (Yii::app()->language == 'vi' ? $jobTypes[$data->job_type_id]->title : $jobTypes[$data->job_type_id]->title_en) : '';
                     },
-                'filter' => $jobLevels_arr
+                'filter' => $jobTypes_arr
             ),
-            'salary_from',
-            'salary_to',
+            array(
+                'name' => 'salary_from',
+                'value' => function ($d) use ($currencies) {
+                        $ext = '';
+                        if(!function_exists('money_format')) {
+                            $ext = " (" . (isset($currencies[$d->salary_type]) ? $currencies[$d->salary_type]->symbol : '') . ")";
+                        }
+                        return Helpers::currencyFormat(
+                            $d->salary_from,
+                            Yii::app()->language == 'vi' ? 'vi_VN' : 'en_US'
+                        ) . $ext;
+                    }
+            ),
+
+            array(
+                'name' => 'salary_to',
+                'value' => function ($d) use ($currencies) {
+                        $ext = '';
+                        if(!function_exists('money_format')) {
+                            $ext = " (" . (isset($currencies[$d->salary_type]) ? $currencies[$d->salary_type]->symbol : '') . ")";
+                        }
+                        return Helpers::currencyFormat(
+                            $d->salary_to,
+                            Yii::app()->language == 'vi' ? 'vi_VN' : 'en_US'
+                        ) . $ext;
+                    }
+            ),
             /*
             'job_time_id',
             'require',

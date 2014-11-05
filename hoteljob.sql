@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2014 at 10:32 AM
+-- Generation Time: Nov 05, 2014 at 10:19 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -31,9 +31,21 @@ USE `hoteljob`;
 DROP TABLE IF EXISTS `tbl_company_scope`;
 CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
 `id` int(11) NOT NULL,
-  `from` int(11) NOT NULL,
-  `to` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Qui mo cong ty duoc dinh nghia truoc' AUTO_INCREMENT=1 ;
+  `from` char(100) NOT NULL,
+  `to` char(100) DEFAULT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Qui mo cong ty duoc dinh nghia truoc' AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `tbl_company_scope`
+--
+
+INSERT INTO `tbl_company_scope` (`id`, `from`, `to`) VALUES
+(1, '< 10', ''),
+(2, '10', '40'),
+(3, '40', '100'),
+(4, '100', '500'),
+(5, '500', '1000'),
+(6, '< 1000', '');
 
 -- --------------------------------------------------------
 
@@ -45,6 +57,7 @@ DROP TABLE IF EXISTS `tbl_currency`;
 CREATE TABLE IF NOT EXISTS `tbl_currency` (
 `id` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
+  `language_code` char(20) DEFAULT NULL COMMENT 'Sử dụng xác định hiển thị loại tiền tệ chuẩn theo hệ thống PHP',
   `symbol` char(5) NOT NULL,
   `status` int(11) DEFAULT '0'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -53,9 +66,9 @@ CREATE TABLE IF NOT EXISTS `tbl_currency` (
 -- Dumping data for table `tbl_currency`
 --
 
-INSERT INTO `tbl_currency` (`id`, `title`, `symbol`, `status`) VALUES
-(1, 'Dollar US', '$', 1),
-(2, 'Việt Nam Đồng', 'Vnđ', 0);
+INSERT INTO `tbl_currency` (`id`, `title`, `language_code`, `symbol`, `status`) VALUES
+(1, 'Dollar US', 'en_US', '$', 1),
+(2, 'Việt Nam Đồng', 'vi_VN', 'Vnđ', 0);
 
 -- --------------------------------------------------------
 
@@ -167,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs` (
   `job_level_id` int(11) DEFAULT NULL,
   `salary_from` double DEFAULT NULL,
   `salary_to` double DEFAULT NULL,
+  `salary_type` int(11) NOT NULL COMMENT 'Dinh gia tien luong theo quoc gia',
   `job_time_id` int(11) NOT NULL,
   `require` int(11) NOT NULL COMMENT 'So luong tuyen',
   `job_major_id` int(11) NOT NULL,
@@ -179,7 +193,14 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs` (
   `language` int(11) DEFAULT NULL COMMENT 'CV language require',
   `tags` varchar(100) DEFAULT NULL,
   `status` int(11) DEFAULT '1' COMMENT 'Pending, Approved, Denied, Deleted'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List jobs of organizations' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List jobs of organizations' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_jobs`
+--
+
+INSERT INTO `tbl_jobs` (`id`, `title`, `title_en`, `code`, `job_level_id`, `salary_from`, `salary_to`, `salary_type`, `job_time_id`, `require`, `job_major_id`, `job_type_id`, `created_time`, `end_time`, `published`, `description`, `description_en`, `language`, `tags`, `status`) VALUES
+(1, 'Phó Tổng Giám đốc Điều hành', '', 'TGM132', 1, 800, 1500, 1, 2, 2, 4, 2, '2014-11-05 00:00:00', '2014-11-26 00:00:00', 1, '<p><strong>M&ocirc; tả c&ocirc;ng việc:&nbsp;</strong>&nbsp;&nbsp;<br />\r\n- Quản l&yacute; hoạt động của Kh&aacute;ch sạn theo bảng ph&acirc;n c&ocirc;ng nhiệm vụ do HĐQT v&agrave; Tổng Gi&aacute;m đốc Kh&aacute;ch sạn ban h&agrave;nh.<br />\r\n- C&aacute;c c&ocirc;ng việc sẽ trao đổi cụ thể khi phỏng vấn.<br />\r\n<br />\r\n<strong>Quyền lợi được hưởng:</strong>&nbsp;&nbsp;&nbsp;<br />\r\n- Được tham gia BHXH, BHYT theo Quy định của Nh&agrave; nước.<br />\r\n- Mức lương hấp dẫn, ph&ugrave; hợp với năng lực (Mức lương: tr&ecirc;n 30 triệu).<br />\r\n- C&aacute;c chế độ đ&atilde;i ngộ tốt.<br />\r\n<br />\r\n<strong>Y&ecirc;u cầu:</strong><br />\r\n- Số năm kinh nghiệm: 5 năm<br />\r\n- Y&ecirc;u cầu bằng cấp: Đại học<br />\r\n- Y&ecirc;u cầu giới t&iacute;nh: Nam<br />\r\n- Y&ecirc;u cầu độ tuổi: 35 -tuổi<br />\r\n<br />\r\n<strong>Y&ecirc;u cầu kh&aacute;c:&nbsp;&nbsp;&nbsp; </strong><br />\r\n- Nam tuổi từ 30 - 45<br />\r\n- Tốt nghiệp Đại học chuy&ecirc;n ng&agrave;nh Quản trị KD, Quản l&yacute; Nh&agrave; h&agrave;ng - Kh&aacute;ch sạn.<br />\r\n- C&oacute; &iacute;t nhất 05 năm trong lĩnh vực Quản l&yacute; Kh&aacute;ch sạn.<br />\r\n- Khả năng giao tiếp v&agrave; đ&agrave;m ph&aacute;n tốt.<br />\r\n- Tiếng Anh giao tiếp tốt, kỹ năng giải quyết vấn đề, xử l&yacute; t&igrave;nh huống, đ&agrave;o tạo v&agrave; huấn luyện nh&acirc;n vi&ecirc;n tốt.<br />\r\n- Trung thực, nhanh nhẹn, chịu được &aacute;p lực c&ocirc;ng việc.<br />\r\n<br />\r\n<strong>Hồ sơ bao gồm:&nbsp;&nbsp;&nbsp; </strong><br />\r\n- Một bộ hồ sơ đầy đủ.<br />\r\n- Chấp nhận hồ sơ ph&ocirc; t&ocirc;.<br />\r\n- Sẽ bổ sung hồ sơ gốc ngay khi tr&uacute;ng tuyển.<br />\r\n- Chỉ li&ecirc;n hệ trong giờ h&agrave;nh ch&iacute;nh.<br />\r\n- H&igrave;nh thức nộp hồ sơ: Trực tiếp.</p>\r\n\r\n<p><em><strong>Lưu &yacute;: Ứng vi&ecirc;n gửi CV bằng Tiếng Anh + Tiếng Việt tới email: hcnshl@gmail.com</strong></em></p>\r\n', '', 1, 'giám đốc điều hành', 1);
 
 -- --------------------------------------------------------
 
@@ -226,10 +247,17 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_comment` (
 
 DROP TABLE IF EXISTS `tbl_jobs_location`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_location` (
-`id` int(11) NOT NULL,
   `jobs_id` int(11) NOT NULL,
   `locations_id` int(11) NOT NULL COMMENT 'Quan, huyen, tinh thanh cho cv dang tuyen'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Danh sach cac tinh thanh tuong ung voi cv dang tuyen (1 cv cho phep chon nhieu tinh thanh)' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Danh sach cac tinh thanh tuong ung voi cv dang tuyen (1 cv cho phep chon nhieu tinh thanh)';
+
+--
+-- Dumping data for table `tbl_jobs_location`
+--
+
+INSERT INTO `tbl_jobs_location` (`jobs_id`, `locations_id`) VALUES
+(1, 3),
+(1, 4);
 
 -- --------------------------------------------------------
 
@@ -242,8 +270,18 @@ CREATE TABLE IF NOT EXISTS `tbl_job_level` (
 `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `title_en` varchar(255) DEFAULT NULL,
+  `pos` int(11) NOT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_job_level`
+--
+
+INSERT INTO `tbl_job_level` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
+(1, 'Tổng giám đốc/PTGD/Giám đốc/PGD', '', 0, 1),
+(2, 'Trợ lý, thứ ký', '', 0, 1),
+(3, 'Trưởng ca, giám sát', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -259,15 +297,15 @@ CREATE TABLE IF NOT EXISTS `tbl_job_major` (
   `pid` int(11) DEFAULT NULL COMMENT 'Parent id',
   `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL COMMENT '0->Ẩn, 1->Hiển thị'
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Lĩnh vực công việc chính' AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Lĩnh vực công việc chính' AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbl_job_major`
 --
 
 INSERT INTO `tbl_job_major` (`id`, `title`, `title_en`, `pid`, `pos`, `status`) VALUES
-(1, 'test', 'test', NULL, 1, 1),
-(2, 'child test', '', 1, 2, 1);
+(3, 'Quản lý điều hành', '', 0, NULL, 1),
+(4, 'Sale / Maketing / Guest Relationship', '', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `tbl_job_salary` (
   `to` int(11) DEFAULT NULL,
   `type` int(11) NOT NULL COMMENT 'ID tiền tệ',
   `status` int(11) NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template salary' AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template salary' AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tbl_job_salary`
@@ -302,11 +340,20 @@ INSERT INTO `tbl_job_salary` (`id`, `from`, `to`, `type`, `status`) VALUES
 DROP TABLE IF EXISTS `tbl_job_time`;
 CREATE TABLE IF NOT EXISTS `tbl_job_time` (
 `id` int(11) NOT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `title_en` varchar(45) DEFAULT NULL,
+  `title` varchar(225) NOT NULL,
+  `title_en` varchar(225) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Template time for job' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Template time for job' AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_job_time`
+--
+
+INSERT INTO `tbl_job_time` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
+(1, 'Hành chính', 'Fulltime', 1, '1'),
+(2, 'Ca sáng', 'Parttime - AM', 2, '0'),
+(3, 'Ca chiều', 'Parttime - PM', 3, '1');
 
 -- --------------------------------------------------------
 
@@ -321,7 +368,15 @@ CREATE TABLE IF NOT EXISTS `tbl_job_type` (
   `title_en` varchar(255) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Loại hình cv' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Loại hình cv' AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_job_type`
+--
+
+INSERT INTO `tbl_job_type` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
+(1, 'Khách sạn / Chung cư', '', 1, 1),
+(2, 'Resort / Khu du  lịch', '', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -366,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `tbl_locations` (
 --
 
 INSERT INTO `tbl_locations` (`id`, `name`, `code`, `parent_id`, `pos`) VALUES
-(1, 'Viet Nam', 'VI', 0, 0),
+(1, 'Viet Nam', 'vi_VN', 0, 0),
 (2, 'Hà Nội', 'HN', 1, 0),
 (3, 'Bắc Giang', 'BG', 1, 0),
 (4, 'TP. Hồ Chí Minh', 'HCM', 1, 0),
@@ -392,27 +447,28 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
   `mobile` varchar(15) DEFAULT NULL,
   `email` char(30) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
-  `updated_time` date DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
   `gullname` varchar(45) DEFAULT NULL,
+  `level` enum('MEMBER','MODERATE','ADMINISTAROR') DEFAULT NULL,
   `members_group_id` int(11) DEFAULT NULL,
   `security_ques_id` int(11) DEFAULT NULL,
   `security_ans` char(100) DEFAULT NULL COMMENT 'Tra loi cau hoi bi mat',
   `recieve_mail` int(11) DEFAULT '0' COMMENT 'Accept nhan mail tu hoteljob.vn: 0-> Ko nhan, 1->Co nhan',
   `province_id` int(11) DEFAULT NULL,
   `district_id` int(11) DEFAULT NULL,
-  `know_me_id` int(11) DEFAULT NULL COMMENT 'Biet hotel-job qua dau?',
   `married` int(11) DEFAULT NULL COMMENT '0->Single, 1-> Married',
   `avatar` varchar(225) DEFAULT NULL,
-  `nationality` int(11) DEFAULT NULL COMMENT 'Quốc gia'
+  `nationality` int(11) DEFAULT NULL COMMENT 'Quốc gia',
+  `know_me_id` int(11) DEFAULT NULL COMMENT 'Biet hotel-job qua dau?',
+  `updated_time` date DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `tbl_members`
 --
 
-INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `updated_time`, `status`, `gullname`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `know_me_id`, `married`, `avatar`, `nationality`) VALUES
-(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-10-28 00:00:00', NULL, 1, 'Nguyễn Thanh Bình', 0, 0, '', 1, 3, 5, 0, 1, '4524726.png', 1);
+INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `gullname`, `level`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `married`, `avatar`, `nationality`, `know_me_id`, `updated_time`, `status`) VALUES
+(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-11-05 00:00:00', 'Nguyễn Thanh Bình', 'ADMINISTAROR', 0, 0, '', 1, 3, 5, 1, '4524726.png', 1, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -516,18 +572,19 @@ INSERT INTO `tbl_news_category` (`id`, `name`, `name_en`, `parent_id`, `status`,
 DROP TABLE IF EXISTS `tbl_organize_data`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
 `id` int(11) NOT NULL,
-  `website` varchar(255) DEFAULT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `brand` varchar(45) DEFAULT NULL COMMENT 'Thuong hieu',
   `name` varchar(100) DEFAULT NULL,
   `name_en` varchar(100) DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
+  `members_id` int(11) NOT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `brand` varchar(45) DEFAULT NULL COMMENT 'Thuong hieu',
   `fax` varchar(15) DEFAULT NULL,
   `tax` varchar(25) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `logo` varchar(100) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
   `company_scope_id` int(11) NOT NULL,
-  `members_id` int(11) NOT NULL
+  `description` varchar(500) DEFAULT NULL,
+  `description_en` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='More infomation of member if they are organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -651,7 +708,7 @@ ALTER TABLE `tbl_jobs_comment`
 -- Indexes for table `tbl_jobs_location`
 --
 ALTER TABLE `tbl_jobs_location`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_jobs_location_tbl_jobs1_idx` (`jobs_id`), ADD KEY `fk_tbl_jobs_location_tbl_locations1_idx` (`locations_id`);
+ ADD UNIQUE KEY `jobs_id` (`jobs_id`,`locations_id`), ADD KEY `fk_tbl_jobs_location_tbl_jobs1_idx` (`jobs_id`), ADD KEY `fk_tbl_jobs_location_tbl_locations1_idx` (`locations_id`);
 
 --
 -- Indexes for table `tbl_job_level`
@@ -757,7 +814,7 @@ ALTER TABLE `tbl_security_ques`
 -- AUTO_INCREMENT for table `tbl_company_scope`
 --
 ALTER TABLE `tbl_company_scope`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tbl_currency`
 --
@@ -792,7 +849,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tbl_jobs`
 --
 ALTER TABLE `tbl_jobs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_jobs_apply`
 --
@@ -804,35 +861,30 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `tbl_jobs_comment`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `tbl_jobs_location`
---
-ALTER TABLE `tbl_jobs_location`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `tbl_job_level`
 --
 ALTER TABLE `tbl_job_level`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_job_major`
 --
 ALTER TABLE `tbl_job_major`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_job_salary`
 --
 ALTER TABLE `tbl_job_salary`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_job_time`
 --
 ALTER TABLE `tbl_job_time`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_job_type`
 --
 ALTER TABLE `tbl_job_type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_know_me`
 --

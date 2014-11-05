@@ -6,22 +6,24 @@
     #ajax-content {
         display: block;
     }
-    #currency-grid_c0, #currency-grid_c2, #currency-grid_c3 { width: 10%; }
+    #job-time-grid_c0 { width: 10%; }
+    #job-time-grid_c2 { width: 5%; }
+    #job-time-grid_c3 { width: 15%; }
 </style>
 
 <div class="row">
     <?php
-    /* @var $this CurrencyController */
-    /* @var $model Currency */
+    /* @var $this JobTimeController */
+    /* @var $model JobTime */
 
     $this->breadcrumbs = array(
-        Yii::t('jobs', 'Currencies') => array('admin'),
+        Yii::t('jobs', 'Template Times') => array('admin'),
         Yii::t('application', 'Manage'),
     );
-    $this->widget('application.widgets.backend.CBreadcrumbs', array('links'=>$this->breadcrumbs));
+    $this->widget('application.widgets.backend.CBreadcrumbs', array('links' => $this->breadcrumbs));
 
     $this->menu = array(
-        array('label' => Yii::t('jobs', 'Create Currency'), 'url' => array('create')),
+        array('label' => Yii::t('jobs', 'Create Template Time'), 'url' => array('create')),
     );
 
     Yii::app()->clientScript->registerScript('search', "
@@ -30,7 +32,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#currency-grid').yiiGridView('update', {
+	$('#job-time-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -40,7 +42,7 @@ $('.search-form form').submit(function(){
 </div>
 <div class="well">
 
-    <h1><?php echo Yii::t('jobs', 'Manage Currencies') ?></h1>
+    <h1><?php echo Yii::t('jobs', 'Manage Template Times') ?></h1>
 
     <p>
         <?php echo Yii::t('backend', 'You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.') ?>
@@ -55,14 +57,18 @@ $('.search-form form').submit(function(){
     <!-- search-form -->
 
     <?php $this->widget('zii.widgets.grid.CGridView', array(
-        'id' => 'currency-grid',
+        'id' => 'job-time-grid',
         'dataProvider' => $model->search(),
         'filter' => $model,
         'columns' => array(
             'id',
-            'title',
-            'language_code',
-            'symbol',
+            array(
+                'name'=>Yii::app()->language == 'vi' ? 'title' : 'title_en',
+                'value'=>function($data) {
+                        return Yii::app()->language == 'vi' ? $data->title : $data->title_en;
+                    }
+            ),
+            'pos',
             array(
                 'name' => 'status',
                 'value' => '$data->status ? Yii::t("application","Published") : Yii::t("application","UnPublished")',

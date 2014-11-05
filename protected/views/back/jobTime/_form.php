@@ -1,41 +1,45 @@
 <?php
-/* @var $this CurrencyController */
-/* @var $model Currency */
+/* @var $this JobTimeController */
+/* @var $model JobTime */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'currency-form',
+        'id' => 'job-time-form',
         'enableAjaxValidation' => false,
+        'htmlOptions' => array('class' => 'form-horizontal')
     )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
     <div class="form-group">
         <?php echo $form->labelEx($model, 'title', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-4">
-            <?php echo $form->textField($model, 'title', array('size' => 45, 'maxlength' => 45, 'class' => 'form-control')); ?>
+            <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
             <?php echo $form->error($model, 'title'); ?>
         </div>
     </div>
+
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'language_code', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-2">
-            <?php echo $form->textField($model, 'language_code', array('size' => 20, 'maxlength' => 20, 'class' => 'form-control')); ?>
-            <?php echo $form->error($model, 'language_code'); ?>
+        <?php echo $form->labelEx($model, 'title_en', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4">
+            <?php echo $form->textField($model, 'title_en', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+            <?php echo $form->error($model, 'title_en'); ?>
         </div>
     </div>
+
     <div class="form-group">
-        <?php echo $form->labelEx($model, 'symbol', array('class' => 'col-sm-2 control-label')); ?>
+        <?php echo $form->labelEx($model, 'pos', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">
-            <?php echo $form->textField($model, 'symbol', array('size' => 5, 'maxlength' => 5, 'class' => 'form-control')); ?>
-            <?php echo $form->error($model, 'symbol'); ?>
+            <?php echo $form->textField($model, 'pos', array('class' => 'form-control')); ?>
         </div>
+        <?php echo $form->error($model, 'pos'); ?>
     </div>
+
     <div class="form-group">
         <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">

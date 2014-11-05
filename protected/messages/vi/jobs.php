@@ -41,5 +41,16 @@ return array(
     'Create Job' => 'Thêm mới công việc',
     'Update Job' => 'Cập nhật công việc',
     'Manage Jobs' => 'Quản lý công việc',
-    'Salary' => 'Mức lương'
+    'Salary' => 'Mức lương',
+    // Job time
+    'Template Times' => 'Kiểu thời gian',
+    'Manage Template Times' => 'Quản lý kiểu thời gian',
+    'Create Template Time' => 'Tạo mới mẫu thời gian',
+    'Update Template Time' => 'Cập nhật mẫu thời gian',
+    // Job level
+    'Job Positions' => 'Vị trí công việc',
+    'Manage Job Positions' => 'Quản lý vị trí công việc',
+    'Create Job Position' => 'Tạo mới vị trí công việc',
+    'Update Job Position' => 'Cập nhật vị trí công việc',
+    'End time invalid' => 'Thời gian kết thúc không hợp lệ'
 );

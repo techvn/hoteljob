@@ -45,7 +45,7 @@ echo Yii::app()->params['avatar_dir'];
 <?php
 /*echo $form->errorSummary($model);
 $hasError = strlen($form->errorSummary($model)) > 0 ? true : false;*/
-if(!isset($update)) {
+if (!isset($update)) {
     $update = 0;
 }
 ?>
@@ -53,7 +53,7 @@ if(!isset($update)) {
 <div class="form-group">
     <?php echo $form->labelEx($model, 'uname', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-4 <?php echo strlen($form->error($model, 'uname')) > 0 ? 'has-error' : '' ?>">
-        <?php echo $update ? '<label class="control-label"><b>'.$model->uname.'</b></label>' : $form->textField(
+        <?php echo $update ? '<label class="control-label"><b>' . $model->uname . '</b></label>' : $form->textField(
             $model, 'uname',
             array(
                 'size' => 45,
@@ -217,12 +217,17 @@ if(!isset($update)) {
 
 <div class="form-group">
     <?php echo $form->labelEx($model, 'married', array('class' => 'col-sm-2 control-label')); ?>
-    <div class="col-sm-4">
+    <div class="col-sm-2">
         <?php echo $form->dropDownList($model, 'married', array(
             '0' => Yii::t('application', 'Single'),
             '1' => Yii::t('application', 'Married')
-        )); ?>
+        ), array('class' => 'form-control'), array('options' => array($model->married => array('selected' => true)))); ?>
         <?php echo $form->error($model, 'married'); ?>
+    </div>
+    <div class="col-sm-2"></div>
+    <?php echo $form->labelEx($model, 'level', array('class' => 'col-sm-2 control-label')); ?>
+    <div class="col-sm-2">
+        <?php echo ExtCHtml::enumDropDownList($model, 'level', array('class' => 'form-control')); ?>
     </div>
 </div>
 
@@ -308,8 +313,8 @@ if(!isset($update)) {
             $('#Members_birth').change();
         }
         var msg = '';
-        if(message.length > 0) {
-            for(var o in message) {
+        if (message.length > 0) {
+            for (var o in message) {
                 msg += '- ' + message[o] + "\n";
             }
             alert(msg);
@@ -451,7 +456,7 @@ if(!isset($update)) {
                     echo Yii::t('member_attribute', 'Password must greater than {min} character and lesser than {max}', array('{min}' => Members::PasswordMin, '{max}' => Members::PasswordMax));
                 ?></div>');
             }
-        });
+        }).val('');
     });
 
 </script>

@@ -35,6 +35,7 @@ return array(
     'Name is only character and number' => 'Tên chỉ chứa các ký tự không dấu và số',
     'Birthday invalid' => 'Ngày sinh không hợp lệ',
     'Member fields' => 'Trường dữ liệu thành viên',
+    'Level' => 'Cấp bậc',
     // Security question
     'Question English' => 'Câu hỏi tiếng Anh',
     'Manage Security Questions' => 'Câu hỏi bảo mật',

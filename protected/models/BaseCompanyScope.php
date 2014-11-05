@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table 'tbl_company_scope':
  * @property integer $id
- * @property integer $from
- * @property integer $to
+ * @property string $from
+ * @property string $to
  */
 class BaseCompanyScope extends CActiveRecord
 {
@@ -37,7 +37,7 @@ class BaseCompanyScope extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('from', 'required'),
-			array('from, to', 'numerical', 'integerOnly'=>true),
+			array('from, to', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, from, to', 'safe', 'on'=>'search'),
@@ -79,8 +79,8 @@ class BaseCompanyScope extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('from',$this->from);
-		$criteria->compare('to',$this->to);
+		$criteria->compare('from',$this->from,true);
+		$criteria->compare('to',$this->to,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

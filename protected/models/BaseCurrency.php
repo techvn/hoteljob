@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'tbl_currency':
  * @property integer $id
  * @property string $title
+ * @property string $language_code
  * @property string $symbol
  * @property integer $status
  */
@@ -40,10 +41,11 @@ class BaseCurrency extends CActiveRecord
 			array('title, symbol', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>45),
+			array('language_code', 'length', 'max'=>20),
 			array('symbol', 'length', 'max'=>5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, symbol, status', 'safe', 'on'=>'search'),
+			array('id, title, language_code, symbol, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +68,7 @@ class BaseCurrency extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
+			'language_code' => 'Language Code',
 			'symbol' => 'Symbol',
 			'status' => 'Status',
 		);
@@ -84,6 +87,7 @@ class BaseCurrency extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('language_code',$this->language_code,true);
 		$criteria->compare('symbol',$this->symbol,true);
 		$criteria->compare('status',$this->status);
 

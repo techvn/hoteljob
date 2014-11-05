@@ -65,6 +65,9 @@ return array(
     'Language' => 'Ngôn ngữ',
     'Description' => 'Miêu tả',
     'Public Time' => 'Thời gian hiển thị',
-    'Places' => 'Nơi làm việc'
+    'Places' => 'Nơi làm việc',
+    'Other' => 'Khác',
+    'Select location' => 'Chọn địa danh',
+    'Language Code' => 'Mã ngôn ngữ'
 
 );

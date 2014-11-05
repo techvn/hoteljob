@@ -55,7 +55,9 @@ class UserIdentity extends CUserIdentity
         {
             // check if login details exists in database
             //$member = Members::model()->findByAttributes(array('email' => $this->username)); // here I use Email as user name which comes from database
-            $member = Members::model()->findByAttributes(array(), "`uname`='{$this->username}' OR `email`='{$this->username}'");
+            $member = Members::model()->findByAttributes(
+                array(),
+                "(`uname`='{$this->username}' OR `email`='{$this->username}')");
 
             if ($member === null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;

@@ -46,7 +46,7 @@
     <div class="form-group">
         <?php echo $form->labelEx($model, 'pos', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">
-            <?php echo $form->textField($model, 'pos'); ?>
+            <?php echo $form->textField($model, 'pos', array('class'=>'form-control')); ?>
             <?php echo $form->error($model, 'pos'); ?>
         </div>
     </div>

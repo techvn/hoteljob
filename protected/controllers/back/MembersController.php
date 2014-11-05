@@ -159,7 +159,7 @@ class MembersController extends Controller
         $model = $this->loadModel($id);
 
         // Change data view
-        $model->birth = date('d/m/Y', strtotime($model->birth));
+        $model->birth = date(Yii::app()->language == 'vi' ? 'd/m/Y' : 'm/d/Y', strtotime($model->birth));
         //$model->pwd = '';
 
         $locations = Locations::model()->findAll(

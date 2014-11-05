@@ -72,8 +72,9 @@ class JobSalaryController extends Controller
 
         if (isset($_POST['JobSalary'])) {
             $model->attributes = $_POST['JobSalary'];
-            if ($model->save())
+            if ($model->save()) {
                 $this->redirect(array('admin'));
+            }
         }
 
         $this->render('create', array(

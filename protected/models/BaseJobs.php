@@ -11,6 +11,7 @@
  * @property integer $job_level_id
  * @property double $salary_from
  * @property double $salary_to
+ * @property integer $salary_type
  * @property integer $job_time_id
  * @property integer $require
  * @property integer $job_major_id
@@ -52,15 +53,15 @@ class BaseJobs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, code, job_time_id, require, job_major_id', 'required'),
-			array('job_level_id, job_time_id, require, job_major_id, job_type_id, published, language, status', 'numerical', 'integerOnly'=>true),
+			array('title, code, salary_type, job_time_id, require, job_major_id', 'required'),
+			array('job_level_id, salary_type, job_time_id, require, job_major_id, job_type_id, published, language, status', 'numerical', 'integerOnly'=>true),
 			array('salary_from, salary_to', 'numerical'),
 			array('title, title_en, code', 'length', 'max'=>45),
 			array('tags', 'length', 'max'=>100),
 			array('created_time, end_time, description, description_en', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, title_en, code, job_level_id, salary_from, salary_to, job_time_id, require, job_major_id, job_type_id, created_time, end_time, published, description, description_en, language, tags, status', 'safe', 'on'=>'search'),
+			array('id, title, title_en, code, job_level_id, salary_from, salary_to, salary_type, job_time_id, require, job_major_id, job_type_id, created_time, end_time, published, description, description_en, language, tags, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +89,7 @@ class BaseJobs extends CActiveRecord
 			'job_level_id' => 'Job Level',
 			'salary_from' => 'Salary From',
 			'salary_to' => 'Salary To',
+			'salary_type' => 'Salary Type',
 			'job_time_id' => 'Job Time',
 			'require' => 'Require',
 			'job_major_id' => 'Job Major',
@@ -121,6 +123,7 @@ class BaseJobs extends CActiveRecord
 		$criteria->compare('job_level_id',$this->job_level_id);
 		$criteria->compare('salary_from',$this->salary_from);
 		$criteria->compare('salary_to',$this->salary_to);
+		$criteria->compare('salary_type',$this->salary_type);
 		$criteria->compare('job_time_id',$this->job_time_id);
 		$criteria->compare('require',$this->require);
 		$criteria->compare('job_major_id',$this->job_major_id);

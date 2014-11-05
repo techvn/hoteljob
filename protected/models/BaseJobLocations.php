@@ -1,21 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "tbl_job_level".
+ * This is the model class for table "tbl_jobs_location".
  *
- * The followings are the available columns in table 'tbl_job_level':
- * @property integer $id
- * @property string $title
- * @property string $title_en
- * @property integer $pos
- * @property integer $status
+ * The followings are the available columns in table 'tbl_jobs_location':
+ * @property integer $jobs_id
+ * @property integer $locations_id
  */
-class BaseJobLevel extends CActiveRecord
+class BaseJobLocations extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return BaseJobLevel the static model class
+	 * @return BaseJobLocations the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +24,7 @@ class BaseJobLevel extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_job_level';
+		return 'tbl_jobs_location';
 	}
 
 	/**
@@ -38,12 +35,11 @@ class BaseJobLevel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, pos', 'required'),
-			array('pos, status', 'numerical', 'integerOnly'=>true),
-			array('title, title_en', 'length', 'max'=>255),
+			array('jobs_id, locations_id', 'required'),
+			array('jobs_id, locations_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, title_en, pos, status', 'safe', 'on'=>'search'),
+			array('jobs_id, locations_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,11 +60,8 @@ class BaseJobLevel extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'title' => 'Title',
-			'title_en' => 'Title En',
-			'pos' => 'Pos',
-			'status' => 'Status',
+			'jobs_id' => 'Jobs',
+			'locations_id' => 'Locations',
 		);
 	}
 
@@ -83,11 +76,8 @@ class BaseJobLevel extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('title_en',$this->title_en,true);
-		$criteria->compare('pos',$this->pos);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('jobs_id',$this->jobs_id);
+		$criteria->compare('locations_id',$this->locations_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

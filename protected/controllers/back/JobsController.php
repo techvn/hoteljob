@@ -70,9 +70,11 @@ class JobsController extends Controller
         $jobTypes = JobType::model()->findAll(array('index' => 'id'));
         $jobMajors = JobMajor::model()->findAll(array('index' => 'id'));
         $jobTimes = JobTimes::model()->findAll(array('index' => 'id'));
-        $jobSalaries = JobSalary::model()->findAll(array('order'=>'id,type', 'index' => 'id'));
-        $currencies = Currency::model()->findAll(array('index'=>'id'));
-        $jobLevels = JobLevel::model()->findAll(array('index'=>'id'));
+        $jobSalaries = JobSalary::model()->findAll(array('order' => 'id,type', 'index' => 'id'));
+        $currencies = Currency::model()->findAll(array('index' => 'id'));
+        $jobLevels = JobLevel::model()->findAll(
+            array('index' => 'id')
+        );
         $countries = Locations::model()->findAll(
             array(
                 'order' => 'pos,name',
@@ -84,21 +86,67 @@ class JobsController extends Controller
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Jobs'])) {
+            $req = Yii::app()->request;
             $model->attributes = $_POST['Jobs'];
             // Load more attribute
-            $model->setAttribute('created_time', new Date('Y-m-d'));
-            $req = Yii::app()->request;
-            $location = $req->getPost('ddl_location');
+            $model->setAttribute('created_time', Date('Y-m-d'));
+            // Re-format end time
+            if (count(preg_split('/\//', $model->getAttribute('end_time'))) == 3) {
+                if (Yii::app()->language == 'vi') {
+                    list($day, $month, $year) = preg_split('/\//', $model->getAttribute('end_time'));
+                } else {
+                    list ($month, $day, $year) = preg_split('/\//', $model->getAttribute('end_time'));
+                }
+                $model->setAttribute('end_time', $year . '-' . $month . '-' . $day);
+            } else {
+                if (empty($model->attributes['end_time'])) {
+                    $model->setAttribute('end_time', date('Y-m-d'));
+                } else {
+                    // Add end time invalid
+                    $model->addError('end_time', Yii::t('jobs', 'End time invalid'));
+                }
+            }
+            $salary_data = $req->getPost('tb_salary');
+            if (array_key_exists($salary_data, $jobSalaries)) {
+                $model->setAttribute('salary_from', $jobSalaries[$salary_data]->from);
+                $model->setAttribute('salary_type', $jobSalaries[$salary_data]->type);
+            } else {
+                // Load custom salary
+                $model->setAttribute('salary_from', preg_replace('/[\.,]/', '', $req->getPost('salary_from')));
+                $model->setAttribute('salary_to', preg_replace('/[\.,]/', '', $req->getPost('salary_to')));
+                $model->setAttribute('salary_type', $req->getPost('ddl_currency'));
+            }
+
+            /* echo '<pre>';
+             print_r($model->hasErrors());
+             die();*/
 
             // Insert multi location of this job
-            $builder = Yii::app()->db->schema->commandBuilder;
-            $command = $builder->createMultipleInsertCommand(JobLocations::model()->tableSchema->rawName, array(
-                array('title' => 'title 1', 'text' => 'text 1'),
-            ));
-            $command -> execute();
+            /*$builder = Yii::app()->db->schema->commandBuilder;
+            $command = $builder->createMultipleInsertCommand(JobLocations::model()->tableSchema->rawName, $data);
+            $command -> execute();*/
 
-            if ($model->save())
-                $this->redirect(array('admin'));
+            if (!$model->hasErrors()) {
+                if ($model->save()) {
+                    // Insert multi location for this job
+                    $work_locations = $req->getPost('ddl_location');
+                    if (is_array($work_locations)) {
+                        $sqlCommand = "INSERT IGNORE INTO " . JobLocations::model()->tableSchema->rawName . "(`jobs_id`, `locations_id`) VALUES";
+                        $job_id = $model->id;
+                        $comma = '';
+                        foreach ($work_locations as $k => $w) {
+                            $sqlCommand .= $comma . "($job_id, $w)";
+                            $comma = ',';
+                        }
+                        $command = Yii::app()->db->createCommand($sqlCommand);
+                        $command->execute();
+                    }
+                    $this->redirect(array('admin'));
+                }
+            }
+
+            list($y, $m, $d) = preg_split('/-/', $model->end_time);
+            $model->end_time = date($d . '/' . $m . '/' . $y);
         }
 
         $this->render('create', array(
@@ -121,27 +169,89 @@ class JobsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        // Change data view
+        $model->end_time = date(Yii::app()->language == 'vi' ? 'd/m/Y' : 'm/d/Y', strtotime($model->end_time));
+
         // Load list job type, major, time, salary ....
         $jobTypes = JobType::model()->findAll(array('index' => 'id'));
         $jobMajors = JobMajor::model()->findAll(array('index' => 'id'));
         $jobTimes = JobTimes::model()->findAll(array('index' => 'id'));
-        $jobSalaries = JobSalary::model()->findAll(array('order'=>'id,type', 'index' => 'id'));
-        $currencies = Currency::model()->findAll(array('index'=>'id'));
-        $jobLevels = JobLevel::model()->findAll(array('index'=>'id'));
+        $jobSalaries = JobSalary::model()->findAll(array('order' => 'id,type', 'index' => 'id'));
+        $currencies = Currency::model()->findAll(array('index' => 'id'));
+        $jobLevels = JobLevel::model()->findAll(array('index' => 'id'));
         $countries = Locations::model()->findAll(
             array(
                 'order' => 'pos,name',
                 'index' => 'id'
             )
         );
+        $jobLocations = JobLocations::model()->findAll(array(
+            'condition' => '`jobs_id`=' . $model->id,
+        ));
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Jobs'])) {
+            // Delete all current locations of this job
+            $command = Yii::app()->db->createCommand("DELETE FROM " . JobLocations::model()->tableSchema->rawName
+                . " WHERE `jobs_id`={$model->id}");
+            $command->execute();
+
+            $req = Yii::app()->request;
             $model->attributes = $_POST['Jobs'];
-            if ($model->save())
-                $this->redirect(array('admin'));
+
+            // Load more attribute
+            $model->setAttribute('created_time', Date('Y-m-d'));
+            // Re-format end time
+            if (count(preg_split('/\//', $model->getAttribute('end_time'))) == 3) {
+                if (Yii::app()->language == 'vi') {
+                    list($day, $month, $year) = preg_split('/\//', $model->getAttribute('end_time'));
+                } else {
+                    list ($month, $day, $year) = preg_split('/\//', $model->getAttribute('end_time'));
+                }
+                $model->setAttribute('end_time', $year . '-' . $month . '-' . $day);
+            } else {
+                if (empty($model->attributes['end_time'])) {
+                    $model->setAttribute('end_time', date('Y-m-d'));
+                } else {
+                    // Add end time invalid
+                    $model->addError('end_time', Yii::t('jobs', 'End time invalid'));
+                }
+            }
+            $salary_data = $req->getPost('tb_salary');
+            if (array_key_exists($salary_data, $jobSalaries)) { // Fix by template salary
+                $model->setAttribute('salary_from', $jobSalaries[$salary_data]->from);
+                $model->setAttribute('salary_to', $jobSalaries[$salary_data]->to);
+                $model->setAttribute('salary_type', $jobSalaries[$salary_data]->type);
+            } else {
+                // Load custom salary
+                $model->setAttribute('salary_from', $req->getPost('salary_from'));
+                $model->setAttribute('salary_from', preg_replace('/[\.,]/', '', $req->getPost('salary_from')));
+                $model->setAttribute('salary_to', preg_replace('/[\.,]/', '', $req->getPost('salary_to')));
+            }
+
+            if (!$model->hasErrors()) {
+                if ($model->save()) {
+                    // Insert multi location for this job
+                    $work_locations = $req->getPost('ddl_location');
+                    if (is_array($work_locations)) {
+                        $sqlCommand = "INSERT IGNORE INTO " . JobLocations::model()->tableSchema->rawName . "(`jobs_id`, `locations_id`) VALUES";
+                        $job_id = $model->id;
+                        $comma = '';
+                        foreach ($work_locations as $k => $w) {
+                            $sqlCommand .= $comma . "($job_id, $w)";
+                            $comma = ',';
+                        }
+                        $command = Yii::app()->db->createCommand($sqlCommand);
+                        $command->execute();
+                    }
+                    $this->redirect(array('admin'));
+                }
+            }
+
+            list($y, $m, $d) = preg_split('/-/', $model->end_time);
+            $model->end_time = date($d . '/' . $m . '/' . $y);
         }
 
         $this->render('update', array(
@@ -152,7 +262,8 @@ class JobsController extends Controller
             'jobSalaries' => $jobSalaries,
             'currencies' => $currencies,
             'jobLevels' => $jobLevels,
-            'countries' => $countries
+            'countries' => $countries,
+            'jobLocations' => $jobLocations
         ));
     }
 
@@ -193,9 +304,9 @@ class JobsController extends Controller
         $jobTypes = JobType::model()->findAll(array('index' => 'id'));
         $jobMajors = JobMajor::model()->findAll(array('index' => 'id'));
         $jobTimes = JobTimes::model()->findAll(array('index' => 'id'));
-        $jobSalaries = JobSalary::model()->findAll(array('order'=>'id,type', 'index' => 'id'));
-        $currencies = Currency::model()->findAll(array('index'=>'id'));
-        $jobLevels = JobLevel::model()->findAll(array('index'=>'id'));
+        $jobSalaries = JobSalary::model()->findAll(array('order' => 'id,type', 'index' => 'id'));
+        $currencies = Currency::model()->findAll(array('index' => 'id'));
+        $jobLevels = JobLevel::model()->findAll(array('index' => 'id'));
 
         $model->unsetAttributes(); // clear any default values
         if (isset($_GET['Jobs']))

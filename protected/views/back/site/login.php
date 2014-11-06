@@ -36,7 +36,7 @@ $this->pageTitle = Yii::t('login_translator', 'CPanel HotelJob - Login');
                         ?>
                         <div class="form-group">
                             <label class="control-label">Username</label>
-                            <input type="text" class="form-control" name="LoginForm[username]" />
+                            <input type="text" id="username" class="form-control" name="LoginForm[username]" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Password</label>
@@ -53,3 +53,8 @@ $this->pageTitle = Yii::t('login_translator', 'CPanel HotelJob - Login');
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#username').focus();
+    });
+</script>

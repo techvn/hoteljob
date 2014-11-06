@@ -1,21 +1,37 @@
-<?php
-/* @var $this NewsController */
-/* @var $model News */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'News'=>array('index'),
-	$model->title=>array('view','id'=>$model->id),
-	'Update',
-);
+    #ajax-content {
+        display: block;
+    }
 
-$this->menu=array(
-	array('label'=>'List News', 'url'=>array('index')),
-	array('label'=>'Create News', 'url'=>array('create')),
-	array('label'=>'View News', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage News', 'url'=>array('admin')),
-);
-?>
+    /*.items #news-category-grid_c4 { width: 10%; }
+    #news-category-grid_c5 { width: 5%; }
+    #news-category-grid_c3 { width: 12%; }*/
+</style>
 
-<h1>Update News <?php echo $model->id; ?></h1>
+<div class="row">
+    <?php
+    /* @var $this NewsController */
+    /* @var $model News */
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+    $this->breadcrumbs = array(
+        Yii::t('news', 'News') => array('admin'),
+        Yii::t('application', 'Update'),
+    );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs
+    ));
+
+    $this->menu = array(
+        array('label' => Yii::t('news', 'Create News'), 'url' => array('create')),
+        array('label' => Yii::t('news', 'Manage News'), 'url' => array('admin')),
+    );
+    ?>
+</div>
+<div class="well">
+    <h1><?php echo Yii::t('news', 'Update News'); ?></h1>
+    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+</div>

@@ -63,7 +63,7 @@ class BaseMembers extends CActiveRecord
 			array('address', 'length', 'max'=>255),
 			array('phone, mobile', 'length', 'max'=>15),
 			array('email', 'length', 'max'=>30),
-			array('level', 'length', 'max'=>12),
+			array('level', 'length', 'max'=>15),
 			array('security_ans', 'length', 'max'=>100),
 			array('avatar', 'length', 'max'=>225),
 			array('birth, created_time, updated_time', 'safe'),

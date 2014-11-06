@@ -57,7 +57,7 @@ class UserIdentity extends CUserIdentity
             //$member = Members::model()->findByAttributes(array('email' => $this->username)); // here I use Email as user name which comes from database
             $member = Members::model()->findByAttributes(
                 array(),
-                "(`uname`='{$this->username}' OR `email`='{$this->username}')");
+                "(`uname`='{$this->username}' OR `email`='{$this->username}') AND (`level`='ADMINISTRATOR' OR `level`='MODERATE')");
 
             if ($member === null) {
                 $this->errorCode = self::ERROR_USERNAME_INVALID;
@@ -65,7 +65,7 @@ class UserIdentity extends CUserIdentity
             {
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             } else {
-                $this->setState('isAdmin', 1);
+                $this->setState('isAdmin', ($member->level == Members::PERMISSION_ADMINISTRATOR ? 1 : 0));
                 // Yii::app()->user->getState('isAdmin'));
                 $this->setState('userId', $member->id);
                 $this->setState('name', $member->uname);

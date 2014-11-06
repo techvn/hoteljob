@@ -26,7 +26,7 @@ foreach ($newsCategory as $c) {
         'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data')
     )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 
@@ -190,6 +190,12 @@ foreach ($newsCategory as $c) {
     ;
 </script>
 <style type="text/css">
-    .elm-relative { position: relative; }
-    img.thumb { height: 120px; position: absolute; }
+    .elm-relative {
+        position: relative;
+    }
+
+    img.thumb {
+        height: 120px;
+        position: absolute;
+    }
 </style>

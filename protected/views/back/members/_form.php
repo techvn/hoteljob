@@ -43,6 +43,10 @@ echo Yii::app()->params['avatar_dir'];
 <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>
 
 <?php
+echo $form->errorSummary($model);
+?>
+
+<?php
 /*echo $form->errorSummary($model);
 $hasError = strlen($form->errorSummary($model)) > 0 ? true : false;*/
 if (!isset($update)) {
@@ -91,7 +95,7 @@ if (!isset($update)) {
     <?php echo $form->labelEx($model, 'birth', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-2 has-feedback">
         <?php echo $form->textField($model, 'birth', array('class' => 'form-control', 'placeholder' => Yii::t('member_attribute', 'Birth'))); ?>
-        <span class="fa fa-calendar txt-danger form-control-feedback"></span>
+        <span class="fa fa-calendar form-control-feedback"></span>
         <?php echo $form->error($model, 'birth'); ?>
     </div>
 </div>
@@ -429,8 +433,8 @@ if (!isset($update)) {
             }
 
             // Validate length
-            if ($(this).val().replace(/\s/g, '').length <= parseInt(<?php echo Members::UserNameMin ?>) ||
-                $(this).val().replace(/\s/g, '').length >= <?php echo Members::UserNameMax ?>) {
+            if ($(this).val().replace(/\s/g, '').length < parseInt(<?php echo Members::UserNameMin ?>) ||
+                $(this).val().replace(/\s/g, '').length > <?php echo Members::UserNameMax ?>) {
                 $(this).parent().find('.errorMessage').remove();
                 $(this).parent().append('<div class="errorMessage"><?php
                     echo Yii::t('member_attribute', 'Username must greater than {min} character and lesser than {max}', array('{min}' => Members::UserNameMin, '{max}' => Members::UserNameMax));
@@ -449,8 +453,8 @@ if (!isset($update)) {
                 $(this).parent().removeClass('has-error');
             }
             // Validate length
-            if (($(this).val().replace(/\s/g, '').length <= parseInt(<?php echo Members::PasswordMin ?>) ||
-                $(this).val().replace(/\s/g, '').length >= <?php echo Members::PasswordMax ?>) & $(this).val().length > 0) {
+            if (($(this).val().replace(/\s/g, '').length < parseInt(<?php echo Members::PasswordMin ?>) ||
+                $(this).val().replace(/\s/g, '').length > <?php echo Members::PasswordMax ?>) & $(this).val().length > 0) {
                 $(this).parent().find('.errorMessage').remove();
                 $(this).parent().append('<div class="errorMessage"><?php
                     echo Yii::t('member_attribute', 'Password must greater than {min} character and lesser than {max}', array('{min}' => Members::PasswordMin, '{max}' => Members::PasswordMax));

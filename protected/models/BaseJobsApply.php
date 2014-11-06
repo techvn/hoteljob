@@ -12,7 +12,7 @@
  * @property string $candidate_name
  * @property string $email
  * @property string $brief
- * @property integer $fitness
+ * @property string $fitness
  * @property string $cv_link
  */
 class BaseJobsApply extends CActiveRecord
@@ -44,12 +44,12 @@ class BaseJobsApply extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('members_id, jobs_id, title, email', 'required'),
-			array('members_id, jobs_id, fitness', 'numerical', 'integerOnly'=>true),
+			array('members_id, jobs_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>100),
 			array('candidate_name, email', 'length', 'max'=>45),
 			array('brief', 'length', 'max'=>500),
 			array('cv_link', 'length', 'max'=>255),
-			array('applied_time', 'safe'),
+			array('applied_time, fitness', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, members_id, jobs_id, applied_time, title, candidate_name, email, brief, fitness, cv_link', 'safe', 'on'=>'search'),
@@ -105,7 +105,7 @@ class BaseJobsApply extends CActiveRecord
 		$criteria->compare('candidate_name',$this->candidate_name,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('brief',$this->brief,true);
-		$criteria->compare('fitness',$this->fitness);
+		$criteria->compare('fitness',$this->fitness,true);
 		$criteria->compare('cv_link',$this->cv_link,true);
 
 		return new CActiveDataProvider($this, array(

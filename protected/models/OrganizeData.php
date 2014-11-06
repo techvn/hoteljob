@@ -22,19 +22,24 @@ class OrganizeData extends BaseOrganizeData {
     {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
-            'name_en' => 'Name En',
-            'members_id' => 'Members',
-            'website' => 'Website',
-            'brand' => 'Brand',
-            'fax' => 'Fax',
-            'tax' => 'Tax',
-            'email' => 'Email',
-            'logo' => 'Logo',
-            'contact' => 'Contact',
-            'company_scope_id' => 'Company Scope',
-            'description' => 'Description',
-            'description_en' => 'Description En',
+            'name' => Yii::t('application', 'Name'),
+            'name_en' => Yii::t('organize', 'Name English'),
+            'members_id' => Yii::t('application', 'Member'),
+            'website' => Yii::t('application', 'Website'),
+            'brand' => Yii::t('application', 'Brand'),
+            'tel' => Yii::t('application', 'Telephone'),
+            'phone' => Yii::t('application', 'Phone'),
+            'fax' => Yii::t('application', 'Fax'),
+            'tax' => Yii::t('application', 'Tax'),
+            'email' => Yii::t('application', 'Email'),
+            'logo' => Yii::t('application', 'Logo'),
+            'contact' => Yii::t('application', 'Contact'),
+            'company_scope_id' => Yii::t('application', 'Company Scope'),
+            'description' => Yii::t('application', 'Description'),
+            'description_en' => Yii::t('organize', 'Description English'),
+            'created_time' => 'Created Time',
+            'ended_time' => Yii::t('application', 'Ended Time'),
+            'status' => Yii::t('application', 'Status')
         );
     }
 }

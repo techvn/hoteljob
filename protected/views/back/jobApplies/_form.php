@@ -18,7 +18,7 @@
     }
     $jobs_arr = array();
     foreach ($jobs as $j) {
-        $jobs_arr[$j->id] = (Yii::app()->language == 'vi' ? $j->title : $j->title_en);
+        $jobs_arr[$j->id] = $j->id . ' - ' . (Yii::app()->language == 'vi' ? $j->title : $j->title_en);
     }
     ?>
 
@@ -48,8 +48,9 @@
             <?php echo $form->error($model, 'jobs_id'); ?>
         </div>
         <?php echo $form->labelEx($model, 'applied_time', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-3">
+        <div class="col-sm-3 has-feedback">
             <?php echo $form->textField($model, 'applied_time', array('class' => 'form-control')); ?>
+            <span class="fa fa-calendar form-control-feedback"></span>
             <?php echo $form->error($model, 'applied_time'); ?>
         </div>
     </div>
@@ -88,7 +89,7 @@
         <?php echo $form->labelEx($model, 'cv_link', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-10">
             <?php echo $form->fileField($model, 'cv_link'); ?>
-            <p id="cv_file"></p>
+            <p id="cv_file"><?php echo $model->cv_link ?></p>
             <?php echo $form->error($model, 'cv_link'); ?>
         </div>
     </div>
@@ -120,11 +121,32 @@
                 [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ]
             ]
         }
-    )
-    ;
+    );
     $(document).ready(function () {
-
         var $cv = '<?php echo $model->cv_link ?>';
-        $('#cv_file').val($cv);
+        $('#ytJobApplies_cv_link').val($cv);
+        LoadTimePickerScript(function () {
+            var dateConfig = {setDate: new Date()};
+            <?php if(Yii::app()->language == 'vi') {
+            ?>
+            dateConfig.dateFormat = 'dd/mm/yy'
+            <?php
+            } ?>
+            $('#JobApplies_applied_time').datepicker(dateConfig);
+        });
+
+        // Validate email
+        $('#JobApplies_email').blur(function() {
+            $(this).parent().find('.errorMessage').remove();
+            if(!validateEmail($(this).val())) {
+                $(this).parent().append('<div class="errorMessage"><?php echo Yii::t('application', 'Invalid email') ?></div>');
+            }
+        });
+        $('#JobApplies_title').blur(function() {
+            $(this).parent().find('.errorMessage').remove();
+            if($(this).val() == '') {
+                $(this).parent().append('<div class="errorMessage"><?php echo Yii::t('application', 'Title can\'t be blank') ?></div>');
+            }
+        })
     });
 </script>

@@ -101,6 +101,13 @@ class MembersController extends Controller
         if (isset($_POST['Members'])) {
             $model->attributes = $_POST['Members'];
 
+            // Check member name exist
+            $hasMember  = Members::model()->findAllByAttributes(array('uname' => $model->uname));
+            if(count($hasMember) > 0) {
+                $model->addError('uname', Yii::t('application', 'Username has been existed'));
+            }
+
+            $current_time = $model->birth;
             // Convert some data: birth
             if (count(preg_split('/\//', $model->attributes['birth'])) == 3) {
                 if (Yii::app()->language == 'vi') {
@@ -122,12 +129,14 @@ class MembersController extends Controller
             $model->pwd = md5($model->pwd);
             // Upload avatar
             $uploadedFile = CUploadedFile::getInstance($model, 'avatar');
-            $model->avatar = $uploadedFile;
+            if (!empty($uploadedFile))
+                $model->avatar = $uploadedFile;
 
             if (!$model->hasErrors()) {
                 if ($model->save()) {
                     // Upload avatar
-                    $uploadedFile->saveAs(Yii::getPathOfAlias('webroot') . Yii::app()->params['avatarDir'] . $uploadedFile);
+                    if (!empty($uploadedFile))
+                        $uploadedFile->saveAs(Yii::getPathOfAlias('webroot') . Yii::app()->params['avatarDir'] . $uploadedFile);
                     $this->redirect(array('admin'));
                     //$this->redirect(array('view', 'id' => $model->id));
                 }
@@ -136,8 +145,7 @@ class MembersController extends Controller
             /*echo '<pre>';
             print_r($model); die();*/
             // If has error, convert date to view
-            list($y, $m, $d) = preg_split('/-/', $model->birth);
-            $model->birth = date($d . '/' . $m . '/' . $y);
+            $model->setAttribute('birth', $current_time);
         }
 
         $this->render('create', array(

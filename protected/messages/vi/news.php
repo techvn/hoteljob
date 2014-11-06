@@ -18,5 +18,6 @@ return array(
     'News Category' => 'Danh mục tin',
     'List News' => 'Danh sách tin',
     'Create News' => 'Tạo mới tin',
-    'Manage News' => 'Quản lý tin'
+    'Manage News' => 'Quản lý tin',
+    'News' => 'Tin tức'
 );

@@ -68,6 +68,22 @@ return array(
     'Places' => 'Nơi làm việc',
     'Other' => 'Khác',
     'Select location' => 'Chọn địa danh',
-    'Language Code' => 'Mã ngôn ngữ'
-
+    'Language Code' => 'Mã ngôn ngữ',
+    'Name' => 'Tên',
+    'Company Scope' => 'Qui mô công ty',
+    'Contact' => 'Liên hệ',
+    'Fax' => 'Fax',
+    'Tax' => ' Mã số thuế',
+    'Logo' => 'Ảnh đại diện (logo)',
+    'Member' => 'Thành viên',
+    // Message
+    'Invalid email' => 'Email không hợp lệ',
+    'Title can\'t be blank' => 'Tiêu đề không được rỗng',
+    'Username has been existed' => 'Tên đăng nhập đã tồn tại',
+    'News' => 'Tin tức',
+    'Brand' => 'Thương hiệu',
+    'Telephone' => 'Di động',
+    'Phone' => 'Điện thoại bàn',
+    'Select province/district' => 'Chọn quận huyện/tỉnh thành',
+    'Ended Time' => 'Hết hiệu lực'
 );

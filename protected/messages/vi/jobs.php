@@ -33,6 +33,7 @@ return array(
     'Manage Recruitment' => 'Quản lý danh sách ứng tuyển',
     'List Recruitment' => 'Danh sách ứng tuyển',
     'Create Recruitment' => 'Tạo mới hồ sơ ứng tuyển',
+    'Update Recruitment' => 'Cập nhật hồ sơ ứng tuyển',
     // Jobs detail
     'Code' => 'Mã công việc',
     'Created Time' => 'Thời gian tạo',
@@ -52,5 +53,6 @@ return array(
     'Manage Job Positions' => 'Quản lý vị trí công việc',
     'Create Job Position' => 'Tạo mới vị trí công việc',
     'Update Job Position' => 'Cập nhật vị trí công việc',
-    'End time invalid' => 'Thời gian kết thúc không hợp lệ'
+    'End time invalid' => 'Thời gian kết thúc không hợp lệ',
+    'Format date not validated!' => 'Định dạng ngày tháng không hợp lệ'
 );

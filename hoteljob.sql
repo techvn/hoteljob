@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2014 at 10:19 AM
+-- Generation Time: Nov 06, 2014 at 10:28 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -218,9 +218,17 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
   `candidate_name` varchar(45) DEFAULT NULL COMMENT 'Name of candidate (ứng viên)',
   `email` varchar(45) NOT NULL,
   `brief` varchar(500) DEFAULT NULL,
-  `fitness` int(11) DEFAULT NULL COMMENT 'Năng lực bản thân',
+  `fitness` text COMMENT 'Năng lực bản thân',
   `cv_link` char(255) DEFAULT NULL COMMENT 'Description about candidate in this file'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Curriculum of member for job that they attend' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Curriculum of member for job that they attend' AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_jobs_apply`
+--
+
+INSERT INTO `tbl_jobs_apply` (`id`, `members_id`, `jobs_id`, `applied_time`, `title`, `candidate_name`, `email`, `brief`, `fitness`, `cv_link`) VALUES
+(1, 1, 1, '2014-11-19 00:00:00', 'Ứng tuyển vị trí giám độc điều hành', 'Binh Nguyen', 'techvn2012@gmail.com', 'test', '<p>good</p>\r\n', 'BUGS.docx'),
+(2, 1, 1, '2014-11-18 00:00:00', 'test 2', 'd', 'techvn2012@gmail.com', 'a', '<p>b</p>\r\n', 'bugs Cava-bien.docx');
 
 -- --------------------------------------------------------
 
@@ -448,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
   `email` char(30) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `gullname` varchar(45) DEFAULT NULL,
-  `level` enum('MEMBER','MODERATE','ADMINISTAROR') DEFAULT NULL,
+  `level` enum('MEMBER','MODERATE','ADMINISTRATOR') DEFAULT NULL,
   `members_group_id` int(11) DEFAULT NULL,
   `security_ques_id` int(11) DEFAULT NULL,
   `security_ans` char(100) DEFAULT NULL COMMENT 'Tra loi cau hoi bi mat',
@@ -461,14 +469,15 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
   `know_me_id` int(11) DEFAULT NULL COMMENT 'Biet hotel-job qua dau?',
   `updated_time` date DEFAULT NULL,
   `status` int(11) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `tbl_members`
 --
 
 INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `gullname`, `level`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `married`, `avatar`, `nationality`, `know_me_id`, `updated_time`, `status`) VALUES
-(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-11-05 00:00:00', 'Nguyễn Thanh Bình', 'ADMINISTAROR', 0, 0, '', 1, 3, 5, 1, '4524726.png', 1, 0, NULL, 1);
+(1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-11-05 00:00:00', 'Nguyễn Thanh Bình', 'ADMINISTRATOR', 0, 0, '', 1, 3, 5, 1, '4524726.png', 1, 0, NULL, 1),
+(11, 'admin', 'd6b0ab7f1c8ab8f514db9a6d85de160a', 1, '2014-11-06 00:00:00', '', '', '', '', '2014-11-06 00:00:00', '', 'ADMINISTRATOR', 0, 0, '', 0, 0, 0, 0, NULL, 0, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -572,20 +581,35 @@ INSERT INTO `tbl_news_category` (`id`, `name`, `name_en`, `parent_id`, `status`,
 DROP TABLE IF EXISTS `tbl_organize_data`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
 `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
   `name_en` varchar(100) DEFAULT NULL,
   `members_id` int(11) NOT NULL,
   `website` varchar(255) DEFAULT NULL,
   `brand` varchar(45) DEFAULT NULL COMMENT 'Thuong hieu',
+  `tel` char(50) DEFAULT NULL,
+  `phone` char(50) DEFAULT NULL,
   `fax` varchar(15) DEFAULT NULL,
   `tax` varchar(25) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
   `logo` varchar(100) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,
   `company_scope_id` int(11) NOT NULL,
+  `address` char(255) DEFAULT NULL COMMENT 'Địa chỉ',
+  `province` int(11) DEFAULT NULL COMMENT 'Tỉnh thành',
+  `district` int(11) DEFAULT NULL COMMENT 'Quận huyện',
   `description` varchar(500) DEFAULT NULL,
-  `description_en` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='More infomation of member if they are organization' AUTO_INCREMENT=1 ;
+  `description_en` text,
+  `created_time` datetime DEFAULT NULL COMMENT 'Ngày khởi tạo nhà tuyển dụng',
+  `ended_time` datetime DEFAULT NULL COMMENT 'Ngày kết thúc hiệu lực',
+  `status` int(11) DEFAULT '0'
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='More infomation of member if they are organization' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_organize_data`
+--
+
+INSERT INTO `tbl_organize_data` (`id`, `name`, `name_en`, `members_id`, `website`, `brand`, `tel`, `phone`, `fax`, `tax`, `email`, `logo`, `contact`, `company_scope_id`, `address`, `province`, `district`, `description`, `description_en`, `created_time`, `ended_time`, `status`) VALUES
+(1, 'Trung tâm giáo dục và công nghệ toàn cầu', 'Education Technology - Global', 11, 'http://www.tech24h.com.vn', '', '0976529830', '0240 535 875', '', '12358452', 'hotmail@tech24h.com.vn', 'free_nature_background_1920x1080_.jpg', 'Trần Văn Bình - Trưởng phòng IT', 1, '114, Trần Hưng Đạo, phường Nghĩa Đàn, tp Bắc Giang', 3, 5, '<p>test</p>\r\n', '<p>test ok</p>\r\n', '2014-11-06 10:24:50', '2014-11-28 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -854,7 +878,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `tbl_jobs_apply`
 --
 ALTER TABLE `tbl_jobs_apply`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_jobs_comment`
 --
@@ -899,7 +923,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `tbl_members`
 --
 ALTER TABLE `tbl_members`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tbl_members_group`
 --
@@ -924,7 +948,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `tbl_organize_data`
 --
 ALTER TABLE `tbl_organize_data`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_organize_library`
 --

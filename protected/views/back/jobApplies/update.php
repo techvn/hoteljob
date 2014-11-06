@@ -1,21 +1,30 @@
-<?php
-/* @var $this JobAppliesController */
-/* @var $model JobApplies */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Job Applies'=>array('index'),
-	$model->title=>array('view','id'=>$model->id),
-	'Update',
-);
+    #ajax-content {
+        display: block;
+    }
+</style>
 
-$this->menu=array(
-	array('label'=>'List JobApplies', 'url'=>array('index')),
-	array('label'=>'Create JobApplies', 'url'=>array('create')),
-	array('label'=>'View JobApplies', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage JobApplies', 'url'=>array('admin')),
-);
-?>
+<div class="row">
+    <?php
+    /* @var $this JobAppliesController */
+    /* @var $model JobApplies */
 
-<h1>Update Recruitment <?php echo $model->id; ?></h1>
+    $this->breadcrumbs = array(
+        Yii::t('jobs', 'Manage Recruitment') => array('admin'),
+        Yii::t('application', 'Update'),
+    );
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'members'=>$members, 'jobs'=>$jobs)); ?>
+    $this->menu = array(
+        array('label' => Yii::t('jobs', 'Create Recruitment'), 'url' => array('create')),
+        array('label' => Yii::t('jobs', 'Manage Recruitment'), 'url' => array('admin')),
+    );
+    ?>
+</div>
+<div class="well">
+    <h1><?php echo Yii::t('jobs', 'Update Recruitment'); ?></h1>
+    <?php echo $this->renderPartial('_form', array('model' => $model, 'members' => $members, 'jobs' => $jobs)); ?>
+</div>

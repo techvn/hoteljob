@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/jquery.js"></script>
+    <script type="text/javascript"
+            src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/js/helpers.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
+    <script type="text/javascript"
+            src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="<?php echo Yii::app()->request->baseUrl ?>/assets/backend/js/jquery.multifile.js"></script>
     <meta charset="utf-8">
     <title>CPanel - Hotel Job</title>
     <meta name="description" content="description">
@@ -118,11 +121,14 @@
 <!--<script src="<?php /*echo Yii::app()->request->baseUrl; */?>/assets/backend/plugins/jquery/jquery-2.1.0.min.js"></script>
 <script src="<?php /*echo Yii::app()->request->baseUrl;*/ ?>/assets/backend/plugins/jquery-ui/jquery-ui.min.js"></script>-->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript"
-    src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/jquery.tinymce.min.js"></script>
+        src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
+<script type="text/javascript"
+        src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/tinymce.min.js"></script>
+<script type="text/javascript"
+        src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/plugins/tinymce/jquery.tinymce.min.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/backend/js/devoops.js"></script>
 <script type="text/javascript">

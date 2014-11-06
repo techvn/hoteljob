@@ -42,7 +42,7 @@ class JobApplies extends BaseJobsApply {
             array(
                 'cv_link', 'file',
                 'allowEmpty'=>true,
-                'types' => 'doc, xls, xlsx, pdf',
+                'types' => 'doc, docx, xls, xlsx, pdf',
                 'maxSize'=> 1024 * 1024 * 2, // 2M
                 'tooLarge'=> Yii::t('application', 'File has to be smaller than {num}MB', array('{num}' => 2))
             ),

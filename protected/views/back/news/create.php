@@ -21,6 +21,9 @@
         Yii::t('news', 'News') => array('admin'),
         Yii::t('application', 'Create'),
     );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs
+    ));
 
     $this->menu = array(
         array('label' => Yii::t('news', 'List News'), 'url' => array('index')),

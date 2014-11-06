@@ -7,6 +7,8 @@
         display: block;
     }
     #job-applies-grid_c0 { width: 5%; }
+    #job-applies-grid_c3 { width: 12%; }
+    #job-applies-grid_c5 { width: 15%; }
 </style>
 
 <div class="row">

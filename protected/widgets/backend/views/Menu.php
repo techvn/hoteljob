@@ -5,10 +5,11 @@
  * Date: 10/13/14
  * Time: 7:37 PM
  */
+$baseUrl = Yii::app()->request->baseUrl;
 ?>
 <ul class="nav main-menu">
 <li>
-    <a href="<?php echo Yii::app()->request->baseUrl ?>/backend.php" class="active ajax-link">
+    <a href="<?php echo $baseUrl ?>/backend.php" class="active ajax-link">
         <i class="fa fa-dashboard"></i>
         <span class="hidden-xs"><?php echo Yii::t('backend_menu', 'Dashboard') ?></span>
     </a>
@@ -19,7 +20,7 @@
         <span class="hidden-xs"><?php echo Yii::t('backend_menu', 'System Manage') ?></span>
     </a>
     <ul class="dropdown-menu">
-        <li><a class="ajax-link" href="ajax/charts_xcharts.html">
+        <li><a class="ajax-link__" href="<?php echo $baseUrl ?>/backend.php?r=members/admin">
                 <?php echo Yii::t('backend_menu', 'User Manage') ?>
             </a></li>
         <li><a class="ajax-link" href="ajax/charts_flot.html">
@@ -208,3 +209,17 @@
 </li>
 
 </ul>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#sidebar-left a').each(function() {
+            if($(this).prop('href') == window.location.href) {
+                $(this).addClass('active-parent active');
+                // Find parent actived
+                if($(this).parent().prop('tagName') == 'li') {
+                    $(this).parent().parent().parent().find('.dropdown-toggle').addClass('active-parent active');
+                }
+                return false;
+            }
+        })
+    })
+</script>

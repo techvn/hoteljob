@@ -85,5 +85,6 @@ return array(
     'Telephone' => 'Di động',
     'Phone' => 'Điện thoại bàn',
     'Select province/district' => 'Chọn quận huyện/tỉnh thành',
-    'Ended Time' => 'Hết hiệu lực'
+    'Ended Time' => 'Hết hiệu lực',
+    'Skills' => 'Kỹ năng'
 );

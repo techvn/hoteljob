@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 06, 2014 at 10:28 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Host: localhost
+-- Generation Time: Nov 07, 2014 at 09:27 AM
+-- Server version: 5.5.34
+-- PHP Version: 5.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `hoteljob`
 --
-CREATE DATABASE IF NOT EXISTS `hoteljob` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `hoteljob` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `hoteljob`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_academic`
+--
+
+DROP TABLE IF EXISTS `tbl_academic`;
+CREATE TABLE IF NOT EXISTS `tbl_academic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(255) NOT NULL,
+  `title_en` char(255) DEFAULT NULL,
+  `pos` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Quản lý danh sách bằng cấp mẫu' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -30,9 +45,11 @@ USE `hoteljob`;
 
 DROP TABLE IF EXISTS `tbl_company_scope`;
 CREATE TABLE IF NOT EXISTS `tbl_company_scope` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `from` char(100) NOT NULL,
-  `to` char(100) DEFAULT NULL
+  `to` char(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Qui mo cong ty duoc dinh nghia truoc' AUTO_INCREMENT=7 ;
 
 --
@@ -55,11 +72,12 @@ INSERT INTO `tbl_company_scope` (`id`, `from`, `to`) VALUES
 
 DROP TABLE IF EXISTS `tbl_currency`;
 CREATE TABLE IF NOT EXISTS `tbl_currency` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `language_code` char(20) DEFAULT NULL COMMENT 'Sử dụng xác định hiển thị loại tiền tệ chuẩn theo hệ thống PHP',
   `symbol` char(5) NOT NULL,
-  `status` int(11) DEFAULT '0'
+  `status` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -78,12 +96,21 @@ INSERT INTO `tbl_currency` (`id`, `title`, `language_code`, `symbol`, `status`) 
 
 DROP TABLE IF EXISTS `tbl_curriculum_private`;
 CREATE TABLE IF NOT EXISTS `tbl_curriculum_private` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `field` varchar(45) NOT NULL COMMENT 'Field tuong ung trong db duoc hien thi',
   `alias` varchar(100) DEFAULT NULL,
   `alias_en` char(100) DEFAULT NULL,
-  `published` int(11) DEFAULT NULL COMMENT '0-> Un-published, 1->Published'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Danh sach rieng tu không hien thi ' AUTO_INCREMENT=1 ;
+  `published` int(11) DEFAULT NULL COMMENT '0-> Un-published, 1->Published',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Danh sach rieng tu không hien thi ' AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_curriculum_private`
+--
+
+INSERT INTO `tbl_curriculum_private` (`id`, `field`, `alias`, `alias_en`, `published`) VALUES
+(1, 'email', 'Địa chỉ hòm thư', '', 1),
+(2, 'married', 'Tình trạng hôn nhân', '', 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `tbl_curriculum_private` (
 
 DROP TABLE IF EXISTS `tbl_curriculum_vitae`;
 CREATE TABLE IF NOT EXISTS `tbl_curriculum_vitae` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
   `cv_file` varchar(225) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
@@ -108,7 +135,14 @@ CREATE TABLE IF NOT EXISTS `tbl_curriculum_vitae` (
   `job_level_id` int(11) NOT NULL,
   `company_scope_id` int(11) NOT NULL,
   `published` int(11) DEFAULT '1' COMMENT 'Trạng thái tùy chọn cho phép ẩn hay hiện khi search hồ sơ',
-  `title` varchar(100) DEFAULT NULL COMMENT 'Tieu de ho so'
+  `title` varchar(100) DEFAULT NULL COMMENT 'Tieu de ho so',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_members1_idx` (`members_id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_currency1_idx` (`currency_id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_job_major1_idx` (`job_major_id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_job_type1_idx` (`job_type_id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_job_level1_idx` (`job_level_id`),
+  KEY `fk_tbl_curriculum_vitae_tbl_company_scope1_idx` (`company_scope_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -119,13 +153,16 @@ CREATE TABLE IF NOT EXISTS `tbl_curriculum_vitae` (
 
 DROP TABLE IF EXISTS `tbl_faqs_answer`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_answer` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `answer` varchar(500) DEFAULT NULL,
   `faqs_question_id` int(11) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
   `ip_address` varchar(45) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
-  `status` int(11) DEFAULT '0' COMMENT '0: Pending, 1: Actived, 2: De-actived, 3: Deleted'
+  `status` int(11) DEFAULT '0' COMMENT '0: Pending, 1: Actived, 2: De-actived, 3: Deleted',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_faqs_answer_tbl_faqs_question1_idx` (`faqs_question_id`),
+  KEY `fk_tbl_faqs_answer_tbl_members1_idx` (`member_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -136,14 +173,16 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_answer` (
 
 DROP TABLE IF EXISTS `tbl_faqs_category`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_category` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `title_en` varchar(100) DEFAULT NULL,
   `parent_id` int(11) DEFAULT '0',
   `pos` int(11) NOT NULL,
   `brief` varchar(255) DEFAULT NULL,
   `brief_en` varchar(225) DEFAULT NULL,
-  `status` int(11) DEFAULT '0' COMMENT '0: Unpublished, 1: Published'
+  `status` int(11) DEFAULT '0' COMMENT '0: Unpublished, 1: Published',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -154,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_category` (
 
 DROP TABLE IF EXISTS `tbl_faqs_question`;
 CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) DEFAULT NULL,
   `question` varchar(100) DEFAULT NULL,
   `faqs_category_id` int(11) DEFAULT NULL,
@@ -162,7 +201,10 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
   `ip_address` varchar(45) DEFAULT NULL,
   `job_id` int(11) NOT NULL COMMENT 'Cau hoi ve cv cu the khi xem chi tiet (Khong list ra trong "Danh sach hỏi đáp ngoài trang chủ")',
   `viewed` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0: Pending, 1: Approved, 2: Denied, 3: Deleted'
+  `status` int(11) DEFAULT NULL COMMENT '0: Pending, 1: Approved, 2: Denied, 3: Deleted',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_faqs_question_tbl_faqs_category1_idx` (`faqs_category_id`),
+  KEY `fk_tbl_faqs_question_tbl_jobs1_idx` (`job_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -173,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `tbl_faqs_question` (
 
 DROP TABLE IF EXISTS `tbl_jobs`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `title_en` varchar(45) DEFAULT NULL,
   `code` varchar(45) NOT NULL,
@@ -192,7 +234,12 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs` (
   `description_en` text,
   `language` int(11) DEFAULT NULL COMMENT 'CV language require',
   `tags` varchar(100) DEFAULT NULL,
-  `status` int(11) DEFAULT '1' COMMENT 'Pending, Approved, Denied, Deleted'
+  `status` int(11) DEFAULT '1' COMMENT 'Pending, Approved, Denied, Deleted',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_jobs_tbl_job_level1_idx` (`job_level_id`),
+  KEY `fk_tbl_jobs_tbl_job_time1_idx` (`job_time_id`),
+  KEY `fk_tbl_jobs_tbl_job_major1_idx` (`job_major_id`),
+  KEY `fk_tbl_jobs_tbl_locations1_idx` (`language`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List jobs of organizations' AUTO_INCREMENT=2 ;
 
 --
@@ -210,7 +257,7 @@ INSERT INTO `tbl_jobs` (`id`, `title`, `title_en`, `code`, `job_level_id`, `sala
 
 DROP TABLE IF EXISTS `tbl_jobs_apply`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
   `jobs_id` int(11) NOT NULL,
   `applied_time` datetime DEFAULT NULL,
@@ -219,7 +266,10 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_apply` (
   `email` varchar(45) NOT NULL,
   `brief` varchar(500) DEFAULT NULL,
   `fitness` text COMMENT 'Năng lực bản thân',
-  `cv_link` char(255) DEFAULT NULL COMMENT 'Description about candidate in this file'
+  `cv_link` char(255) DEFAULT NULL COMMENT 'Description about candidate in this file',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_jobs_apply_tbl_members1_idx` (`members_id`),
+  KEY `fk_tbl_jobs_apply_tbl_jobs1_idx` (`jobs_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Curriculum of member for job that they attend' AUTO_INCREMENT=3 ;
 
 --
@@ -238,13 +288,16 @@ INSERT INTO `tbl_jobs_apply` (`id`, `members_id`, `jobs_id`, `applied_time`, `ti
 
 DROP TABLE IF EXISTS `tbl_jobs_comment`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_comment` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `members_id` int(11) NOT NULL,
   `jobs_id` int(11) NOT NULL,
   `vote` int(11) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
-  `status` int(11) DEFAULT '1'
+  `status` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_jobs_comment_tbl_members1_idx` (`members_id`),
+  KEY `fk_tbl_jobs_comment_tbl_jobs1_idx` (`jobs_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -256,7 +309,10 @@ CREATE TABLE IF NOT EXISTS `tbl_jobs_comment` (
 DROP TABLE IF EXISTS `tbl_jobs_location`;
 CREATE TABLE IF NOT EXISTS `tbl_jobs_location` (
   `jobs_id` int(11) NOT NULL,
-  `locations_id` int(11) NOT NULL COMMENT 'Quan, huyen, tinh thanh cho cv dang tuyen'
+  `locations_id` int(11) NOT NULL COMMENT 'Quan, huyen, tinh thanh cho cv dang tuyen',
+  UNIQUE KEY `jobs_id` (`jobs_id`,`locations_id`),
+  KEY `fk_tbl_jobs_location_tbl_jobs1_idx` (`jobs_id`),
+  KEY `fk_tbl_jobs_location_tbl_locations1_idx` (`locations_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Danh sach cac tinh thanh tuong ung voi cv dang tuyen (1 cv cho phep chon nhieu tinh thanh)';
 
 --
@@ -275,11 +331,12 @@ INSERT INTO `tbl_jobs_location` (`jobs_id`, `locations_id`) VALUES
 
 DROP TABLE IF EXISTS `tbl_job_level`;
 CREATE TABLE IF NOT EXISTS `tbl_job_level` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `title_en` varchar(255) DEFAULT NULL,
   `pos` int(11) NOT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -299,12 +356,13 @@ INSERT INTO `tbl_job_level` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 
 DROP TABLE IF EXISTS `tbl_job_major`;
 CREATE TABLE IF NOT EXISTS `tbl_job_major` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `title_en` varchar(100) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL COMMENT 'Parent id',
   `pos` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL COMMENT '0->Ẩn, 1->Hiển thị'
+  `status` int(11) DEFAULT NULL COMMENT '0->Ẩn, 1->Hiển thị',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Lĩnh vực công việc chính' AUTO_INCREMENT=5 ;
 
 --
@@ -323,11 +381,12 @@ INSERT INTO `tbl_job_major` (`id`, `title`, `title_en`, `pid`, `pos`, `status`) 
 
 DROP TABLE IF EXISTS `tbl_job_salary`;
 CREATE TABLE IF NOT EXISTS `tbl_job_salary` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `from` int(11) NOT NULL,
   `to` int(11) DEFAULT NULL,
   `type` int(11) NOT NULL COMMENT 'ID tiền tệ',
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template salary' AUTO_INCREMENT=6 ;
 
 --
@@ -347,11 +406,12 @@ INSERT INTO `tbl_job_salary` (`id`, `from`, `to`, `type`, `status`) VALUES
 
 DROP TABLE IF EXISTS `tbl_job_time`;
 CREATE TABLE IF NOT EXISTS `tbl_job_time` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(225) NOT NULL,
   `title_en` varchar(225) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL
+  `status` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Template time for job' AUTO_INCREMENT=4 ;
 
 --
@@ -371,11 +431,12 @@ INSERT INTO `tbl_job_time` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 
 DROP TABLE IF EXISTS `tbl_job_type`;
 CREATE TABLE IF NOT EXISTS `tbl_job_type` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `title_en` varchar(255) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Loại hình cv' AUTO_INCREMENT=3 ;
 
 --
@@ -394,11 +455,12 @@ INSERT INTO `tbl_job_type` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 
 DROP TABLE IF EXISTS `tbl_know_me`;
 CREATE TABLE IF NOT EXISTS `tbl_know_me` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(225) NOT NULL,
   `title_en` varchar(225) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Template answer for question: How do you know me?' AUTO_INCREMENT=3 ;
 
 --
@@ -412,16 +474,32 @@ INSERT INTO `tbl_know_me` (`id`, `title`, `title_en`, `pos`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_language_skill`
+--
+
+DROP TABLE IF EXISTS `tbl_language_skill`;
+CREATE TABLE IF NOT EXISTS `tbl_language_skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `title_en` varchar(255) DEFAULT NULL,
+  `pos` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_locations`
 --
 
 DROP TABLE IF EXISTS `tbl_locations`;
 CREATE TABLE IF NOT EXISTS `tbl_locations` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `code` varchar(45) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
-  `pos` int(11) DEFAULT NULL
+  `pos` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
@@ -445,7 +523,7 @@ INSERT INTO `tbl_locations` (`id`, `name`, `code`, `parent_id`, `pos`) VALUES
 
 DROP TABLE IF EXISTS `tbl_members`;
 CREATE TABLE IF NOT EXISTS `tbl_members` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(45) NOT NULL,
   `pwd` varchar(45) NOT NULL,
   `gender` int(11) DEFAULT NULL,
@@ -468,7 +546,14 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
   `nationality` int(11) DEFAULT NULL COMMENT 'Quốc gia',
   `know_me_id` int(11) DEFAULT NULL COMMENT 'Biet hotel-job qua dau?',
   `updated_time` date DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_members_tbl_members_group1_idx` (`members_group_id`),
+  KEY `fk_tbl_members_tbl_security_ques1_idx` (`security_ques_id`),
+  KEY `fk_tbl_members_tbl_locations1_idx` (`province_id`),
+  KEY `fk_tbl_members_tbl_locations2_idx` (`district_id`),
+  KEY `fk_tbl_members_tbl_know_me1_idx` (`know_me_id`),
+  KEY `fk_tbl_members_tbl_locations3_idx` (`nationality`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
@@ -487,10 +572,11 @@ INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `
 
 DROP TABLE IF EXISTS `tbl_members_group`;
 CREATE TABLE IF NOT EXISTS `tbl_members_group` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT 'Name tieng viet',
   `alias` varchar(45) DEFAULT NULL,
-  `en_name` varchar(45) DEFAULT NULL COMMENT 'Name tieng anh'
+  `en_name` varchar(45) DEFAULT NULL COMMENT 'Name tieng anh',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -511,12 +597,14 @@ INSERT INTO `tbl_members_group` (`id`, `name`, `alias`, `en_name`) VALUES
 
 DROP TABLE IF EXISTS `tbl_members_log`;
 CREATE TABLE IF NOT EXISTS `tbl_members_log` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `action_name` varchar(100) DEFAULT NULL,
   `datetime` datetime DEFAULT NULL,
   `ip_address` varchar(45) DEFAULT NULL,
   `member_name` varchar(45) DEFAULT NULL,
-  `members_id` int(11) DEFAULT NULL
+  `members_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_members_log_tbl_members1_idx` (`members_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -527,7 +615,7 @@ CREATE TABLE IF NOT EXISTS `tbl_members_log` (
 
 DROP TABLE IF EXISTS `tbl_news`;
 CREATE TABLE IF NOT EXISTS `tbl_news` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `brief` varchar(255) DEFAULT NULL,
   `thumb` varchar(255) DEFAULT NULL,
@@ -544,7 +632,9 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
   `brief_en` varchar(225) DEFAULT NULL COMMENT 'Miêu tả bằng tiếng anh',
   `content_en` text,
   `tag_en` varchar(225) DEFAULT NULL COMMENT 'Từ khóa tiếng anh',
-  `news_category_id` int(11) NOT NULL COMMENT 'ID danh mục tin'
+  `news_category_id` int(11) NOT NULL COMMENT 'ID danh mục tin',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_news_tbl_news_category1_idx` (`news_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='News of system or organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -555,13 +645,15 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
 
 DROP TABLE IF EXISTS `tbl_news_category`;
 CREATE TABLE IF NOT EXISTS `tbl_news_category` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `name_en` varchar(45) DEFAULT NULL,
   `parent_id` varchar(45) DEFAULT NULL,
   `status` int(11) DEFAULT '1' COMMENT '1: Publich',
   `type` int(11) DEFAULT '0' COMMENT '0: Danh mục hệ thống, 1: Danh mục của nhà tuyển dụng (organize, recuriter)',
-  `members_id` int(11) NOT NULL
+  `members_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_news_category_tbl_members1_idx` (`members_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -580,7 +672,7 @@ INSERT INTO `tbl_news_category` (`id`, `name`, `name_en`, `parent_id`, `status`,
 
 DROP TABLE IF EXISTS `tbl_organize_data`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `name_en` varchar(100) DEFAULT NULL,
   `members_id` int(11) NOT NULL,
@@ -601,7 +693,10 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_data` (
   `description_en` text,
   `created_time` datetime DEFAULT NULL COMMENT 'Ngày khởi tạo nhà tuyển dụng',
   `ended_time` datetime DEFAULT NULL COMMENT 'Ngày kết thúc hiệu lực',
-  `status` int(11) DEFAULT '0'
+  `status` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_organize_data_tbl_company_scope1_idx` (`company_scope_id`),
+  KEY `fk_tbl_organize_data_tbl_members1_idx` (`members_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='More infomation of member if they are organization' AUTO_INCREMENT=2 ;
 
 --
@@ -619,12 +714,14 @@ INSERT INTO `tbl_organize_data` (`id`, `name`, `name_en`, `members_id`, `website
 
 DROP TABLE IF EXISTS `tbl_organize_library`;
 CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `img_link` varchar(255) DEFAULT NULL,
   `members_id` int(11) NOT NULL,
   `created_time` datetime DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_organize_library_tbl_members1_idx` (`members_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Link meta data of organization' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -635,10 +732,12 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
 
 DROP TABLE IF EXISTS `tbl_privilege`;
 CREATE TABLE IF NOT EXISTS `tbl_privilege` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `code` varchar(45) DEFAULT NULL,
-  `members_group_id` int(11) DEFAULT NULL
+  `members_group_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tbl_privilege_tbl_members_group_idx` (`members_group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -649,11 +748,12 @@ CREATE TABLE IF NOT EXISTS `tbl_privilege` (
 
 DROP TABLE IF EXISTS `tbl_security_ques`;
 CREATE TABLE IF NOT EXISTS `tbl_security_ques` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ques` char(225) NOT NULL,
   `ques_en` char(255) DEFAULT NULL,
   `pos` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Template for security question' AUTO_INCREMENT=3 ;
 
 --
@@ -664,306 +764,32 @@ INSERT INTO `tbl_security_ques` (`id`, `ques`, `ques_en`, `pos`, `status`) VALUE
 (1, 'Cô giáo đầu tiên của bạn là ai?', '', 0, 1),
 (2, 'Trường THCS của bạn ở đâu?', '', 0, 1);
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
 
 --
--- Indexes for table `tbl_company_scope`
---
-ALTER TABLE `tbl_company_scope`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `tbl_currency`
---
-ALTER TABLE `tbl_currency`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_curriculum_private`
---
-ALTER TABLE `tbl_curriculum_private`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_curriculum_vitae`
---
-ALTER TABLE `tbl_curriculum_vitae`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_members1_idx` (`members_id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_currency1_idx` (`currency_id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_job_major1_idx` (`job_major_id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_job_type1_idx` (`job_type_id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_job_level1_idx` (`job_level_id`), ADD KEY `fk_tbl_curriculum_vitae_tbl_company_scope1_idx` (`company_scope_id`);
-
---
--- Indexes for table `tbl_faqs_answer`
---
-ALTER TABLE `tbl_faqs_answer`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_faqs_answer_tbl_faqs_question1_idx` (`faqs_question_id`), ADD KEY `fk_tbl_faqs_answer_tbl_members1_idx` (`member_id`);
-
---
--- Indexes for table `tbl_faqs_category`
---
-ALTER TABLE `tbl_faqs_category`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `tbl_faqs_question`
---
-ALTER TABLE `tbl_faqs_question`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_faqs_question_tbl_faqs_category1_idx` (`faqs_category_id`), ADD KEY `fk_tbl_faqs_question_tbl_jobs1_idx` (`job_id`);
-
---
--- Indexes for table `tbl_jobs`
---
-ALTER TABLE `tbl_jobs`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_jobs_tbl_job_level1_idx` (`job_level_id`), ADD KEY `fk_tbl_jobs_tbl_job_time1_idx` (`job_time_id`), ADD KEY `fk_tbl_jobs_tbl_job_major1_idx` (`job_major_id`), ADD KEY `fk_tbl_jobs_tbl_locations1_idx` (`language`);
-
---
--- Indexes for table `tbl_jobs_apply`
---
-ALTER TABLE `tbl_jobs_apply`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_jobs_apply_tbl_members1_idx` (`members_id`), ADD KEY `fk_tbl_jobs_apply_tbl_jobs1_idx` (`jobs_id`);
-
---
--- Indexes for table `tbl_jobs_comment`
---
-ALTER TABLE `tbl_jobs_comment`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_jobs_comment_tbl_members1_idx` (`members_id`), ADD KEY `fk_tbl_jobs_comment_tbl_jobs1_idx` (`jobs_id`);
-
---
--- Indexes for table `tbl_jobs_location`
---
-ALTER TABLE `tbl_jobs_location`
- ADD UNIQUE KEY `jobs_id` (`jobs_id`,`locations_id`), ADD KEY `fk_tbl_jobs_location_tbl_jobs1_idx` (`jobs_id`), ADD KEY `fk_tbl_jobs_location_tbl_locations1_idx` (`locations_id`);
-
---
--- Indexes for table `tbl_job_level`
---
-ALTER TABLE `tbl_job_level`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_job_major`
---
-ALTER TABLE `tbl_job_major`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_job_salary`
---
-ALTER TABLE `tbl_job_salary`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_job_time`
---
-ALTER TABLE `tbl_job_time`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_job_type`
---
-ALTER TABLE `tbl_job_type`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_know_me`
---
-ALTER TABLE `tbl_know_me`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_locations`
---
-ALTER TABLE `tbl_locations`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_members`
---
-ALTER TABLE `tbl_members`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_members_tbl_members_group1_idx` (`members_group_id`), ADD KEY `fk_tbl_members_tbl_security_ques1_idx` (`security_ques_id`), ADD KEY `fk_tbl_members_tbl_locations1_idx` (`province_id`), ADD KEY `fk_tbl_members_tbl_locations2_idx` (`district_id`), ADD KEY `fk_tbl_members_tbl_know_me1_idx` (`know_me_id`), ADD KEY `fk_tbl_members_tbl_locations3_idx` (`nationality`);
-
---
--- Indexes for table `tbl_members_group`
---
-ALTER TABLE `tbl_members_group`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_members_log`
---
-ALTER TABLE `tbl_members_log`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_members_log_tbl_members1_idx` (`members_id`);
-
---
--- Indexes for table `tbl_news`
---
-ALTER TABLE `tbl_news`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_news_tbl_news_category1_idx` (`news_category_id`);
-
---
--- Indexes for table `tbl_news_category`
---
-ALTER TABLE `tbl_news_category`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_news_category_tbl_members1_idx` (`members_id`);
-
---
--- Indexes for table `tbl_organize_data`
---
-ALTER TABLE `tbl_organize_data`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_organize_data_tbl_company_scope1_idx` (`company_scope_id`), ADD KEY `fk_tbl_organize_data_tbl_members1_idx` (`members_id`);
-
---
--- Indexes for table `tbl_organize_library`
---
-ALTER TABLE `tbl_organize_library`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_organize_library_tbl_members1_idx` (`members_id`);
-
---
--- Indexes for table `tbl_privilege`
---
-ALTER TABLE `tbl_privilege`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_tbl_privilege_tbl_members_group_idx` (`members_group_id`);
-
---
--- Indexes for table `tbl_security_ques`
---
-ALTER TABLE `tbl_security_ques`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Table structure for table `tbl_skill`
 --
 
+DROP TABLE IF EXISTS `tbl_skill`;
+CREATE TABLE IF NOT EXISTS `tbl_skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(255) NOT NULL,
+  `title_en` char(255) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL COMMENT 'Danh mục cha',
+  `pos` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='Skill with computer template' AUTO_INCREMENT=4 ;
+
 --
--- AUTO_INCREMENT for table `tbl_company_scope`
+-- Dumping data for table `tbl_skill`
 --
-ALTER TABLE `tbl_company_scope`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `tbl_currency`
---
-ALTER TABLE `tbl_currency`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_curriculum_private`
---
-ALTER TABLE `tbl_curriculum_private`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_curriculum_vitae`
---
-ALTER TABLE `tbl_curriculum_vitae`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_faqs_answer`
---
-ALTER TABLE `tbl_faqs_answer`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_faqs_category`
---
-ALTER TABLE `tbl_faqs_category`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_faqs_question`
---
-ALTER TABLE `tbl_faqs_question`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_jobs`
---
-ALTER TABLE `tbl_jobs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tbl_jobs_apply`
---
-ALTER TABLE `tbl_jobs_apply`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_jobs_comment`
---
-ALTER TABLE `tbl_jobs_comment`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_job_level`
---
-ALTER TABLE `tbl_job_level`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tbl_job_major`
---
-ALTER TABLE `tbl_job_major`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `tbl_job_salary`
---
-ALTER TABLE `tbl_job_salary`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `tbl_job_time`
---
-ALTER TABLE `tbl_job_time`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tbl_job_type`
---
-ALTER TABLE `tbl_job_type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_know_me`
---
-ALTER TABLE `tbl_know_me`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_locations`
---
-ALTER TABLE `tbl_locations`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `tbl_members`
---
-ALTER TABLE `tbl_members`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `tbl_members_group`
---
-ALTER TABLE `tbl_members_group`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `tbl_members_log`
---
-ALTER TABLE `tbl_members_log`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_news`
---
-ALTER TABLE `tbl_news`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_news_category`
---
-ALTER TABLE `tbl_news_category`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `tbl_organize_data`
---
-ALTER TABLE `tbl_organize_data`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tbl_organize_library`
---
-ALTER TABLE `tbl_organize_library`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_privilege`
---
-ALTER TABLE `tbl_privilege`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_security_ques`
---
-ALTER TABLE `tbl_security_ques`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+
+INSERT INTO `tbl_skill` (`id`, `title`, `title_en`, `pid`, `pos`, `status`) VALUES
+(1, 'Kỹ năng phần cứng', 'Hardware skill', NULL, 1, 1),
+(2, 'Kỹ năng phần mềm', 'Soft skill', 0, 2, 1),
+(3, 'Lập trình C#', 'C# Programming', 2, 1, 1);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,21 +1,35 @@
-<?php
-/* @var $this CurriculumPrivateController */
-/* @var $model CurriculumPrivate */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Curriculum Privates'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
+    #ajax-content {
+        display: block;
+    }
+</style>
 
-$this->menu=array(
-	array('label'=>'List CurriculumPrivate', 'url'=>array('index')),
-	array('label'=>'Create CurriculumPrivate', 'url'=>array('create')),
-	array('label'=>'View CurriculumPrivate', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage CurriculumPrivate', 'url'=>array('admin')),
-);
-?>
+<div class="row">
+    <?php
+    /* @var $this CurriculumPrivateController */
+    /* @var $model CurriculumPrivate */
 
-<h1>Update CurriculumPrivate <?php echo $model->id; ?></h1>
+    $this->breadcrumbs = array(
+        Yii::t('curriculum', 'Manage Curriculum Private') => array('admin'),
+        Yii::t('application', 'Update'),
+    );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array('links' => $this->breadcrumbs));
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'member_fields' => $member_fields, 'curriculumVitae_fields' => $curriculumVitae_fields)); ?>
+    $this->menu = array(
+        array('label' => Yii::t('curriculum', 'Manage Curriculum Private'), 'url' => array('admin')),
+        array('label' => Yii::t('curriculum', 'Create Curriculum Private'), 'url' => array('create')),
+    );
+    ?>
+</div>
+<div class="well">
+    <h1><?php echo Yii::t('curriculum', 'Update Curriculum Private'); ?></h1>
+    <?php
+    echo $this->renderPartial('_form', array('model' => $model,
+        'member_fields' => $member_fields,
+        'curriculumVitae_fields' => $curriculumVitae_fields));
+    ?>
+</div>

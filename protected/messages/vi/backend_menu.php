@@ -56,5 +56,7 @@ return array(
     'Create' => 'Tạo mới',
     'List' => 'Danh sách',
     'Edit' => 'Cập nhật',
-    'Update Member' => 'Cập nhật thành viên'
+    'Update Member' => 'Cập nhật thành viên',
+    'Skill Computer Manage' => 'Quản lý kỹ năng tin học',
+    'Skill Computer' => 'Kỹ năng tin học'
 );

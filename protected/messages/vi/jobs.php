@@ -54,5 +54,12 @@ return array(
     'Create Job Position' => 'Tạo mới vị trí công việc',
     'Update Job Position' => 'Cập nhật vị trí công việc',
     'End time invalid' => 'Thời gian kết thúc không hợp lệ',
-    'Format date not validated!' => 'Định dạng ngày tháng không hợp lệ'
+    'Format date not validated!' => 'Định dạng ngày tháng không hợp lệ',
+    // Skill manage
+    'Manage Skills' => 'Quản lý kỹ năng',
+    'Create Skill' => 'Thêm mới kỹ năng',
+    'Update Skill' => 'Cập nhật kỹ năng',
+    'Parent Skill' => 'Kỹ năng cha',
+    'Language Skills' => 'Kỹ năng ngôn ngữ',
+    'Create Language Skill' => 'Tạo mới kỹ năng ngôn ngữ'
 );

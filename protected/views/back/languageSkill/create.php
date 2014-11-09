@@ -1,18 +1,34 @@
-<?php
-/* @var $this LanguageSkillController */
-/* @var $model LanguageSkill */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Language Skills'=>array('index'),
-	'Create',
-);
+    #ajax-content {
+        display: block;
+    }
 
-$this->menu=array(
-	array('label'=>'List LanguageSkill', 'url'=>array('index')),
-	array('label'=>'Manage LanguageSkill', 'url'=>array('admin')),
-);
-?>
+</style>
 
-<h1>Create LanguageSkill</h1>
+<div class="row">
+    <?php
+    /* @var $this LanguageSkillController */
+    /* @var $model LanguageSkill */
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+    $this->breadcrumbs = array(
+        Yii::t('jobs', 'Language Skills') => array('admin'),
+        Yii::t('application', 'create'),
+    );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs
+    ));
+
+    $this->menu = array(
+        array('label' => Yii::t('jobs', 'Manage Language'), 'url' => array('admin')),
+    );
+    ?>
+</div>
+<div class="well">
+    <h1><?php echo Yii::t('jobs', 'Create Language Skill') ?></h1>
+
+    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+</div>

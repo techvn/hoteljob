@@ -118,10 +118,10 @@ if (!isset($update)) {
 </div>
 
 <div class="form-group">
-    <?php echo $form->labelEx($model, 'gullname', array('class' => 'col-sm-2 control-label')); ?>
+    <?php echo $form->labelEx($model, 'fullname', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-4">
-        <?php echo $form->textField($model, 'gullname', array('size' => 45, 'maxlength' => 45, 'class' => 'form-control')); ?>
-        <?php echo $form->error($model, 'gullname'); ?>
+        <?php echo $form->textField($model, 'fullname', array('size' => 45, 'maxlength' => 45, 'class' => 'form-control')); ?>
+        <?php echo $form->error($model, 'fullname'); ?>
     </div>
     <?php echo $form->labelEx($model, 'email', array('class' => 'col-sm-2 control-label')); ?>
     <div class="col-sm-4">

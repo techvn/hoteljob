@@ -86,7 +86,7 @@ if($locations) {
         'columns' => array(
             //'id',
             'uname',
-            //'gullname',
+            //'fullname',
             //'pwd',
             //'gender',
             //'birth',

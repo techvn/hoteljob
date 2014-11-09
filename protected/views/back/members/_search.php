@@ -72,8 +72,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'gullname'); ?>
-		<?php echo $form->textField($model,'gullname',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->label($model,'fullname'); ?>
+		<?php echo $form->textField($model,'fullname',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
 	<div class="row">

@@ -86,5 +86,21 @@ return array(
     'Phone' => 'Điện thoại bàn',
     'Select province/district' => 'Chọn quận huyện/tỉnh thành',
     'Ended Time' => 'Hết hiệu lực',
-    'Skills' => 'Kỹ năng'
+    'Skills' => 'Kỹ năng',
+    // Curriculum vitae
+    'Experience Year' => 'Số năm kinh nghiệm',
+    'Private Data' => 'Dữ liệu riêng tư',
+    'Salary Desired From' => 'Mức lương mong muốn từ',
+    'Salary Desired To' => 'Mức lương mong muốn tới',
+    'Experience' => 'Kinh nghiệm',
+    'Profile' => 'Hồ sơ cá nhân',
+    'Select year' => 'Chọn năm',
+    'Select month' => 'Chọn tháng',
+    'Select academic' => 'Chọn bằng cấp',
+    'Select province' => 'Chọn tỉnh thành',
+    'Language Skill' => 'Kỹ năng ngôn ngữ',
+    'Select Language' => 'Lựa chọn ngôn ngữ',
+    'Select skill level' => 'Lựa chọn cấp độ',
+    'Jobs Enjoy' => 'Công việc mong muốn',
+    'Other Skill' => 'Công việc khác'
 );

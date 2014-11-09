@@ -533,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
   `mobile` varchar(15) DEFAULT NULL,
   `email` char(30) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
-  `gullname` varchar(45) DEFAULT NULL,
+  `fullname` varchar(45) DEFAULT NULL,
   `level` enum('MEMBER','MODERATE','ADMINISTRATOR') DEFAULT NULL,
   `members_group_id` int(11) DEFAULT NULL,
   `security_ques_id` int(11) DEFAULT NULL,
@@ -560,7 +560,7 @@ CREATE TABLE IF NOT EXISTS `tbl_members` (
 -- Dumping data for table `tbl_members`
 --
 
-INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `gullname`, `level`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `married`, `avatar`, `nationality`, `know_me_id`, `updated_time`, `status`) VALUES
+INSERT INTO `tbl_members` (`id`, `uname`, `pwd`, `gender`, `birth`, `address`, `phone`, `mobile`, `email`, `created_time`, `fullname`, `level`, `members_group_id`, `security_ques_id`, `security_ans`, `recieve_mail`, `province_id`, `district_id`, `married`, `avatar`, `nationality`, `know_me_id`, `updated_time`, `status`) VALUES
 (1, 'binhnt', 'e99a18c428cb38d5f260853678922e03', 1, '1986-09-30 00:00:00', 'Minh Duc, Viet Yen', '0976529830', '0976529830', 'ntbinh30986@gmail.com', '2014-11-05 00:00:00', 'Nguyễn Thanh Bình', 'ADMINISTRATOR', 0, 0, '', 1, 3, 5, 1, '4524726.png', 1, 0, NULL, 1),
 (11, 'admin', 'd6b0ab7f1c8ab8f514db9a6d85de160a', 1, '2014-11-06 00:00:00', '', '', '', '', '2014-11-06 00:00:00', '', 'ADMINISTRATOR', 0, 0, '', 0, 0, 0, 0, NULL, 0, 0, NULL, 1);
 

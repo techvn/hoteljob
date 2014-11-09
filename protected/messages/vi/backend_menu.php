@@ -23,8 +23,9 @@ return array(
     'List News' => "Danh sách tin",
     'Add News' => "Thêm mới tin",
     'Recruitment Manage' => 'Quản lý đăng tuyển',
+    'Job Manage' => 'Quản lý việc làm',
     'Recruitment comment' => 'Phản hồi việc làm',
-    'Apply Manage' => 'Quản lý ứng viên',
+    'Apply Manage' => 'Danh sách ứng tuyển',
     'HotelJob News Manage' => 'Tin tức hệ thống',
     'New Recruiter' => 'Thêm mới tin',
     'List Categories' => 'Danh mục',
@@ -57,6 +58,8 @@ return array(
     'List' => 'Danh sách',
     'Edit' => 'Cập nhật',
     'Update Member' => 'Cập nhật thành viên',
-    'Skill Computer Manage' => 'Quản lý kỹ năng tin học',
-    'Skill Computer' => 'Kỹ năng tin học'
+    'Computer Skill Manage' => 'Quản lý kỹ năng tin học',
+    'Computer Skill' => 'Kỹ năng tin học',
+    'Language Skill Manage' => 'Quản lý kỹ năng ngôn ngữ',
+    'Language Skill' => 'Kỹ năng ngôn ngữ'
 );

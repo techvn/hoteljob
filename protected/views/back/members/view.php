@@ -42,7 +42,7 @@
             'created_time',
             'updated_time',
             'status',
-            'gullname',
+            'fullname',
             'members_group_id',
             'security_ques_id',
             'security_ans',

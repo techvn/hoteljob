@@ -297,6 +297,14 @@ class MembersController extends Controller
         ));
     }
 
+    public function actionData($id) {
+        $model = $this->load($id);
+        $country = Locations::model()->findAll(array(
+            'condition' => '`parent_id`=0 OR `parent_id` IS NULL', 'order' => 'pos,name', 'index'=>'id'
+        ));
+        // Render html
+        $this->renderPartial('data', array('model'=>$model, 'country'=>$country));
+    }
     /**
      * Manages all models.
      */

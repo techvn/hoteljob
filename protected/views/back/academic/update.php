@@ -1,21 +1,36 @@
-<?php
-/* @var $this AcademicController */
-/* @var $model Academic */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Academics'=>array('index'),
-	$model->title=>array('view','id'=>$model->id),
-	'Update',
-);
+    #ajax-content {
+        display: block;
+    }
 
-$this->menu=array(
-	array('label'=>'List Academic', 'url'=>array('index')),
-	array('label'=>'Create Academic', 'url'=>array('create')),
-	array('label'=>'View Academic', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Academic', 'url'=>array('admin')),
-);
-?>
+</style>
 
-<h1>Update Academic <?php echo $model->id; ?></h1>
+<div class="row">
+    <?php
+    /* @var $this AcademicController */
+    /* @var $model Academic */
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+    $this->breadcrumbs = array(
+        Yii::t('jobs', 'Academics') => array('admin'),
+        Yii::t('application', 'Update'),
+    );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs
+    ));
+
+    $this->menu = array(
+        array('label' => Yii::t('jobs', 'Manage Academics'), 'url' => array('admin')),
+        array('label' => Yii::t('jobs', 'Create Academic'), 'url' => array('create')),
+    );
+    ?>
+</div>
+<div class="well">
+
+    <h1><?php echo Yii::t('jobs', 'Update Academic'); ?></h1>
+
+    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+</div>

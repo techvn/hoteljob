@@ -9,7 +9,7 @@ $baseUrl = Yii::app()->request->baseUrl;
 ?>
 <ul class="nav main-menu">
 <li>
-    <a href="<?php echo $baseUrl ?>/backend.php" class="active ajax-link">
+    <a href="<?php echo $baseUrl ?>/backend.php" class="ajax-link">
         <i class="fa fa-dashboard"></i>
         <span class="hidden-xs"><?php echo Yii::t('backend_menu', 'Dashboard') ?></span>
     </a>
@@ -67,8 +67,8 @@ $baseUrl = Yii::app()->request->baseUrl;
         <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('news/create') ?>">
                 <?php echo Yii::t('backend_menu', 'Add News') ?>
             </a></li>
-        <li><a class="ajax-link__" href="#">
-                <?php echo Yii::t('backend_menu', 'Recruitment Manage') ?>
+        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('jobs/admin') ?>">
+                <?php echo Yii::t('backend_menu', 'Job Manage') ?>
                 <!--Danh sách đăng tuyển-->
             </a></li>
         <li><a class="ajax-link__" href="#">
@@ -115,7 +115,7 @@ $baseUrl = Yii::app()->request->baseUrl;
         <li><a class="ajax-link__" href="<?php /*echo Yii::app()->createUrl('members/create') */?>">
                 <?php /*echo Yii::t('backend_menu', 'Add Member') */?>
             </a></li>-->
-        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('') ?>">
+        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('curriculumVitae/admin') ?>">
                 <?php echo Yii::t('backend_menu', 'List Curriculum Vitae') ?>
             </a></li>
         <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('curriculumPrivate/admin') ?>">
@@ -160,8 +160,20 @@ $baseUrl = Yii::app()->request->baseUrl;
                 <?php echo Yii::t('backend_menu', 'Level Manage') ?>
             </a></li>
         <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('skill/admin') ?>"
-               title="<?php echo Yii::t('backend_menu', 'Skill Computer Manage') ?>">
-                <?php echo Yii::t('backend_menu', 'Skill Computer') ?>
+               title="<?php echo Yii::t('backend_menu', 'Computer Skill Manage') ?>">
+                <?php echo Yii::t('backend_menu', 'Computer Skill') ?>
+            </a></li>
+        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('academic/admin') ?>"
+               title="<?php echo Yii::t('jobs', 'Manage Academics') ?>">
+                <?php echo Yii::t('jobs', 'Manage Academics') ?>
+            </a></li>
+        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('languageSkill/admin') ?>"
+               title="<?php echo Yii::t('backend_menu', 'Language Skill Manage') ?>">
+                <?php echo Yii::t('backend_menu', 'Language Skill') ?>
+            </a></li>
+        <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('skillLevel/admin') ?>"
+               title="<?php echo Yii::t('jobs', 'Skill Levels') ?>">
+                <?php echo Yii::t('jobs', 'Skill Levels') ?>
             </a></li>
         <li><a class="ajax-link__" href="<?php echo Yii::app()->createUrl('jobSalary/admin') ?>"
                title="<?php echo Yii::t('backend_menu', 'Salary Manage') ?>">
@@ -215,16 +227,36 @@ $baseUrl = Yii::app()->request->baseUrl;
 </ul>
 <script type="text/javascript">
     $(document).ready(function() {
+        var __href = window.location.href;
+        var existMenu = false;
         $('#sidebar-left a').each(function() {
-            if($(this).prop('href') == window.location.href) {
+            if($(this).prop('href') == __href) {
                 $(this).addClass('active-parent active');
                 // Find parent actived
                 if($(this).parent().prop('tagName') == 'LI') {
                     $(this).parent().parent().css('display', 'block');
                     $(this).parent().parent().parent().find('.dropdown-toggle').addClass('active-parent active');
                 }
+                existMenu = true;
                 return false;
             }
-        })
+        });
+
+        if(!existMenu) {
+            __href = __href.split('/');
+            __href[__href.length - 1] = 'admin';
+            __href = __href.join('/');
+            $('#sidebar-left a').each(function() {
+                if($(this).prop('href') == __href) {
+                    $(this).addClass('active-parent active');
+                    // Find parent actived
+                    if($(this).parent().prop('tagName') == 'LI') {
+                        $(this).parent().parent().css('display', 'block');
+                        $(this).parent().parent().parent().find('.dropdown-toggle').addClass('active-parent active');
+                    }
+                    return false;
+                }
+            });
+        }
     })
 </script>

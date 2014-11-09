@@ -1,21 +1,33 @@
-<?php
-/* @var $this LanguageSkillController */
-/* @var $model LanguageSkill */
+<style type="text/css">
+    .preloader {
+        display: none;
+    }
 
-$this->breadcrumbs=array(
-	'Language Skills'=>array('index'),
-	$model->title=>array('view','id'=>$model->id),
-	'Update',
-);
+    #ajax-content {
+        display: block;
+    }
 
-$this->menu=array(
-	array('label'=>'List LanguageSkill', 'url'=>array('index')),
-	array('label'=>'Create LanguageSkill', 'url'=>array('create')),
-	array('label'=>'View LanguageSkill', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage LanguageSkill', 'url'=>array('admin')),
-);
-?>
+</style>
 
-<h1>Update LanguageSkill <?php echo $model->id; ?></h1>
+<div class="row">
+    <?php
+    /* @var $this LanguageSkillController */
+    /* @var $model LanguageSkill */
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+    $this->breadcrumbs = array(
+        Yii::t('jobs', 'Language Skills') => array('index'),
+        Yii::t('application', 'Update'),
+    );
+
+    $this->menu = array(
+        array('label' => Yii::t('jobs', 'Create Language Skill'), 'url' => array('create')),
+        array('label' => Yii::t('jobs', 'Manage Language'), 'url' => array('admin')),
+    );
+    ?>
+</div>
+<div class="well">
+
+    <h1><?php echo Yii::t('jobs', 'Update Language  Skill'); ?></h1>
+
+    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+</div>

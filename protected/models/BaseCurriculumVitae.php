@@ -39,7 +39,7 @@ class BaseCurriculumVitae extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('members_id, currency_id, job_major_id, job_type_id, job_level_id, company_scope_id', 'required'),
+			array('members_id, currency_id, job_major_id, job_type_id, job_level_id, company_scope_id, title', 'required'),
 			array('members_id, experience_year, currency_id, work_from_away, job_major_id, job_type_id, job_level_id, company_scope_id, published', 'numerical', 'integerOnly'=>true),
 			array('salary_desired_from, salary_desired_to', 'numerical'),
 			array('cv_file', 'length', 'max'=>225),

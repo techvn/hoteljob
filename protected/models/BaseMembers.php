@@ -14,7 +14,7 @@
  * @property string $mobile
  * @property string $email
  * @property string $created_time
- * @property string $gullname
+ * @property string $fullname
  * @property string $level
  * @property integer $members_group_id
  * @property integer $security_ques_id
@@ -59,7 +59,7 @@ class BaseMembers extends CActiveRecord
 		return array(
 			array('uname, pwd', 'required'),
 			array('gender, members_group_id, security_ques_id, recieve_mail, province_id, district_id, married, nationality, know_me_id, status', 'numerical', 'integerOnly'=>true),
-			array('uname, pwd, gullname', 'length', 'max'=>45),
+			array('uname, pwd, fullname', 'length', 'max'=>45),
 			array('address', 'length', 'max'=>255),
 			array('phone, mobile', 'length', 'max'=>15),
 			array('email', 'length', 'max'=>30),
@@ -69,7 +69,7 @@ class BaseMembers extends CActiveRecord
 			array('birth, created_time, updated_time', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, uname, pwd, gender, birth, address, phone, mobile, email, created_time, gullname, level, members_group_id, security_ques_id, security_ans, recieve_mail, province_id, district_id, married, avatar, nationality, know_me_id, updated_time, status', 'safe', 'on'=>'search'),
+			array('id, uname, pwd, gender, birth, address, phone, mobile, email, created_time, fullname, level, members_group_id, security_ques_id, security_ans, recieve_mail, province_id, district_id, married, avatar, nationality, know_me_id, updated_time, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,7 +100,7 @@ class BaseMembers extends CActiveRecord
 			'mobile' => 'Mobile',
 			'email' => 'Email',
 			'created_time' => 'Created Time',
-			'gullname' => 'Gullname',
+			'fullname' => 'fullname',
 			'level' => 'Level',
 			'members_group_id' => 'Members Group',
 			'security_ques_id' => 'Security Ques',
@@ -138,7 +138,7 @@ class BaseMembers extends CActiveRecord
 		$criteria->compare('mobile',$this->mobile,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('created_time',$this->created_time,true);
-		$criteria->compare('gullname',$this->gullname,true);
+		$criteria->compare('fullname',$this->fullname,true);
 		$criteria->compare('level',$this->level,true);
 		$criteria->compare('members_group_id',$this->members_group_id);
 		$criteria->compare('security_ques_id',$this->security_ques_id);

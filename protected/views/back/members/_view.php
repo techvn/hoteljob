@@ -54,8 +54,8 @@
 	<?php echo CHtml::encode($data->status); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('gullname')); ?>:</b>
-	<?php echo CHtml::encode($data->gullname); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fullname')); ?>:</b>
+	<?php echo CHtml::encode($data->fullname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('members_group_id')); ?>:</b>

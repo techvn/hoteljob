@@ -13,5 +13,10 @@ return array(
     'Curriculum vitae fields' => 'Trường dữ liệu hồ sơ',
     'Manage Curriculum Private' => 'Quản lý hồ sơ',
     'Create Curriculum Private' => 'Thêm mới tùy chọn riêng tư',
-    'Update Curriculum Private' => 'Cập nhật tùy chọn riêng tư'
+    'Update Curriculum Private' => 'Cập nhật tùy chọn riêng tư',
+    // ----------------
+    'Curriculum Vitae' => 'Hồ sơ ứng viên',
+    'Create Curriculum Vitae' => 'Thêm mới hồ sơ ứng viên',
+    'Manage Curriculum Vitae' => 'Quản lý hồ sơ ứng viên',
+    'Experience working' => 'Kinh nghiệm làm việc'
 );

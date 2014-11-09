@@ -37,7 +37,7 @@ class AcademicController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -51,6 +51,8 @@ class AcademicController extends Controller
 	 */
 	public function actionView($id)
 	{
+        $this->redirect(array('admin'));
+        // ------------
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -71,7 +73,7 @@ class AcademicController extends Controller
 		{
 			$model->attributes=$_POST['Academic'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -95,7 +97,7 @@ class AcademicController extends Controller
 		{
 			$model->attributes=$_POST['Academic'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
@@ -122,6 +124,7 @@ class AcademicController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $this->redirect(array('admin'));
 		$dataProvider=new CActiveDataProvider('Academic');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

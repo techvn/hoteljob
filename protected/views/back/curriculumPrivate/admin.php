@@ -38,6 +38,7 @@
     ");
     ?>
 </div>
+
 <div class="well">
 
     <h1><?php echo Yii::t('curriculum', 'Manage Curriculum Privates') ?></h1>

@@ -48,5 +48,8 @@ return array(
     'List Survey' => 'Danh sách câu hỏi khảo sát',
     'Create Survey' => 'Thêm mới khảo sát',
     'Update Survey' => 'Cập nhật khảo sát',
-    'Manage Survey' => 'Quản lý danh sách khảo sát'
+    'Manage Survey' => 'Quản lý danh sách khảo sát',
+    // Curriculum vitae
+    'Your CV' => 'Hồ sơ của bạn',
+    'Member' => 'Thành viên'
 );

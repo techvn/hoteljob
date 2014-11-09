@@ -30,7 +30,7 @@ class Members extends BaseMembers
             'created_time' => Yii::t('member_attribute', 'Created Time'),
             'updated_time' => Yii::t('member_attribute', 'Updated Time'),
             'status' => Yii::t('member_attribute', 'Status'),
-            'gullname' => Yii::t('member_attribute', 'Gull Name'),
+            'fullname' => Yii::t('member_attribute', 'Gull Name'),
             'level' => Yii::t('member_attribute', 'Level'),
             'members_group_id' => Yii::t('member_attribute', 'Members Group'),
             'security_ques_id' => Yii::t('member_attribute', 'Security Ques'),

@@ -9,9 +9,10 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'currency-form',
         'enableAjaxValidation' => false,
+        'htmlOptions'=>array('class'=>'form-horizontal')
     )); ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note"><?php echo Yii::t('backend', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->errorSummary($model); ?>
 

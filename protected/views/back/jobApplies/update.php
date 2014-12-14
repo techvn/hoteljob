@@ -17,6 +17,7 @@
         Yii::t('jobs', 'Manage Recruitment') => array('admin'),
         Yii::t('application', 'Update'),
     );
+    $this->widget('application.widgets.backend.CBreadcrumbs', array('links' => $this->breadcrumbs));
 
     $this->menu = array(
         array('label' => Yii::t('jobs', 'Create Recruitment'), 'url' => array('create')),

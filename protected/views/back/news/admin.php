@@ -35,6 +35,10 @@
             }
         }
     }
+    $newStatus = array(
+        '0' => Yii::t('application', 'Pending'), '1' => Yii::t('application', 'Approved'),
+        '2' => Yii::t('application', 'Denied'), '3' => Yii::t('application', 'Deleted')
+    );
 
     $this->breadcrumbs = array(
         Yii::t('news', 'List News') => array('admin'),
@@ -107,7 +111,9 @@ $('.search-form form').submit(function(){
             'created_time',
             array(
                 'name' => 'status',
-                'value' => '',
+                'value' => function($d) use($newStatus) {
+                        return isset($newStatus[$d->status]) ? $newStatus[$d->status] : Yii::t('application', 'Pending');
+                    },
                 'filter' => array(
                     '0' => Yii::t('application', 'Pending'), '1' => Yii::t('application', 'Approved'),
                     '2' => Yii::t('application', 'Denied'), '3' => Yii::t('application', 'Deleted')

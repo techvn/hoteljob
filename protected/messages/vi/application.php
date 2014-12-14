@@ -102,5 +102,12 @@ return array(
     'Select Language' => 'Lựa chọn ngôn ngữ',
     'Select skill level' => 'Lựa chọn cấp độ',
     'Jobs Enjoy' => 'Công việc mong muốn',
-    'Other Skill' => 'Công việc khác'
+    'Other Skill' => 'Công việc khác',
+    'Banners' => 'Banners',
+    'Create Banner' => 'Tạo mới banner',
+    'Update Banner' => 'Cập nhật banner',
+    'Manage Banners' => 'Quản lý banners',
+    'Type' => 'Kiểu',
+    'Link' => 'Liên kết',
+    'Select member' => 'Chọn thành viên'
 );

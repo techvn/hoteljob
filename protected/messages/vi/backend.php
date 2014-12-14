@@ -13,5 +13,8 @@ return array(
         => 'Bạn có thể nhập một toán tử (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) ở đầu mỗi giá trị tìm kiếm để so sánh',
     'Advanced Search' => 'Tìm kiếm nâng cao',
     'Enter username here' => 'Nhập tên đăng nhập',
-    'Fields with <span class="required">*</span> are required.' => 'Các trường với <span class="required">*</span> là bắt buộc.'
+    'Fields with <span class="required">*</span> are required.' => 'Các trường với <span class="required">*</span> là bắt buộc.',
+    'CANDIDATE' => 'Dành cho ứng viên',
+    'STORE' => 'Dành cho nhà tuyển dụng',
+    'STORE_DETAIL' => 'Trang gian hàng'
 );

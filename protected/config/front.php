@@ -10,5 +10,7 @@ return CMap::mergeArray(
     array(
         // Put front-end settings there
         // (for example, url rules).
+        'sourceLanguage' => '00',
+        'language' => 'vi',
     )
 );

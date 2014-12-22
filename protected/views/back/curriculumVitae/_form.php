@@ -80,12 +80,27 @@ foreach ($skillLevel as $s) {
     $skillLevel_arr[$s->id] = Yii::app()->language == 'vi' ? $s->title : $v->title_en;
 }
 $languageSkill_arr = array(0 => Yii::t('application', 'Select Language'));
-foreach($languageSkill as $s) {
+foreach ($languageSkill as $s) {
     $languageSkill_arr[$s->id] = Yii::app()->language == 'vi' ? $s->title : $v->title_en;
 }
 
 // Salary option
-$salary_option = 0;
+$salary_option = [];
+$salaries = JobSalary::model()->findAll();
+if (!empty($salaries)) {
+    foreach ($salaries as $s) {
+        $salary_option[$s->id] = $s->from . ' - ' . $s->to;
+    }
+}
+
+// Location to array
+$locations_arr = [];
+if (!empty($locations)) {
+    foreach ($locations as $l) {
+        if($l->parent_id == 1)
+            $locations_arr[$l->id] = $l->name;
+    }
+}
 
 ?>
 
@@ -214,194 +229,312 @@ $salary_option = 0;
     </div>
 </div>
 <div id="tabs-2">
-    <h4><?php echo Yii::t('curriculum', 'Experience working') ?></h4>
-    <!--Experience working data-->
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'position', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model_experience, 'position', array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_experience, 'position'); ?>
+    <div class="col-sm-12">
+        <h4><?php echo Yii::t('curriculum', 'Experience working') ?></h4>
+        <!--Experience working data-->
+        <div class="col-sm-6">
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'position', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->textField($model_experience, 'position', array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_experience, 'position'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'competence', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_experience, 'competence', $jobLevels_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_experience, 'competence'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'occupation', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_experience, 'occupation', $jobMajors_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_experience, 'occupation'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'company_name', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->textField($model_experience, 'company_name', array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_experience, 'company_name'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'country', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_experience, 'country', $country, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_experience, 'country'); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <?php echo $form->labelEx($model_experience, 'province', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_experience, 'province', $province, array('class' => 'form-control', 'options' => $province_option)); ?>
+                    <?php echo $form->error($model_experience, 'province'); ?>
+                </div>
+            </div>
+            <div class="form-group time">
+                <?php echo $form->labelEx($model_experience, 'start', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php
+                    $start = strtotime(($model_experience->start == '0000-00-00 00:00:00') || empty($model_experience->start) ? date('Y-m-d H:i:s') : $model_experience->start);
+                    echo CHtml::dropDownList('start_month', date('m', $start), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
+                    echo CHtml::dropDownList('start_year', date('Y', $start), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
+                    ?>
+                </div>
+            </div>
+            <div class="form-group time">
+                <?php echo $form->labelEx($model_experience, 'end', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php
+                    $end = strtotime(($model_experience->end == '0000-00-00 00:00:00') || empty($model_experience->end) ? date('Y-m-d H:i:s') : $model_experience->end);
+                    echo CHtml::dropDownList('start_month', date('m', $end), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
+                    echo CHtml::dropDownList('start_year', date('Y', $end), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
+                    ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a href="#" class="add-experience">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'competence', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_experience, 'competence', $jobLevels_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_experience, 'competence'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'occupation', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_experience, 'occupation', $jobMajors_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_experience, 'occupation'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'company_name', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model_experience, 'company_name', array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_experience, 'company_name'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'country', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_experience, 'country', $country, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_experience, 'country'); ?>
+        <div class="col-sm-6 list-experience">
+
         </div>
     </div>
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model_experience, 'province', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_experience, 'province', $province, array('class' => 'form-control', 'options' => $province_option)); ?>
-            <?php echo $form->error($model_experience, 'province'); ?>
-        </div>
-    </div>
-    <div class="form-group time">
-        <?php echo $form->labelEx($model_experience, 'start', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php
-            $start = strtotime(($model_experience->start == '0000-00-00 00:00:00') || empty($model_experience->start) ? date('Y-m-d H:i:s') : $model_experience->start);
-            echo CHtml::dropDownList('start_month', date('m', $start), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
-            echo CHtml::dropDownList('start_year', date('Y', $start), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
-            ?>
-        </div>
-    </div>
-    <div class="form-group time">
-        <?php echo $form->labelEx($model_experience, 'end', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php
-            $end = strtotime(($model_experience->end == '0000-00-00 00:00:00') || empty($model_experience->end) ? date('Y-m-d H:i:s') : $model_experience->end);
-            echo CHtml::dropDownList('start_month', date('m', $end), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
-            echo CHtml::dropDownList('start_year', date('Y', $end), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
-            ?>
-        </div>
-    </div>
+    <div class="col-sm-12">
+        <h4><?php echo Yii::t('jobs', 'Academics') ?></h4>
 
-    <h4><?php echo Yii::t('jobs', 'Academics') ?></h4>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <?php echo $form->labelEx($model_degree, 'diploma', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_degree, 'diploma', $academic_arr, array('class' => 'form-control', 'options' => $province_option)); ?>
+                    <?php echo $form->error($model_degree, 'diploma'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_degree, 'school_name', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->textField($model_degree, 'school_name', array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_degree, 'school_name'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_degree, 'major', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_degree, 'major', $jobMajors_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_degree, 'major'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_degree, 'country', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_degree, 'country', $country, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_degree, 'country'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_degree, 'province', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php
+                    echo $form->dropDownList($model_degree, 'province', $province,
+                        array('class' => 'form-control', 'options' => $province_option)); ?>
+                    <?php echo $form->error($model_degree, 'province'); ?>
+                </div>
+            </div>
+            <div class="form-group time">
+                <?php echo $form->labelEx($model_degree, 'start', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php
+                    $start = strtotime(($model_degree->start == '0000-00-00 00:00:00') || empty($model_degree->start) ? date('Y-m-d H:i:s') : $model_degree->start);
+                    echo CHtml::dropDownList('start_month', date('m', $start), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
+                    echo CHtml::dropDownList('start_year', date('Y', $start), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
+                    ?>
+                </div>
+            </div>
+            <div class="form-group time">
+                <?php echo $form->labelEx($model_degree, 'end', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php
+                    $end = strtotime(($model_degree->end == '0000-00-00 00:00:00') || empty($model_degree->end) ? date('Y-m-d H:i:s') : $model_degree->end);
+                    echo CHtml::dropDownList('start_month', date('m', $end), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
+                    echo CHtml::dropDownList('start_year', date('Y', $end), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
+                    ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a href="#" class="add-degree">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 list-degree">
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model_degree, 'diploma', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_degree, 'diploma', $academic_arr, array('class' => 'form-control', 'options' => $province_option)); ?>
-            <?php echo $form->error($model_degree, 'diploma'); ?>
         </div>
     </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_degree, 'school_name', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model_degree, 'school_name', array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_degree, 'school_name'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_degree, 'major', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_degree, 'major', $jobMajors_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_degree, 'major'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_degree, 'country', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_degree, 'country', $country, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_degree, 'country'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model_degree, 'province', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php
-            echo $form->dropDownList($model_degree, 'province', $province,
-                array('class' => 'form-control', 'options' => $province_option)); ?>
-            <?php echo $form->error($model_degree, 'province'); ?>
-        </div>
-    </div>
-    <div class="form-group time">
-        <?php echo $form->labelEx($model_degree, 'start', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php
-            $start = strtotime(($model_degree->start == '0000-00-00 00:00:00') || empty($model_degree->start) ? date('Y-m-d H:i:s') : $model_degree->start);
-            echo CHtml::dropDownList('start_month', date('m', $start), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
-            echo CHtml::dropDownList('start_year', date('Y', $start), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
-            ?>
-        </div>
-    </div>
-    <div class="form-group time">
-        <?php echo $form->labelEx($model_degree, 'end', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php
-            $end = strtotime(($model_degree->end == '0000-00-00 00:00:00') || empty($model_degree->end) ? date('Y-m-d H:i:s') : $model_degree->end);
-            echo CHtml::dropDownList('start_month', date('m', $end), $month, array('class' => 'form-control', 'style' => 'width: 35%;'));
-            echo CHtml::dropDownList('start_year', date('Y', $end), $year, array('class' => 'form-control', 'style' => 'width: 45%; margin-left: 2%'));
-            ?>
-        </div>
-    </div>
-
 </div>
 <div id="tabs-3">
-    <h4><?php echo Yii::t('application', 'Language Skill') ?></h4>
+    <div class="col-sm-12">
+        <h4><?php echo Yii::t('application', 'Language Skill') ?></h4>
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model_skillLanguage, 'language', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'language'); ?>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <?php echo $form->labelEx($model_skillLanguage, 'language', array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
+                </div>
+                <div class="col-sm-4">
+                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a href="#" class="add-language">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'level'); ?>
+        <div class="col-sm-6 language-skill">
+            <?php
+            if (count($current_languages) > 0) {
+                echo '<ul>';
+                foreach ($current_languages as $l) {
+                    echo "<li>{$l->language} - {$l->level} <img title='Delete' alt='Delete'
+                        src='' onclick='__delete({$l->id}, \'language\')'/></li>";
+                }
+                echo '</ul>';
+            }
+            ?>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'language'); ?>
-        </div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'level'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'language'); ?>
-        </div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'level'); ?>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'language'); ?>
-        </div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_skillLanguage, 'level'); ?>
-        </div>
-    </div>
+    <div class="col-sm-12">
+        <h4>
+            <?php echo Yii::t('application', 'Jobs Enjoy') ?>
+        </h4>
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model_otherSkill, 'name', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->telField($model_otherSkill, 'name', array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_otherSkill, 'name'); ?>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Job Major'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'job_major', $jobMajors_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'job_major'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Job Level'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'job_level', $jobLevels_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'job_level'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Job Type'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'job_type', $jobTypes_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'job_type'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Salary'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'job_salary', $salary_option, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'job_salary'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Work far'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'work_far', array(
+                        0 => Yii::t('application', 'No'),
+                        1 => Yii::t('application', 'Yes')
+                    ), array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'work_far'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Scope company'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'company_scope', $companyScopes_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'company_scope'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Location'), array('class' => 'col-sm-4 control-label')); ?>
+                <div class="col-sm-8">
+                    <?php echo $form->dropDownList($model_jobWish, 'location', $locations_arr, array('class' => 'form-control')); ?>
+                    <?php echo $form->error($model_jobWish, 'location'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <a href="#" class="add-jobwish">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <?php echo $form->dropDownList($model_otherSkill, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-            <?php echo $form->error($model_otherSkill, 'level'); ?>
+        <div class="col-sm-6">
+            <?php
+            echo '<table>';
+            if (count($current_jobwishes) > 0) {
+                foreach ($current_jobwishes as $o) {
+                    $work_far = $o->work_far ? Yii::t('application', 'Yes') : Yii::t('application', 'No');
+                    echo "<tr>";
+                    echo "<td>{$jobMajors_arr[$o->job_major]}</td>";
+                    echo "<td>{$jobTypes_arr[$o->job_type]}</td>";
+                    echo "<td>{$jobLevels_arr[$o->job_level]}</td>";
+                    echo "<td>{$salary_option[$o->job_salary]}</td>";
+                    echo "<td>{$work_far}</td>";
+                    echo "<td>{$companyScopes_arr[$o->company_scope]}</td>";
+                    echo "</tr>";
+                }
+            }
+            echo '</table>';
+            ?>
         </div>
     </div>
-
-    <h4><?php echo Yii::t('application', 'Jobs Enjoy') ?></h4>
 </div>
 </div>
 

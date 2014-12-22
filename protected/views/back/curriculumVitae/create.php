@@ -44,6 +44,11 @@
         'curriculumPrivate' => $curriculumPrivate,
         'currency' => $currency,
         'jobLevels' => $jobLevels,
-        'locations' => $locations
+        'locations' => $locations,
+        'model_jobWish' => $model_jobWish,
+        'current_languages' => $current_languages,
+        'current_jobwishes' => $current_jobwishes,
+        'current_degrees' => $current_degrees,
+        'current_experiences' => $current_experiences
     )); ?>
 </div>

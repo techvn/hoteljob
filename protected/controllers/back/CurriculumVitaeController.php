@@ -69,6 +69,7 @@ class CurriculumVitaeController extends Controller
         $degree_model = new CurriculumvitaeDegree();
         $skillLanguage_model = new CurriculumvitaeSkillLanguage();
         $otherSkill_model = new CurriculumvitaeOtherSkill();
+        $jobWish_model = new CurriculumvitaeJobWish();
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -93,7 +94,20 @@ class CurriculumVitaeController extends Controller
         $curriculumPrivate = CurriculumPrivate::model()->findAll(array('index' => 'id'));
         $currency = Currency::model()->findAll(array('condition' => 'status=1', 'index' => 'id'));
         $jobLevels = JobLevel::model()->findAll(array('index' => 'id'));
-        $locations = Locations::model()->findAll(array('order' => 'pos,name', 'index' => 'id'));
+        $locations = Locations::model()->findAll(
+            array(
+                //'condition' => 'parent_id=1',
+                'order' => 'pos,name',
+                'index' => 'id'
+            )
+        );
+        /*$jobWish = CurriculumvitaeJobWish::model()->findAll(
+            array('order' => 'id', 'index' => 'id')
+        );*/
+        $current_languages = [];
+        $current_jobwishes = [];
+        $current_degrees = [];
+        $current_experiences = [];
 
         if (isset($_POST['CurriculumVitae'])) {
             $model->attributes = $_POST['CurriculumVitae'];
@@ -108,6 +122,8 @@ class CurriculumVitaeController extends Controller
             'model_degree' => $degree_model,
             'model_skillLanguage' => $skillLanguage_model,
             'model_otherSkill' => $otherSkill_model,
+            'model_jobWish' => $jobWish_model,
+            // List data templates
             'jobTypes' => $jobTypes,
             'jobMajors' => $jobMajors,
             'languageSkill' => $languageSkill,
@@ -117,7 +133,12 @@ class CurriculumVitaeController extends Controller
             'curriculumPrivate' => $curriculumPrivate,
             'currency' => $currency,
             'jobLevels' => $jobLevels,
-            'locations' => $locations
+            'locations' => $locations,
+            // Current data
+            'current_languages' => $current_languages,
+            'current_jobwishes' => $current_jobwishes,
+            'current_degrees' => $current_degrees,
+            'current_experiences' => $current_experiences
         ));
     }
 

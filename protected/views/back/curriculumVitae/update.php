@@ -29,5 +29,24 @@
 
     <h1><?php echo Yii::t('jobs', 'Update Curriculum Vitae'); ?></h1>
 
-    <?php $this->renderPartial('_form', array('model' => $model)); ?>
+    <?php $this->renderPartial('_form', array(
+        'model' => $model,
+        'members' => $members,
+        'model_experience' => $model_experience,
+        'model_degree' => $model_degree,
+        'model_skillLanguage' => $model_skillLanguage,
+        'model_otherSkill' => $model_otherSkill,
+        'members' => $members,
+        'jobTypes' => $jobTypes,
+        'jobMajors' => $jobMajors,
+        'languageSkill' => $languageSkill,
+        'companyScopes'=>$companyScopes,
+        'skillLevel'=>$skillLevel,
+        'academic' =>$academic,
+        'curriculumPrivate' => $curriculumPrivate,
+        'currency' => $currency,
+        'jobLevels' => $jobLevels,
+        'locations' => $locations,
+        'model_jobWish' => $model_jobWish
+    )); ?>
 </div>

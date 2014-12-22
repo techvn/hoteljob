@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Nov 07, 2014 at 09:27 AM
--- Server version: 5.5.34
--- PHP Version: 5.3.27
+-- Host: 127.0.0.1
+-- Generation Time: Dec 22, 2014 at 09:06 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,6 +36,26 @@ CREATE TABLE IF NOT EXISTS `tbl_academic` (
   `pos` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Quản lý danh sách bằng cấp mẫu' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_banner`
+--
+
+DROP TABLE IF EXISTS `tbl_banner`;
+CREATE TABLE IF NOT EXISTS `tbl_banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(255) NOT NULL,
+  `title_en` char(255) NOT NULL,
+  `type` enum('CANDIDATE','STORE','STORE_DETAIL','') NOT NULL,
+  `like` char(255) NOT NULL,
+  `banner` char(255) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `pos` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -87,6 +107,98 @@ CREATE TABLE IF NOT EXISTS `tbl_currency` (
 INSERT INTO `tbl_currency` (`id`, `title`, `language_code`, `symbol`, `status`) VALUES
 (1, 'Dollar US', 'en_US', '$', 1),
 (2, 'Việt Nam Đồng', 'vi_VN', 'Vnđ', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_curriculumvitae_degree`
+--
+
+DROP TABLE IF EXISTS `tbl_curriculumvitae_degree`;
+CREATE TABLE IF NOT EXISTS `tbl_curriculumvitae_degree` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `curriculum_id` int(11) NOT NULL,
+  `diploma` int(11) NOT NULL,
+  `school_name` int(11) NOT NULL,
+  `major` int(11) NOT NULL,
+  `country` int(11) NOT NULL,
+  `province` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Danh sách trường đã học' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_curriculumvitae_experience_working`
+--
+
+DROP TABLE IF EXISTS `tbl_curriculumvitae_experience_working`;
+CREATE TABLE IF NOT EXISTS `tbl_curriculumvitae_experience_working` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `curriculum_id` int(11) NOT NULL COMMENT 'ID cv cá nhân',
+  `position` int(11) NOT NULL COMMENT 'Vị trí',
+  `competence` char(255) NOT NULL COMMENT 'Chức danh',
+  `occupation` int(11) NOT NULL COMMENT 'Ngành nghề',
+  `company_name` char(255) NOT NULL COMMENT 'Tên công ty',
+  `country` int(11) NOT NULL,
+  `province` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `des` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Kinh nghiem  lam viec' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_curriculumvitae_job_wish`
+--
+
+DROP TABLE IF EXISTS `tbl_curriculumvitae_job_wish`;
+CREATE TABLE IF NOT EXISTS `tbl_curriculumvitae_job_wish` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `curriculum_id` int(11) NOT NULL,
+  `job_major` int(11) NOT NULL,
+  `job_level` int(11) NOT NULL,
+  `job_type` int(11) NOT NULL,
+  `job_salary` int(11) NOT NULL,
+  `work_far` tinyint(4) NOT NULL COMMENT 'Đi làm xa',
+  `company_scope` int(11) NOT NULL,
+  `location` int(11) NOT NULL COMMENT 'Nơi làm việc mong muốn',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_curriculumvitae_other_skill`
+--
+
+DROP TABLE IF EXISTS `tbl_curriculumvitae_other_skill`;
+CREATE TABLE IF NOT EXISTS `tbl_curriculumvitae_other_skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `curriculum_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_curriculumvitae_skill_language`
+--
+
+DROP TABLE IF EXISTS `tbl_curriculumvitae_skill_language`;
+CREATE TABLE IF NOT EXISTS `tbl_curriculumvitae_skill_language` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `curriculum_id` int(11) DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -484,7 +596,14 @@ CREATE TABLE IF NOT EXISTS `tbl_language_skill` (
   `title_en` varchar(255) DEFAULT NULL,
   `pos` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_language_skill`
+--
+
+INSERT INTO `tbl_language_skill` (`id`, `title`, `title_en`, `pos`) VALUES
+(1, 'Tiếng Anh', 'English', 1);
 
 -- --------------------------------------------------------
 
@@ -727,6 +846,31 @@ CREATE TABLE IF NOT EXISTS `tbl_organize_library` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_partner`
+--
+
+DROP TABLE IF EXISTS `tbl_partner`;
+CREATE TABLE IF NOT EXISTS `tbl_partner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `logo` char(255) DEFAULT NULL,
+  `name` char(100) NOT NULL,
+  `link` char(255) DEFAULT NULL,
+  `pos` int(11) DEFAULT NULL,
+  `created_time` date NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_partner`
+--
+
+INSERT INTO `tbl_partner` (`id`, `logo`, `name`, `link`, `pos`, `created_time`, `status`) VALUES
+(1, 'Afghanistan.png', 'tét', 'http://host.hoteljob.com/test', 1, '2014-12-14', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_privilege`
 --
 
@@ -738,6 +882,21 @@ CREATE TABLE IF NOT EXISTS `tbl_privilege` (
   `members_group_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tbl_privilege_tbl_members_group_idx` (`members_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_school`
+--
+
+DROP TABLE IF EXISTS `tbl_school`;
+CREATE TABLE IF NOT EXISTS `tbl_school` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(255) NOT NULL,
+  `title_en` char(255) NOT NULL,
+  `post` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -789,6 +948,29 @@ INSERT INTO `tbl_skill` (`id`, `title`, `title_en`, `pid`, `pos`, `status`) VALU
 (1, 'Kỹ năng phần cứng', 'Hardware skill', NULL, 1, 1),
 (2, 'Kỹ năng phần mềm', 'Soft skill', 0, 2, 1),
 (3, 'Lập trình C#', 'C# Programming', 2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_skill_level`
+--
+
+DROP TABLE IF EXISTS `tbl_skill_level`;
+CREATE TABLE IF NOT EXISTS `tbl_skill_level` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `title_en` varchar(255) DEFAULT NULL,
+  `pos` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tbl_skill_level`
+--
+
+INSERT INTO `tbl_skill_level` (`id`, `title`, `title_en`, `pos`) VALUES
+(1, 'Giỏi', 'Best', 1),
+(2, 'Khá', 'Good', 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

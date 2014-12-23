@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="form" xmlns="http://www.w3.org/1999/html">
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
@@ -97,7 +97,7 @@ if (!empty($salaries)) {
 $locations_arr = [];
 if (!empty($locations)) {
     foreach ($locations as $l) {
-        if($l->parent_id == 1)
+        if ($l->parent_id == 1)
             $locations_arr[$l->id] = $l->name;
     }
 }
@@ -232,7 +232,7 @@ if (!empty($locations)) {
     <div class="col-sm-12">
         <h4><?php echo Yii::t('curriculum', 'Experience working') ?></h4>
         <!--Experience working data-->
-        <div class="col-sm-6">
+        <div class="col-sm-6 experience-data">
             <div class="form-group">
                 <?php echo $form->labelEx($model_experience, 'position', array('class' => 'col-sm-4 control-label')); ?>
                 <div class="col-sm-8">
@@ -268,7 +268,6 @@ if (!empty($locations)) {
                     <?php echo $form->error($model_experience, 'country'); ?>
                 </div>
             </div>
-
             <div class="form-group">
                 <?php echo $form->labelEx($model_experience, 'province', array('class' => 'col-sm-4 control-label')); ?>
                 <div class="col-sm-8">
@@ -299,12 +298,24 @@ if (!empty($locations)) {
             <div class="form-group">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <a href="#" class="add-experience">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                    <a href="#" data-type="experience" class="add-experience">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 list-experience">
-
+            <table>
+                <tr>
+                    <th><?php echo Yii::t('application', 'Location') ?></th>
+                    <th><?php echo Yii::t('application', 'Competence') ?></th>
+                    <th><?php echo Yii::t('application', 'Occupation') ?></th>
+                    <th><?php echo Yii::t('application', 'Company Name') ?></th>
+                    <th><?php echo Yii::t('application', 'Country') ?></th>
+                    <th><?php echo Yii::t('application', 'Province') ?></th>
+                    <th><?php echo Yii::t('application', 'Start') ?></th>
+                    <th><?php echo Yii::t('application', 'End') ?></th>
+                    <th>#</th>
+                </tr>
+            </table>
         </div>
     </div>
 
@@ -516,23 +527,28 @@ if (!empty($locations)) {
             </div>
         </div>
         <div class="col-sm-6">
-            <?php
-            echo '<table>';
-            if (count($current_jobwishes) > 0) {
-                foreach ($current_jobwishes as $o) {
-                    $work_far = $o->work_far ? Yii::t('application', 'Yes') : Yii::t('application', 'No');
-                    echo "<tr>";
-                    echo "<td>{$jobMajors_arr[$o->job_major]}</td>";
-                    echo "<td>{$jobTypes_arr[$o->job_type]}</td>";
-                    echo "<td>{$jobLevels_arr[$o->job_level]}</td>";
-                    echo "<td>{$salary_option[$o->job_salary]}</td>";
-                    echo "<td>{$work_far}</td>";
-                    echo "<td>{$companyScopes_arr[$o->company_scope]}</td>";
-                    echo "</tr>";
+            <table>
+                <tr>
+                    <th><?php echo Yii::t('application', 'Job major') ?></th>
+                    <th><?php echo Yii::t('application', 'Job major') ?></th>
+                </tr>
+                <?php
+                if (count($current_jobwishes) > 0) {
+                    foreach ($current_jobwishes as $o) {
+                        $work_far = $o->work_far ? Yii::t('application', 'Yes') : Yii::t('application', 'No');
+                        echo "<tr>"
+                            + "<td><input type='hidden' name='job_major[]' value='{$o->job_major}'/>{$jobMajors_arr[$o->job_major]}</td>"
+                            + "<td><input type='hidden' name='job_type[]' value='{$o->job_type}'/>{$jobTypes_arr[$o->job_type]}</td>"
+                            + "<td><input type='hidden' name='job_level[]' value='{$o->job_level}'/>{$jobLevels_arr[$o->job_level]}</td>"
+                            + "<td><input type='hidden' name='job_salary[]' value='{$o->job_salary}'/>{$salary_option[$o->job_salary]}</td>"
+                            + "<td><input type='hidden' name='work_far[]' value='{$o->work_far}'/>{$work_far}</td>"
+                            + "<td><input type='hidden' name='company_scope[]' value='{$o->company_scope}'/>{$companyScopes_arr[$o->company_scope]}</td>"
+                            + "<td><a href='#' onclick='$(this).parent().parent().remove();'>[" . Yii::t('application', 'Delete') . "]</a></td>"
+                            + "</tr>";
+                    }
                 }
-            }
-            echo '</table>';
-            ?>
+                ?>
+            </table>
         </div>
     </div>
 </div>
@@ -642,4 +658,23 @@ if (!empty($locations)) {
             }
         });
     });
+
+    // Event add to list options
+    $('a[class^=add-]').click(function () {
+        var obj = $(this), _html = '<tr>', text = '', value = '';
+        $('.experience-data select').each(function () {
+            if ($(this).prop('tagName') == 'INPUT') {
+                text = value = $(this).val();
+            } else { // Select box
+                text = $(this).text();
+                value = $(this).val();
+            }
+            _html += '<td><iput type="hidden" name="' + $(this).attr('name') + '[]" value="'
+            + value + '"/>" + text + "</td>';
+        });
+        _html += '<td><a href="#" onclick="$(this).parent().parent().remove();">[<?php echo Yii::t('application', 'Delete') ?>]</a></td></tr>';
+        $('.list-' + $(obj).data('type')).find('table').append(_html);
+    });
+
+
 </script>

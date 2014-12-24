@@ -396,7 +396,7 @@ if (!empty($locations)) {
     <div class="col-sm-12">
         <h4><?php echo Yii::t('application', 'Language Skill') ?></h4>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6 language-data">
             <div class="form-group">
                 <?php echo $form->labelEx($model_skillLanguage, 'language', array('class' => 'col-sm-4 control-label')); ?>
                 <div class="col-sm-4">
@@ -411,54 +411,17 @@ if (!empty($locations)) {
             <div class="form-group">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'language', $languageSkill_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'language'); ?>
-                </div>
-                <div class="col-sm-4">
-                    <?php echo $form->dropDownList($model_skillLanguage, 'level', $skillLevel_arr, array('class' => 'form-control')); ?>
-                    <?php echo $form->error($model_skillLanguage, 'level'); ?>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <a href="#" class="add-language">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                    <a href="#" data-type="language" class="add-language">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 language-skill">
-            <?php
-            if (count($current_languages) > 0) {
-                echo '<ul>';
-                foreach ($current_languages as $l) {
-                    echo "<li>{$l->language} - {$l->level} <img title='Delete' alt='Delete'
-                        src='' onclick='__delete({$l->id}, \'language\')'/></li>";
-                }
-                echo '</ul>';
-            }
-            ?>
+        <div class="col-sm-6 list-language">
+            <table>
+                <tr>
+                    <th><?php echo Yii::t('application', 'Language') ?></th>
+                    <th><?php echo Yii::t('application', 'Level') ?></th>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="col-sm-12">
@@ -466,7 +429,7 @@ if (!empty($locations)) {
             <?php echo Yii::t('application', 'Jobs Enjoy') ?>
         </h4>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6 jobwish-data">
             <div class="form-group">
                 <?php echo $form->labelEx($model_jobWish, Yii::t('jobWish', 'Job Major'), array('class' => 'col-sm-4 control-label')); ?>
                 <div class="col-sm-8">
@@ -522,15 +485,20 @@ if (!empty($locations)) {
             <div class="form-group">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-8">
-                    <a href="#" class="add-jobwish">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
+                    <a href="#" class="add-jobwish" data-type="jobwish">[<?php echo Yii::t('backend', 'Add to list') ?>]</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 list-jobwish">
             <table>
                 <tr>
                     <th><?php echo Yii::t('application', 'Job major') ?></th>
-                    <th><?php echo Yii::t('application', 'Job major') ?></th>
+                    <th><?php echo Yii::t('application', 'Job level') ?></th>
+                    <th><?php echo Yii::t('application', 'Job type') ?></th>
+                    <th><?php echo Yii::t('application', 'Salary') ?></th>
+                    <th><?php echo Yii::t('application', 'Work far') ?></th>
+                    <th><?php echo Yii::t('application', 'Company scope') ?></th>
+                    <th><?php echo Yii::t('application', 'Location') ?></th>
                 </tr>
                 <?php
                 if (count($current_jobwishes) > 0) {
@@ -660,20 +628,22 @@ if (!empty($locations)) {
     });
 
     // Event add to list options
-    $('a[class^=add-]').click(function () {
+    $('a[class^=add-]').click(function (e) {
         var obj = $(this), _html = '<tr>', text = '', value = '';
-        $('.experience-data select').each(function () {
+        $('.' + $(obj).data('type') + '-data').find('select, input').each(function () {
             if ($(this).prop('tagName') == 'INPUT') {
                 text = value = $(this).val();
             } else { // Select box
-                text = $(this).text();
-                value = $(this).val();
+                text = $(this).find('option:selected').text();
+                value = $(this).find('option:selected').val();
             }
             _html += '<td><iput type="hidden" name="' + $(this).attr('name') + '[]" value="'
-            + value + '"/>" + text + "</td>';
+            + value + '"/>' + text + '</td>';
         });
         _html += '<td><a href="#" onclick="$(this).parent().parent().remove();">[<?php echo Yii::t('application', 'Delete') ?>]</a></td></tr>';
         $('.list-' + $(obj).data('type')).find('table').append(_html);
+
+        e.preventDefault();
     });
 
 
